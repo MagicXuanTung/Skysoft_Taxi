@@ -1,0 +1,210 @@
+import 'package:flutter/material.dart';
+
+class PanelBar extends StatefulWidget {
+  const PanelBar({super.key}); // Add this constructor
+
+  @override
+  State<PanelBar> createState() => _PanelBarState();
+}
+
+class _PanelBarState extends State<PanelBar> with TickerProviderStateMixin {
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Positioned(
+          child: Column(
+            children: [
+              const Row(
+                children: [
+                  Expanded(
+                    child: Icon(
+                      Icons.horizontal_rule,
+                      color: Colors.grey,
+                      size: 30, // Adjust the size of the icon as desired
+                    ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 10.0, vertical: 13.0),
+                child: GestureDetector(
+                  onTap: () async {},
+                  child: TextField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                        borderSide: BorderSide.none,
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 10.0,
+                        vertical: 15.0,
+                      ),
+                      hintText: 'Where to ?',
+                      hintStyle: const TextStyle(
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
+                      prefixIcon: const Icon(Icons.search, color: Colors.grey),
+                      suffixIcon: const Icon(Icons.mic, color: Colors.grey),
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(
+                child: ListView(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        // log("Connect calendar");
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Colors.grey[300]!,
+                              width: 1.0,
+                            ),
+                          ),
+                        ),
+                        child: const ListTile(
+                          leading: Icon(
+                            Icons.home,
+                            color: Colors.pinkAccent,
+                          ),
+                          title: Text(
+                            'Home',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          subtitle: Text(
+                            'Set Once and go ',
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        // log("Connect calendar");
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Colors.grey[300]!,
+                              width: 1.0,
+                            ),
+                          ),
+                        ),
+                        child: const ListTile(
+                          leading: Icon(
+                            Icons.work,
+                            color: Colors.brown,
+                          ),
+                          title: Text(
+                            'Work',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          subtitle: Text(
+                            'Set Once and go ',
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        // log("Drive to friend & family");
+                        // Call the function to show the fullscreen container
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Colors.grey[300]!,
+                              width: 1.0,
+                            ),
+                          ),
+                        ),
+                        child: const ListTile(
+                          leading: Icon(
+                            Icons.directions_car,
+                            color: Colors.cyan,
+                          ),
+                          title: Text(
+                            'Drive to friend & family',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          subtitle: Text(
+                            'Search contacts',
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        // log("Connect calendar");
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                              color: Colors.grey[300]!,
+                              width: 1.0,
+                            ),
+                          ),
+                        ),
+                        child: const ListTile(
+                          leading: Icon(
+                            Icons.calendar_month,
+                            color: Colors.redAccent,
+                          ),
+                          title: Text(
+                            'Connect calendar',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          subtitle: Text(
+                            'Sync your calendar for route planning',
+                            style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              color: Colors.blue,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
