@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:project_name/widgets/car_info.dart';
+import 'package:project_name/widgets/panel_bar.dart';
 import 'package:project_name/widgets/price_car.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -39,8 +41,8 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
         child: SlidingUpPanel(
           backdropEnabled: true,
           controller: _panelController, // Use PanelController here
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(25.0)),
-          panel: const PriceCar(),
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
+          panel: const CarInfo(),
           onPanelOpened: () async {
             // Handle panel opened event
           },

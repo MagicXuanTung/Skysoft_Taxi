@@ -72,8 +72,8 @@ class _PanelBarState extends State<PanelBar> with TickerProviderStateMixin {
                         ),
                         child: const ListTile(
                           leading: Icon(
-                            Icons.home,
-                            color: Colors.pinkAccent,
+                            Icons.warehouse,
+                            color: Colors.grey,
                           ),
                           title: Text(
                             'Home',
@@ -108,7 +108,7 @@ class _PanelBarState extends State<PanelBar> with TickerProviderStateMixin {
                         child: const ListTile(
                           leading: Icon(
                             Icons.work,
-                            color: Colors.brown,
+                            color: Colors.grey,
                           ),
                           title: Text(
                             'Work',
@@ -130,7 +130,6 @@ class _PanelBarState extends State<PanelBar> with TickerProviderStateMixin {
                     GestureDetector(
                       onTap: () {
                         // log("Drive to friend & family");
-                        // Call the function to show the fullscreen container
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -144,7 +143,7 @@ class _PanelBarState extends State<PanelBar> with TickerProviderStateMixin {
                         child: const ListTile(
                           leading: Icon(
                             Icons.directions_car,
-                            color: Colors.cyan,
+                            color: Colors.grey,
                           ),
                           title: Text(
                             'Drive to friend & family',
@@ -179,7 +178,7 @@ class _PanelBarState extends State<PanelBar> with TickerProviderStateMixin {
                         child: const ListTile(
                           leading: Icon(
                             Icons.calendar_month,
-                            color: Colors.redAccent,
+                            color: Colors.grey,
                           ),
                           title: Text(
                             'Connect calendar',
