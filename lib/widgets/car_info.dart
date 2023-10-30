@@ -1,7 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class CarInfo extends StatefulWidget {
-  const CarInfo({super.key}); // Add this constructor
+  const CarInfo({Key? key}) : super(key: key);
 
   @override
   State<CarInfo> createState() => _CarInfoState();
@@ -21,14 +23,14 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                     child: Icon(
                       Icons.horizontal_rule,
                       color: Colors.grey,
-                      size: 30, // Adjust the size of the icon as desired
+                      size: 30,
                     ),
                   ),
                 ],
               ),
               GestureDetector(
                 onTap: () {
-                  // Add your tap action here
+                  log("Arriving in 2 minutes from now");
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -42,14 +44,13 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                   child: const ListTile(
                     title: Center(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 20.0), // Add your desired padding
+                        padding: EdgeInsets.symmetric(horizontal: 20.0),
                         child: Text(
-                          'Arring in 2 minutes from now',
+                          'Arriving in 2 minutes from now',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
-                            fontSize: 20, // Increase the font size as needed
+                            fontSize: 20,
                           ),
                         ),
                       ),
@@ -64,6 +65,7 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                     GestureDetector(
                       onTap: () {
                         // not used anything
+                        log("Tapped Toyota Corolla");
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -77,8 +79,7 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                         height: 130,
                         child: ListTile(
                           title: Row(
-                            mainAxisAlignment: MainAxisAlignment
-                                .start, // Align text to the right
+                            mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Column(
@@ -103,8 +104,7 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                                         ),
                                       ),
                                       SizedBox(
-                                        width:
-                                            8, // Add spacing between the text
+                                        width: 8,
                                       ),
                                       Text(
                                         '\$25.12',
@@ -118,7 +118,7 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                                     ],
                                   ),
                                   SizedBox(
-                                    height: 25, // Add spacing between the text
+                                    height: 25,
                                   ),
                                   Text(
                                     "66C-038.27",
@@ -132,134 +132,144 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                                 ],
                               ),
                               const SizedBox(
-                                width:
-                                    85, // Add spacing between the text and the image
+                                width: 85,
                               ),
                               Image.asset(
                                 'assets/images/economy.png',
-                                width:
-                                    150, // Increase the width to make the image more eye-catching
-                                height:
-                                    150, // Increase the height to make the image more eye-catching
+                                width: 150,
+                                height: 150,
                               ),
                             ],
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 130,
-                      child: GestureDetector(
-                        onTap: () {
-                          // Handle the onTap event for the entire content
-                        },
-                        child: ListTile(
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.account_circle,
-                                        size: 120,
-                                        color: Colors.blueGrey,
-                                      ),
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding: EdgeInsets.only(top: 30),
-                                            child: Text(
-                                              "John Doe",
-                                              style: TextStyle(
-                                                fontFamily: 'Outfit',
-                                                fontSize: 20,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.star,
-                                                color: Colors.yellow,
-                                                size: 20,
-                                              ),
-                                              SizedBox(width: 5),
-                                              Text(
-                                                "5",
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: Colors.grey[300]!,
+                            width: 1.0,
+                          ),
+                        ),
+                      ),
+                      child: SizedBox(
+                        height: 130,
+                        child: GestureDetector(
+                          onTap: () {
+                            log("Tapped John Doe");
+                          },
+                          child: ListTile(
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Icon(
+                                          Icons.account_circle,
+                                          size: 120,
+                                          color: Colors.blueGrey,
+                                        ),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsets.only(top: 30),
+                                              child: Text(
+                                                "John Doe",
                                                 style: TextStyle(
                                                   fontFamily: 'Outfit',
                                                   fontSize: 20,
                                                   fontWeight: FontWeight.w600,
                                                 ),
                                               ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Center(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        // Add your mail icon's onTap functionality here
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                          color: Colors.blueGrey.shade100,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Icon(
+                                                  Icons.star,
+                                                  color: Colors.yellow,
+                                                  size: 20,
+                                                ),
+                                                SizedBox(width: 5),
+                                                Text(
+                                                  "5",
+                                                  style: TextStyle(
+                                                    fontFamily: 'Outfit',
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.w600,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
                                         ),
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Icon(
-                                            Icons.mail,
-                                            size: 30,
-                                            color: Colors.blueGrey,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 16,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        // Add your phone icon's onTap functionality here
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                          color: Colors.blueGrey.shade100,
-                                        ),
-                                        child: const Padding(
-                                          padding: EdgeInsets.all(8),
-                                          child: Icon(
-                                            Icons.phone,
-                                            size: 30,
-                                            color: Colors.blueGrey,
-                                          ),
-                                        ),
-                                      ),
+                                      ],
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
+                                Center(
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          log("Tapped Mail Icon");
+                                          // Add your mail icon's onTap functionality here
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            color: Colors.blueGrey.shade100,
+                                          ),
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(8),
+                                            child: Icon(
+                                              Icons.mail,
+                                              size: 30,
+                                              color: Colors.blueGrey,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 16,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          log("Tapped Phone Icon");
+                                          // Add your phone icon's onTap functionality here
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(30),
+                                            color: Colors.blueGrey.shade100,
+                                          ),
+                                          child: const Padding(
+                                            padding: EdgeInsets.all(8),
+                                            child: Icon(
+                                              Icons.phone,
+                                              size: 30,
+                                              color: Colors.blueGrey,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -271,70 +281,65 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                 onTap: () {
                   // not used anything
                 },
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border(
-                      top: BorderSide(
-                        color: Colors.grey[300]!,
-                        width: 1.0,
-                      ),
-                    ),
-                  ),
-                  child: const Row(
+                child: Align(
+                  alignment: const AlignmentDirectional(0.00, 0.00),
+                  child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.list, // Replace with your desired icon
-                            color: Colors.blueAccent,
-                            size: 16, // Set the icon color
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                              5,
-                              5,
-                              15,
-                              1,
+                      GestureDetector(
+                        onTap: () {
+                          log("Tapped Ride Options");
+                          // Handle the "Ride Options" onTap event
+                        },
+                        child: const Row(
+                          children: [
+                            Icon(
+                              Icons.list,
+                              color: Colors.blueAccent,
+                              size: 16,
                             ),
-                            child: Text(
-                              'Ride Options',
-                              style: TextStyle(
-                                color: Colors.blueGrey,
-                                fontSize: 15,
-                                fontWeight:
-                                    FontWeight.w400, // Make the text bold
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(5, 5, 15, 1),
+                              child: Text(
+                                'Ride Options',
+                                style: TextStyle(
+                                  color: Colors.blueGrey,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.shield, // Replace with your desired icon
-                            color: Colors.blueAccent,
-                            size: 16, // Set the icon color
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                              5,
-                              5,
-                              15,
-                              1,
+                      GestureDetector(
+                        onTap: () {
+                          log("Tapped Ride Safety");
+                          // Handle the "Ride Safety" onTap event
+                        },
+                        child: const Row(
+                          children: [
+                            Icon(
+                              Icons.shield,
+                              color: Colors.blueAccent,
+                              size: 16,
                             ),
-                            child: Text(
-                              'Ride Safety',
-                              style: TextStyle(
-                                color: Colors.blueGrey,
-                                fontSize: 15,
-                                fontWeight:
-                                    FontWeight.w400, // Make the text bold
+                            Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(5, 5, 15, 1),
+                              child: Text(
+                                'Ride Safety',
+                                style: TextStyle(
+                                  color: Colors.blueGrey,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -358,15 +363,17 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                           10,
                         ),
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            // Add your "Pay for a ride" action here
+                            log("Tapped Pay for a ride");
+                          },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromARGB(
-                                255, 13, 93, 240), // Replace with your color
+                            backgroundColor:
+                                const Color.fromARGB(255, 13, 93, 240),
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 85, vertical: 15),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(
-                                  15), // Adjust the radius as needed
+                              borderRadius: BorderRadius.circular(15),
                             ),
                           ),
                           child: const Text(
@@ -374,7 +381,7 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
-                              fontStyle: FontStyle.normal, // Increase font size
+                              fontStyle: FontStyle.normal,
                             ),
                           ),
                         ),
