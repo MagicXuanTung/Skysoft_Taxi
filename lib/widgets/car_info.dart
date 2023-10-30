@@ -76,68 +76,74 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                             ),
                           ),
                         ),
-                        height: 130,
+                        // height: 150,
                         child: ListTile(
                           title: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Toyota Corolla",
-                                    style: TextStyle(
-                                      fontFamily: 'Outfit',
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w600,
+                              const Expanded(
+                                flex: 7,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Toyota Corolla",
+                                      style: TextStyle(
+                                        fontFamily: 'Outfit',
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.w600,
+                                      ),
                                     ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "Economy:",
-                                        style: TextStyle(
-                                          fontFamily: 'Outfit',
-                                          fontSize: 16,
-                                          color: Colors.grey,
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "Economy:",
+                                          style: TextStyle(
+                                            fontFamily: 'Outfit',
+                                            fontSize: 16,
+                                            color: Colors.grey,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(
-                                        width: 8,
-                                      ),
-                                      Text(
-                                        '\$25.12',
-                                        style: TextStyle(
-                                          fontFamily: 'Readex Pro',
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.redAccent,
+                                        SizedBox(
+                                          width: 8,
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 25,
-                                  ),
-                                  Text(
-                                    "66C-038.27",
-                                    style: TextStyle(
-                                      fontFamily: 'Outfit',
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blueGrey,
+                                        Text(
+                                          '\$25.12',
+                                          style: TextStyle(
+                                            fontFamily: 'Readex Pro',
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.redAccent,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ],
+                                    SizedBox(
+                                      height: 25,
+                                    ),
+                                    Text(
+                                      "66C-038.27",
+                                      style: TextStyle(
+                                        fontFamily: 'Outfit',
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.blueGrey,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                               const SizedBox(
                                 width: 85,
                               ),
-                              Image.asset(
-                                'assets/images/economy.png',
-                                width: 150,
-                                height: 150,
+                              Expanded(
+                                flex: 6,
+                                child: Image.asset(
+                                  'assets/images/economy.png',
+                                  fit: BoxFit
+                                      .contain, // Use BoxFit to control the image's fit
+                                ),
                               ),
                             ],
                           ),
