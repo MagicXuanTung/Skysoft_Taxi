@@ -42,7 +42,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           backdropEnabled: true,
           controller: _panelController, // Use PanelController here
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
-          panel: const CarInfo(),
+          panel: const PriceCar(),
           onPanelOpened: () async {
             // Handle panel opened event
           },

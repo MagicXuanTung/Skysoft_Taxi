@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
 class PriceCar extends StatefulWidget {
@@ -13,6 +12,7 @@ class PriceCar extends StatefulWidget {
 
 class _PriceCarState extends State<PriceCar> {
   int selectedIdx = -1;
+  String selectedText = "Regular"; // Initialize with "Regular"
 
   // Define the data for the list items
   final List<String> assetNames = [
@@ -59,34 +59,28 @@ class _PriceCarState extends State<PriceCar> {
             color: Colors.grey,
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            log("List Cars and Prices"); // Log the text when tapped
-          },
-          child: Container(
-            height: 70,
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  color: Colors.grey[300]!,
-                  width: 1.0,
-                ),
+        Container(
+          decoration: BoxDecoration(
+            border: Border(
+              bottom: BorderSide(
+                color: Colors.grey[300]!,
+                width: 1.0,
               ),
             ),
-            child: const ListTile(
-              title: Center(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20.0,
-                  ),
-                  child: Text(
-                    'List Cars and Prices',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                      fontSize: 25,
-                    ),
-                  ),
+          ),
+          child: SizedBox(
+            height: 70,
+            child: Center(
+              child: IntrinsicWidth(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    buildTextItem("Regular"),
+                    buildTextItem("Delivery"),
+                    buildTextItem("Trucks"),
+                    buildTextItem("Taxi"),
+                    buildTextItem("Bikes"),
+                  ],
                 ),
               ),
             ),
@@ -98,7 +92,7 @@ class _PriceCarState extends State<PriceCar> {
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
-                  log("Selected item: ${itemNames[index]}"); // Log the selected item
+                  log("Selected item: ${itemNames[index]}");
                   setState(() {
                     selectedIdx = index;
                   });
@@ -149,104 +143,157 @@ class _PriceCarState extends State<PriceCar> {
             },
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            log("Coupon Code");
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  color: Colors.grey[300]!,
-                  width: 1.0,
+        SizedBox(
+          height: 40,
+          child: GestureDetector(
+            onTap: () {
+              log("Payment");
+              setState(() {
+                selectedText = "Payment";
+              });
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                    color: Colors.grey[300]!,
+                    width: 1.0,
+                  ),
                 ),
               ),
-            ),
-            child: const Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Icon(
-                  Icons.sell,
-                  color: Colors.lightBlueAccent,
-                  size: 16,
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(
-                    5,
-                    5,
-                    15,
-                    1,
-                  ),
-                  child: Text(
-                    'Coupon Code',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 15,
-                      fontWeight: FontWeight.normal,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      log("Payment");
+                      setState(() {
+                        selectedText = "Payment";
+                      });
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const SizedBox(width: 20),
+                        Icon(
+                          Icons.account_balance,
+                          color: selectedText == "Payment"
+                              ? Colors.blue
+                              : Colors.blueGrey,
+                          size: 16,
+                        ),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                            5,
+                            5,
+                            10,
+                            1,
+                          ),
+                          child: Text(
+                            'Payment',
+                            style: TextStyle(
+                              color: selectedText == "Payment"
+                                  ? Colors.blue
+                                  : Colors.grey,
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                ),
-              ],
+                  GestureDetector(
+                    onTap: () {
+                      log("Coupon Code");
+                      setState(() {
+                        selectedText = "Coupon Code";
+                      });
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(
+                          Icons.local_offer,
+                          color: selectedText == "Coupon Code"
+                              ? Colors.blue
+                              : Colors.blueGrey,
+                          size: 16,
+                        ),
+                        Padding(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                            5,
+                            5,
+                            30,
+                            1,
+                          ),
+                          child: Text(
+                            'Coupon Code',
+                            style: TextStyle(
+                              color: selectedText == "Coupon Code"
+                                  ? Colors.blue
+                                  : Colors.grey,
+                              fontSize: 15,
+                              fontWeight: FontWeight.normal,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),
-        GestureDetector(
-          onTap: () {
-            //nothing
-          },
-          child: Align(
-            alignment: const AlignmentDirectional(0.00, 0.00),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(
-                    20,
-                    15,
-                    20,
-                    10,
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      log('Book Now');
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFE2E4E9),
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                        90,
-                        15,
-                        90,
-                        15,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 10.0,
+          ),
+          child: SizedBox(
+            height: 55.0,
+            child: Center(
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  Padding(
+                    padding: const EdgeInsetsDirectional.only(
+                      start: 20,
                     ),
-                    child: const Text(
-                      'Book Now',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 20,
-                        fontStyle: FontStyle.normal,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        log('Book Now');
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color(0xFFE2E4E9),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            85, 15, 85, 10),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                      ),
+                      child: const Text(
+                        'Book Now',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 26,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Center(
-                  child: ElevatedButton(
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  ElevatedButton(
                     onPressed: () {
                       log("Calendar");
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFE2E4E9),
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                        16,
-                        11,
-                        16,
-                        11,
-                      ),
+                      backgroundColor: const Color(0xffe2e4e9),
+                      padding:
+                          const EdgeInsetsDirectional.fromSTEB(20, 11, 20, 11),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(15),
                       ),
@@ -262,12 +309,36 @@ class _PriceCarState extends State<PriceCar> {
                       ],
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
       ],
+    );
+  }
+
+  Widget buildTextItem(String text) {
+    return GestureDetector(
+      onTap: () {
+        log(text);
+        setState(() {
+          selectedText = text;
+        });
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: selectedText == text ? Colors.grey : Colors.transparent,
+        ),
+        padding: const EdgeInsets.all(10),
+        child: Text(
+          text,
+          style: TextStyle(
+            color: selectedText == text ? Colors.white : Colors.black,
+          ),
+        ),
+      ),
     );
   }
 }
