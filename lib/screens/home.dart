@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:project_name/widgets/car_info.dart';
-import 'package:project_name/widgets/panel_bar.dart';
 import 'package:project_name/widgets/price_car.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 

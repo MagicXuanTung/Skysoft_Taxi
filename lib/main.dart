@@ -11,6 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-        debugShowCheckedModeBanner: false, title: 'SKYSOFT Map', home: Home());
+        debugShowCheckedModeBanner: false,
+        title: 'Skysoft taxi ',
+        home: Home());
   }
 }
