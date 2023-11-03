@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 
+import '../screens/home.dart';
+
 class SideBar extends StatefulWidget {
   const SideBar({super.key});
 
@@ -72,8 +74,58 @@ class _SideBarState extends State<SideBar> {
       tileColor: selectedIndex == index ? const Color(0xFFE2E4E9) : null,
       onTap: () {
         onItemTapped(index);
+        _navigateToPage(index);
       },
     );
+  }
+
+  void _navigateToPage(int index) {
+    switch (index) {
+      case 0:
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const Home()));
+        break;
+      case 3:
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const Home()));
+        break;
+      case 4:
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const Home()));
+        break;
+      case 5:
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const Home()));
+        break;
+      case 6:
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const Home()));
+        break;
+      case 7:
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const Home()));
+        break;
+      case 8:
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const Home()));
+        break;
+      case 9:
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const Home()));
+        break;
+      case 10:
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const Home()));
+        break;
+      case 11:
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const Home()));
+        break;
+      case 12:
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => const Home()));
+        break;
+    }
   }
 
   Widget _buildHeader() {
