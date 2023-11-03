@@ -6,6 +6,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../widgets/panel_bar.dart';
 import '../widgets/side_bar.dart';
+import '../widgets/sidebar_toggle_button .dart';
 
 class Home extends StatefulWidget {
   const Home({
@@ -69,27 +70,8 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                   ),
                 ],
               ),
-              Positioned(
-                top: 40.0,
-                left: 15.0,
-                child: GestureDetector(
-                  onTap: () {
-                    // Open the sidebar by showing the drawer
-                    _scaffoldKey.currentState!.openDrawer();
-                  },
-                  child: Container(
-                    width: 50,
-                    height: 50,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.menu,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
+              SidebarToggleButton(
+                scaffoldKey: _scaffoldKey, // Pass the scaffoldKey to the widget
               ),
             ],
           ),

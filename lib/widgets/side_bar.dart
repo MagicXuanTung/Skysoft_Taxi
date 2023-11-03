@@ -79,6 +79,7 @@ class _SideBarState extends State<SideBar> {
     );
   }
 
+// THAY ĐỔI HOME THÀNH WIDGET MUỐN ĐIỀU HƯỚNG Home()
   void _navigateToPage(int index) {
     switch (index) {
       case 0:
