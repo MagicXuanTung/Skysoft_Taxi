@@ -3,10 +3,9 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-
-import '../widgets/panel_bar.dart';
-import '../widgets/side_bar.dart';
-import '../widgets/sidebar_toggle_button .dart';
+import '../widgets/user/panel_bar.dart';
+import '../widgets/user/side_bar.dart';
+import '../widgets/user/sidebar_toggle_button .dart';
 
 class Home extends StatefulWidget {
   const Home({

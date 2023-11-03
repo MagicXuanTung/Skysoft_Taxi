@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import '../screens/home.dart';
+import '../../screens/home.dart';
 
 class SideBar extends StatefulWidget {
   const SideBar({super.key});
