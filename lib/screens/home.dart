@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:project_name/widgets/price_car.dart';
+import 'package:project_name/widgets/panel_bar.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../widgets/side_bar.dart';
+
 class Home extends StatefulWidget {
-  const Home({super.key});
+  const Home({
+    super.key,
+  });
 
   @override
   State<Home> createState() => HomeState();
@@ -14,14 +18,15 @@ class Home extends StatefulWidget {
 
 class HomeState extends State<Home> with TickerProviderStateMixin {
   late final _animatedMapController = AnimatedMapController(vsync: this);
-  final _panelController = PanelController(); // Use PanelController here
-
-  // A variable to track whether the panel is open or closed.
+  final _panelController = PanelController();
   bool isPanelOpen = false;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const SideBar(),
+      key: _scaffoldKey, // Add a GlobalKey for the scaffold
       body: GestureDetector(
         onTap: () {
           // Toggle the panel state when it's tapped.
@@ -40,7 +45,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           backdropEnabled: true,
           controller: _panelController, // Use PanelController here
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
-          panel: const PriceCar(),
+          panel: const PanelBar(),
           onPanelOpened: () async {
             // Handle panel opened event
           },
@@ -63,6 +68,28 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                     userAgentPackageName: 'dev.fleaflet.flutter_map.example',
                   ),
                 ],
+              ),
+              Positioned(
+                top: 40.0,
+                left: 15.0,
+                child: GestureDetector(
+                  onTap: () {
+                    // Open the sidebar by showing the drawer
+                    _scaffoldKey.currentState!.openDrawer();
+                  },
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.menu,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

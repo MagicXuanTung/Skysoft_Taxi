@@ -1,0 +1,102 @@
+// ignore_for_file: library_private_types_in_public_api
+
+import 'package:flutter/material.dart';
+
+class SideBar extends StatefulWidget {
+  const SideBar({super.key});
+
+  @override
+  _SideBarState createState() => _SideBarState();
+}
+
+class _SideBarState extends State<SideBar> {
+  int selectedIndex = 0; // Add your initial state logic here
+
+  void onItemTapped(int index) {
+    // Implement the logic for item selection here
+    setState(() {
+      selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+        topRight: Radius.circular(25),
+        bottomRight: Radius.circular(25),
+      ),
+      child: Drawer(
+        backgroundColor: Colors.white,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            _buildHeader(),
+            _buildListTile(Icons.home, 'Home', Colors.blueGrey, 0),
+            _buildListTile(Icons.account_circle, 'Profile', Colors.blueGrey, 3),
+            _buildListTile(
+                Icons.notifications, 'Announcement', Colors.blueGrey, 4),
+            _buildListTile(Icons.wallet, 'Wallet', Colors.blueGrey, 5),
+            _buildListTile(
+                Icons.location_on, 'Save Locations', Colors.blueGrey, 6),
+            _buildListTile(
+                Icons.directions_car, 'Reserved Rides', Colors.blueGrey, 7),
+            _buildListTile(Icons.history, 'Trip History', Colors.blueGrey, 8),
+            _buildListTile(Icons.language, 'Website', Colors.blueGrey, 9),
+            _buildListTile(Icons.settings, 'Settings', Colors.blueGrey, 10),
+            _buildListTile(Icons.info, 'About', Colors.blueGrey, 11),
+            _buildListTile(Icons.exit_to_app, 'Logout', Colors.blueGrey, 12),
+          ],
+        ),
+      ),
+    );
+  }
+
+  ListTile _buildListTile(
+      IconData icon, String title, Color textColor, int index) {
+    return ListTile(
+      contentPadding: EdgeInsets.zero,
+      leading: Padding(
+        padding: const EdgeInsets.only(left: 35),
+        child: Icon(icon, color: Colors.blueGrey),
+      ),
+      title: Padding(
+        padding: const EdgeInsets.only(left: 5),
+        child: Text(
+          title,
+          style: TextStyle(
+            color: textColor,
+          ),
+        ),
+      ),
+      tileColor: selectedIndex == index ? const Color(0xFFE2E4E9) : null,
+      onTap: () {
+        onItemTapped(index);
+      },
+    );
+  }
+
+  Widget _buildHeader() {
+    return Container(
+      padding: const EdgeInsets.all(50),
+      child: const Row(
+        children: [
+          CircleAvatar(
+            radius: 40,
+            backgroundImage: NetworkImage(
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm3RFDZM21teuCMFYx_AROjt-AzUwDBROFww&usqp=CAU'),
+          ),
+          SizedBox(width: 10),
+          Text(
+            'User Name',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
