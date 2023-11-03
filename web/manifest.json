@@ -1,6 +1,6 @@
 {
-    "name": "project_name",
-    "short_name": "project_name",
+    "name": "skysoft_taxi",
+    "short_name": "skysoft_taxi",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

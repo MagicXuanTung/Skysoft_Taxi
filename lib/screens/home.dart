@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_map/plugin_api.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:project_name/widgets/panel_bar.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../widgets/panel_bar.dart';
 import '../widgets/side_bar.dart';
 
 class Home extends StatefulWidget {
