@@ -2,14 +2,14 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-class CarInfo extends StatefulWidget {
-  const CarInfo({Key? key}) : super(key: key);
+class UserInfo extends StatefulWidget {
+  const UserInfo({Key? key}) : super(key: key);
 
   @override
-  State<CarInfo> createState() => _CarInfoState();
+  State<UserInfo> createState() => _UserInfoState();
 }
 
-class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
+class _UserInfoState extends State<UserInfo> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -30,7 +30,7 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
               ),
               GestureDetector(
                 onTap: () {
-                  log("Arriving in 2 minutes from now");
+                  log("Driver will be notified once you tap Arrived");
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -46,12 +46,16 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.0),
                         child: Text(
-                          'Arriving in 2 minutes from now',
+                          'Driver will be notified once you tap Arrived',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
-                            fontSize: 20,
+                            fontSize: 17,
                           ),
+                          overflow: TextOverflow
+                              .ellipsis, // Text overflow with ellipsis
+                          maxLines:
+                              2, // Maximum number of lines (1 line in this case)
                         ),
                       ),
                     ),
@@ -61,97 +65,6 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
               Expanded(
                 child: ListView(
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        // not used anything
-                        log("Tapped Toyota Corolla");
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border(
-                            bottom: BorderSide(
-                              color: Colors.grey[300]!,
-                              width: 1.0,
-                            ),
-                          ),
-                        ),
-                        // height: 150,
-                        child: ListTile(
-                          title: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Expanded(
-                                flex: 10,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "Toyota Corolla",
-                                      style: TextStyle(
-                                        fontFamily: 'Outfit',
-                                        fontSize: 22,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "Economy:",
-                                          style: TextStyle(
-                                            fontFamily: 'Outfit',
-                                            fontSize: 16,
-                                            color: Colors.grey,
-                                          ),
-                                          overflow: TextOverflow
-                                              .ellipsis, // Text overflow with ellipsis
-                                          maxLines: 5,
-                                        ),
-                                        SizedBox(
-                                          width: 8,
-                                        ),
-                                        Text(
-                                          '\$25.12',
-                                          style: TextStyle(
-                                            fontFamily: 'Readex Pro',
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
-                                            color: Colors.redAccent,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 25,
-                                    ),
-                                    Text(
-                                      "66C-038.27",
-                                      style: TextStyle(
-                                        fontFamily: 'Outfit',
-                                        fontSize: 25,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.blueGrey,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 85,
-                              ),
-                              Expanded(
-                                flex: 6,
-                                child: Image.asset(
-                                  'assets/images/economy.png',
-                                  fit: BoxFit
-                                      .contain, // Use BoxFit to control the image's fit
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
                     Container(
                       decoration: BoxDecoration(
                         border: Border(
@@ -162,7 +75,7 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                         ),
                       ),
                       child: SizedBox(
-                        height: 130,
+                        height: 150,
                         child: GestureDetector(
                           onTap: () {
                             log("Tapped John Doe");
@@ -196,34 +109,37 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                                                   padding:
                                                       EdgeInsets.only(top: 30),
                                                   child: Text(
-                                                    "Dan John Doe",
+                                                    "Nguyễn Đức Dương",
                                                     style: TextStyle(
                                                       fontFamily: 'Outfit',
-                                                      fontSize: 18,
+                                                      fontSize: 20,
                                                       fontWeight:
-                                                          FontWeight.w600,
+                                                          FontWeight.bold,
                                                     ),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 2,
                                                   ),
                                                 ),
                                                 Row(
                                                   children: [
-                                                    Icon(
-                                                      Icons.star,
-                                                      color: Colors.yellow,
-                                                      size: 20,
-                                                    ),
-                                                    SizedBox(width: 2),
-                                                    Text(
-                                                      "5",
-                                                      style: TextStyle(
-                                                        fontFamily: 'Outfit',
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w600,
+                                                    Flexible(
+                                                      child: Text(
+                                                        "Driver Expect you in a moment",
+                                                        style: TextStyle(
+                                                          fontFamily: 'Outfit',
+                                                          color: Colors.grey,
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                        ),
+                                                        overflow: TextOverflow
+                                                            .ellipsis,
+                                                        maxLines: 2,
                                                       ),
                                                     ),
                                                   ],
-                                                ),
+                                                )
                                               ],
                                             ),
                                           ),
@@ -235,36 +151,8 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                                 Expanded(
                                   flex: 3,
                                   child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          log("Tapped Mail Icon");
-                                          // Add your mail icon's onTap functionality here
-                                        },
-                                        child: Align(
-                                          alignment: Alignment.center,
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(30),
-                                              color: Colors.blueGrey.shade100,
-                                            ),
-                                            child: const Padding(
-                                              padding: EdgeInsets.all(8),
-                                              child: Icon(
-                                                Icons.mail,
-                                                size: 30,
-                                                color: Colors.blueGrey,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 16,
-                                      ),
                                       GestureDetector(
                                         onTap: () {
                                           log("Tapped Phone Icon");
@@ -289,6 +177,33 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                                           ),
                                         ),
                                       ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          log("Tapped Mail Icon");
+                                          // Add your mail icon's onTap functionality here
+                                        },
+                                        child: Align(
+                                          alignment: Alignment.center,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(30),
+                                              color: Colors.blueGrey.shade100,
+                                            ),
+                                            child: const Padding(
+                                              padding: EdgeInsets.all(8),
+                                              child: Icon(
+                                                Icons.mail,
+                                                size: 30,
+                                                color: Colors.blueGrey,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
@@ -297,7 +212,7 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -381,15 +296,14 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                     children: [
                       Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
-                          30,
+                          10,
                           20,
-                          30,
+                          10,
                           10,
                         ),
                         child: ElevatedButton(
                           onPressed: () {
-                            // Add your "Pay for a ride" action here
-                            log("Tapped Pay for a ride");
+                            log("Tapped Arrived");
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
@@ -401,7 +315,7 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                             ),
                           ),
                           child: const Text(
-                            'Pay for a ride',
+                            'Arrived to my location',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,

@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 
 import '../../screens/home.dart';
+import '../../screens/login_sign_up.dart';
 
 class SideBar extends StatefulWidget {
   const SideBar({super.key});
@@ -124,7 +125,7 @@ class _SideBarState extends State<SideBar> {
         break;
       case 12:
         Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const Home()));
+            .push(MaterialPageRoute(builder: (context) => const LoginScreen()));
         break;
     }
   }

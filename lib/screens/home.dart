@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:skysoft_taxi/widgets/user/car_info.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import '../widgets/driver/user_info.dart';
 import '../widgets/user/panel_bar.dart';
 import '../widgets/user/side_bar.dart';
 import '../widgets/user/sidebar_toggle_button .dart';
@@ -45,7 +47,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
           backdropEnabled: true,
           controller: _panelController, // Use PanelController here
           borderRadius: const BorderRadius.vertical(top: Radius.circular(20.0)),
-          panel: const PanelBar(),
+          panel: const UserInfo(),
           onPanelOpened: () async {
             // Handle panel opened event
           },
