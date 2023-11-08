@@ -315,7 +315,7 @@ class _UserInfoState extends State<UserInfo> with TickerProviderStateMixin {
                             ),
                           ),
                           child: const Text(
-                            'Arrived to my location',
+                            'Arrived to user location',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,

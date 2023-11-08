@@ -5,7 +5,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:skysoft_taxi/widgets/user/car_info.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import '../widgets/driver/user_info.dart';
-import '../widgets/user/panel_bar.dart';
 import '../widgets/user/side_bar.dart';
 import '../widgets/user/sidebar_toggle_button .dart';
 
