@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class PanelBar extends StatefulWidget {
-  const PanelBar({super.key}); // Add this constructor
+  final PanelController panelController;
+  final VoidCallback? onTextFieldPressed;
 
+  const PanelBar(
+      {Key? key, required this.panelController, this.onTextFieldPressed})
+      : super(key: key);
   @override
   State<PanelBar> createState() => _PanelBarState();
 }
@@ -21,7 +26,7 @@ class _PanelBarState extends State<PanelBar> with TickerProviderStateMixin {
                     child: Icon(
                       Icons.horizontal_rule,
                       color: Colors.grey,
-                      size: 30, // Adjust the size of the icon as desired
+                      size: 30,
                     ),
                   ),
                 ],
@@ -32,6 +37,7 @@ class _PanelBarState extends State<PanelBar> with TickerProviderStateMixin {
                 child: GestureDetector(
                   onTap: () async {},
                   child: TextField(
+                    readOnly: true,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.grey[200],
@@ -51,9 +57,16 @@ class _PanelBarState extends State<PanelBar> with TickerProviderStateMixin {
                       prefixIcon: const Icon(Icons.search, color: Colors.grey),
                       suffixIcon: const Icon(Icons.mic, color: Colors.grey),
                     ),
+                    onTap: () {
+                      widget.panelController.open();
+                      if (widget.onTextFieldPressed != null) {
+                        widget.onTextFieldPressed!();
+                      }
+                    },
                   ),
                 ),
               ),
+              const SizedBox(height: 16.0),
               Expanded(
                 child: ListView(
                   children: [

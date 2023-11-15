@@ -1,9 +1,11 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:skysoft_taxi/global/global.dart';
+import 'chat_with_user.dart';
 
 class UserInfo extends StatefulWidget {
-  const UserInfo({Key? key}) : super(key: key);
+  final VoidCallback Arrived;
+  const UserInfo({Key? key, required this.Arrived}) : super(key: key);
 
   @override
   State<UserInfo> createState() => _UserInfoState();
@@ -30,7 +32,7 @@ class _UserInfoState extends State<UserInfo> with TickerProviderStateMixin {
               ),
               GestureDetector(
                 onTap: () {
-                  log("Driver will be notified once you tap Arrived");
+                  log("User will be notified once you tap Arrived");
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -46,7 +48,7 @@ class _UserInfoState extends State<UserInfo> with TickerProviderStateMixin {
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.0),
                         child: Text(
-                          'Driver will be notified once you tap Arrived',
+                          'User will be notified once you tap Arrived',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.black,
@@ -63,6 +65,7 @@ class _UserInfoState extends State<UserInfo> with TickerProviderStateMixin {
                 ),
               ),
               Expanded(
+                flex: 7,
                 child: ListView(
                   children: [
                     Container(
@@ -75,7 +78,7 @@ class _UserInfoState extends State<UserInfo> with TickerProviderStateMixin {
                         ),
                       ),
                       child: SizedBox(
-                        height: 150,
+                        height: 130,
                         child: GestureDetector(
                           onTap: () {
                             log("Tapped John Doe");
@@ -85,7 +88,7 @@ class _UserInfoState extends State<UserInfo> with TickerProviderStateMixin {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Expanded(
+                                Expanded(
                                   flex: 6,
                                   child: Column(
                                     crossAxisAlignment:
@@ -95,51 +98,57 @@ class _UserInfoState extends State<UserInfo> with TickerProviderStateMixin {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Icon(
-                                            Icons.account_circle,
-                                            size: 120,
-                                            color: Colors.blueGrey,
+                                          const Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                5, 15, 5, 15),
+                                            child: CircleAvatar(
+                                              radius: 40,
+                                              backgroundImage: NetworkImage(
+                                                'https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png',
+                                              ),
+                                            ),
                                           ),
                                           Flexible(
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Padding(
                                                   padding:
-                                                      EdgeInsets.only(top: 30),
+                                                      const EdgeInsets.fromLTRB(
+                                                          5, 30, 5, 0),
                                                   child: Text(
-                                                    "Nguyễn Đức Dương",
-                                                    style: TextStyle(
+                                                    userModel.name,
+                                                    style: const TextStyle(
                                                       fontFamily: 'Outfit',
-                                                      fontSize: 20,
+                                                      fontSize: 18,
                                                       fontWeight:
-                                                          FontWeight.bold,
+                                                          FontWeight.w600,
                                                     ),
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     maxLines: 2,
                                                   ),
                                                 ),
-                                                Row(
-                                                  children: [
-                                                    Flexible(
-                                                      child: Text(
-                                                        "Driver Expect you in a moment",
-                                                        style: TextStyle(
-                                                          fontFamily: 'Outfit',
-                                                          color: Colors.grey,
-                                                          fontSize: 15,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                        ),
-                                                        overflow: TextOverflow
-                                                            .ellipsis,
-                                                        maxLines: 2,
+                                                const Padding(
+                                                  padding: EdgeInsets.fromLTRB(
+                                                      5, 0, 5, 0),
+                                                  child: Flexible(
+                                                    child: Text(
+                                                      "User Expect you in a moment",
+                                                      style: TextStyle(
+                                                        fontFamily: 'Outfit',
+                                                        color: Colors.grey,
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.normal,
                                                       ),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      maxLines: 2,
                                                     ),
-                                                  ],
-                                                )
+                                                  ),
+                                                ),
                                               ],
                                             ),
                                           ),
@@ -178,12 +187,18 @@ class _UserInfoState extends State<UserInfo> with TickerProviderStateMixin {
                                         ),
                                       ),
                                       const SizedBox(
-                                        width: 20,
+                                        width: 10,
                                       ),
                                       GestureDetector(
                                         onTap: () {
                                           log("Tapped Mail Icon");
-                                          // Add your mail icon's onTap functionality here
+
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const ChatWithUserScreen(),
+                                            ),
+                                          ); // Add your mail icon's onTap functionality here
                                         },
                                         child: Align(
                                           alignment: Alignment.center,
@@ -212,7 +227,7 @@ class _UserInfoState extends State<UserInfo> with TickerProviderStateMixin {
                           ),
                         ),
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),
@@ -289,7 +304,7 @@ class _UserInfoState extends State<UserInfo> with TickerProviderStateMixin {
                   // not used anything
                 },
                 child: Align(
-                  alignment: const AlignmentDirectional(0.00, 0.00),
+                  alignment: AlignmentDirectional.center,
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -304,12 +319,16 @@ class _UserInfoState extends State<UserInfo> with TickerProviderStateMixin {
                         child: ElevatedButton(
                           onPressed: () {
                             log("Tapped Arrived");
+                            widget.Arrived();
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
                                 const Color.fromARGB(255, 13, 93, 240),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 85, vertical: 15),
+                            padding: EdgeInsets.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.width * 0.1,
+                              vertical: 15,
+                            ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skysoft_taxi/screens/home.dart';
+import 'package:skysoft_taxi/screen/login_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Skysoft taxi ',
-        home: Home());
+        title: 'SKYSOFT Map',
+        home: LoginScreen());
   }
 }

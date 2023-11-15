@@ -1,15 +1,17 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:skysoft_taxi/global/global.dart';
+import 'package:skysoft_taxi/widgets/user/chat_with_driver.dart';
 
-class CarInfo extends StatefulWidget {
-  const CarInfo({Key? key}) : super(key: key);
+class DriverInfo extends StatefulWidget {
+  const DriverInfo({Key? key}) : super(key: key);
 
   @override
-  State<CarInfo> createState() => _CarInfoState();
+  State<DriverInfo> createState() => _DriverInfoState();
 }
 
-class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
+class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -103,9 +105,6 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                                             fontSize: 16,
                                             color: Colors.grey,
                                           ),
-                                          overflow: TextOverflow
-                                              .ellipsis, // Text overflow with ellipsis
-                                          maxLines: 5,
                                         ),
                                         SizedBox(
                                           width: 8,
@@ -132,6 +131,8 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                                         fontWeight: FontWeight.bold,
                                         color: Colors.blueGrey,
                                       ),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
                                     ),
                                   ],
                                 ),
@@ -172,7 +173,7 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Expanded(
+                                Expanded(
                                   flex: 6,
                                   child: Column(
                                     crossAxisAlignment:
@@ -182,47 +183,60 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          Icon(
-                                            Icons.account_circle,
-                                            size: 120,
-                                            color: Colors.blueGrey,
+                                          const Padding(
+                                            padding: EdgeInsets.fromLTRB(
+                                                5, 15, 5, 15),
+                                            child: CircleAvatar(
+                                              radius: 40,
+                                              backgroundImage: NetworkImage(
+                                                'https://cdn0.iconfinder.com/data/icons/taxi-12/500/SingleCartoonTaxiYulia_10-512.png',
+                                              ),
+                                            ),
                                           ),
                                           Flexible(
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Padding(
                                                   padding:
-                                                      EdgeInsets.only(top: 30),
+                                                      const EdgeInsets.fromLTRB(
+                                                          5, 30, 5, 0),
                                                   child: Text(
-                                                    "Dan John Doe",
-                                                    style: TextStyle(
+                                                    driverModel.name,
+                                                    style: const TextStyle(
                                                       fontFamily: 'Outfit',
                                                       fontSize: 18,
                                                       fontWeight:
                                                           FontWeight.w600,
                                                     ),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                    maxLines: 2,
                                                   ),
                                                 ),
-                                                Row(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.star,
-                                                      color: Colors.yellow,
-                                                      size: 20,
-                                                    ),
-                                                    SizedBox(width: 2),
-                                                    Text(
-                                                      "5",
-                                                      style: TextStyle(
-                                                        fontFamily: 'Outfit',
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w600,
+                                                const Padding(
+                                                  padding: EdgeInsets.fromLTRB(
+                                                      5, 0, 5, 0),
+                                                  child: Row(
+                                                    children: [
+                                                      Icon(
+                                                        Icons.star,
+                                                        color: Colors.yellow,
+                                                        size: 20,
                                                       ),
-                                                    ),
-                                                  ],
+                                                      SizedBox(width: 2),
+                                                      Text(
+                                                        "5",
+                                                        style: TextStyle(
+                                                          fontFamily: 'Outfit',
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ],
                                             ),
@@ -241,7 +255,13 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                                       GestureDetector(
                                         onTap: () {
                                           log("Tapped Mail Icon");
-                                          // Add your mail icon's onTap functionality here
+
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const ChatScreen(),
+                                            ),
+                                          ); // Add your mail icon's onTap functionality here
                                         },
                                         child: Align(
                                           alignment: Alignment.center,
@@ -393,15 +413,18 @@ class _CarInfoState extends State<CarInfo> with TickerProviderStateMixin {
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
-                                const Color.fromARGB(255, 13, 93, 240),
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 85, vertical: 15),
+                                const Color.fromARGB(255, 245, 21, 21),
+                            padding: EdgeInsets.symmetric(
+                              horizontal:
+                                  MediaQuery.of(context).size.width * 0.1,
+                              vertical: 15,
+                            ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ),
                           ),
                           child: const Text(
-                            'Pay for a ride',
+                            'Cancel Booking!',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,

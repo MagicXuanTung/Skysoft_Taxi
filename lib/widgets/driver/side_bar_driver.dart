@@ -2,17 +2,16 @@
 
 import 'package:flutter/material.dart';
 import 'package:skysoft_taxi/global/global.dart';
-
 import '../../screen/login_screen.dart';
 
-class SideBar extends StatefulWidget {
-  const SideBar({super.key});
+class SideBarDriver extends StatefulWidget {
+  const SideBarDriver({super.key});
 
   @override
-  _SideBarState createState() => _SideBarState();
+  _SideBarDriverState createState() => _SideBarDriverState();
 }
 
-class _SideBarState extends State<SideBar> {
+class _SideBarDriverState extends State<SideBarDriver> {
   int selectedIndex = 0; // Add your initial state logic here
 
   void onItemTapped(int index) {
@@ -135,25 +134,25 @@ class _SideBarState extends State<SideBar> {
       padding: const EdgeInsets.all(50),
       child: Row(
         children: [
-          CircleAvatar(
+          const CircleAvatar(
             radius: 40,
             backgroundImage: NetworkImage(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm3RFDZM21teuCMFYx_AROjt-AzUwDBROFww&usqp=CAU'),
+                'https://cdn0.iconfinder.com/data/icons/taxi-12/500/SingleCartoonTaxiYulia_10-512.png'),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  userModel.name,
-                  style: TextStyle(
+                  driverModel.name,
+                  style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),
                   overflow: TextOverflow.ellipsis,
-                  maxLines: 3,
+                  maxLines: 2,
                 ),
               ],
             ),
