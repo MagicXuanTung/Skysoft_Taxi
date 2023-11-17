@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 243, 243, 243),
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: Center(
@@ -50,8 +50,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     fit: BoxFit.contain,
                     child: Image.network(
                       'https://image.winudf.com/v2/image1/Y29tLnNreXNvZnQuZ3BzX2ljb25fMTU1OTE4NzY5NF8wMjQ/icon.png?w=184&fakeurl=1',
-                      width: 150,
-                      height: 150,
+                      width: 120,
+                      height: 120,
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -84,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           filled: true,
                           fillColor: Colors.grey.shade300,
-                          hintText: "Email or Username",
+                          hintText: "Email hoặc Tên Tài Khoản",
                           hintStyle: TextStyle(
                               color: Colors.grey.shade500, fontSize: 15),
                           suffixIcon: _emailController.text.isNotEmpty
@@ -128,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           filled: true,
                           fillColor: Colors.grey.shade300,
-                          hintText: "Passwords",
+                          hintText: "Mật Khẩu",
                           hintStyle: TextStyle(
                               color: Colors.grey.shade500, fontSize: 15),
                           suffixIcon: isPasswordFieldEmpty
@@ -186,9 +186,14 @@ class _LoginScreenState extends State<LoginScreen> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: const Text('Error !'),
-                              content: const Text(
-                                  'Please enter correct account information.'),
+                              title: const Text(
+                                'Lỗi !',
+                                style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              content: const Text('Lỗi đăng nhập tài khoản.'),
                               actions: [
                                 ElevatedButton(
                                   onPressed: () {
@@ -206,16 +211,16 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: const EdgeInsets.all(15),
                       margin: const EdgeInsets.symmetric(horizontal: 25),
                       decoration: BoxDecoration(
-                        color: Colors.black,
+                        color: Colors.cyan,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const Center(
                         child: Text(
-                          'Login',
+                          'Đăng Nhập',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 15,
+                            fontSize: 17,
                           ),
                         ),
                       ),
@@ -230,9 +235,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Not a member? ',
+                          'Người dùng mới sử dụng?',
                           style:
                               TextStyle(color: Colors.grey[600], fontSize: 12),
+                        ),
+                        const SizedBox(
+                          width: 5,
                         ),
                         GestureDetector(
                           onTap: () => {
@@ -240,11 +248,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                 builder: (context) => const RegisterScreen()))
                           },
                           child: Text(
-                            'Register now',
+                            'Đăng ký',
                             style: TextStyle(
                                 color: Colors.blue[900],
                                 fontWeight: FontWeight.bold,
-                                fontSize: 15),
+                                fontSize: 17),
                           ),
                         ),
                       ],

@@ -5,6 +5,7 @@ import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:skysoft_taxi/global/global.dart';
 import 'package:skysoft_taxi/models/user.model.dart';
+import 'package:skysoft_taxi/screen/bottom_navigate_bar.dart';
 
 import '../url/contants.dart';
 import '../widgets/user/reviews.dart';
@@ -124,6 +125,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
             SidebarToggleButton(
               scaffoldKey: _scaffoldKey, // Pass the scaffoldKey to the widget
             ),
+
             //search_onpanlbar
             Visibility(
               visible: isPanelVisible,
@@ -318,6 +320,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                 ),
               ),
             ),
+            const BottomNavigateBar(),
           ],
         ),
       ),

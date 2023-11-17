@@ -44,13 +44,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 50),
-                  //logo
                   FittedBox(
                     fit: BoxFit.contain,
                     child: Image.network(
                       'https://image.winudf.com/v2/image1/Y29tLnNreXNvZnQuZ3BzX2ljb25fMTU1OTE4NzY5NF8wMjQ/icon.png?w=184&fakeurl=1',
-                      width: 150,
-                      height: 150,
+                      width: 120,
+                      height: 120,
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -85,7 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           filled: true,
                           fillColor: Colors.grey.shade300,
-                          hintText: "Email or Username",
+                          hintText: "Email hoặc Tên Tài Khoản",
                           hintStyle: TextStyle(
                               color: Colors.grey.shade500, fontSize: 15),
                           suffixIcon: _signUpEmailController.text.isNotEmpty
@@ -129,7 +128,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           filled: true,
                           fillColor: Colors.grey.shade300,
-                          hintText: "Passwords",
+                          hintText: "Mật Khẩu",
                           hintStyle: TextStyle(
                               color: Colors.grey.shade500, fontSize: 15),
                           suffixIcon: isPasswordFieldEmpty
@@ -178,7 +177,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ),
                           filled: true,
                           fillColor: Colors.grey.shade300,
-                          hintText: "Confirm Password",
+                          hintText: "Xác nhận mật khẩu",
                           hintStyle: TextStyle(
                               color: Colors.grey.shade500, fontSize: 15),
                           suffixIcon: isPasswordFieldEmpty
@@ -219,16 +218,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       padding: const EdgeInsets.all(15),
                       margin: const EdgeInsets.symmetric(horizontal: 25),
                       decoration: BoxDecoration(
-                        color: Colors.black,
+                        color: Colors.cyan,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const Center(
                         child: Text(
-                          'Sign Up',
+                          'Đăng ký',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 15,
+                            fontSize: 17,
                           ),
                         ),
                       ),
@@ -236,32 +235,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 10),
                   Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Already have an account? ',
+                    padding: const EdgeInsets.symmetric(horizontal: 25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Đã có tài khoản ứng dụng ?',
+                          style:
+                              TextStyle(color: Colors.grey[600], fontSize: 12),
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        GestureDetector(
+                          onTap: () => {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const LoginScreen()))
+                          },
+                          child: Text(
+                            'Đăng Nhập',
                             style: TextStyle(
-                                color: Colors.grey[600], fontSize: 12),
+                                color: Colors.blue[900],
+                                fontWeight: FontWeight.bold,
+                                fontSize: 17),
                           ),
-                          GestureDetector(
-                            onTap: () => {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => const LoginScreen()))
-                            },
-                            child: Text(
-                              'Login now',
-                              style: TextStyle(
-                                  color: Colors.blue[900],
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14),
-                            ),
-                          ),
-                        ],
-                      )),
-
-                  // not a memeber ? register now
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),

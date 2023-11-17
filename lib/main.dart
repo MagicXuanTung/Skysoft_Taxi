@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skysoft_taxi/screen/login_screen.dart';
+import 'package:skysoft_taxi/screen/bottom_navigate_bar.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,6 +13,6 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'SKYSOFT Map',
-        home: LoginScreen());
+        home: BottomNavigateBar());
   }
 }
