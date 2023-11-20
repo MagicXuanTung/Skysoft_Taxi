@@ -1,6 +1,7 @@
+import 'dart:async';
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeCenter extends StatefulWidget {
   const HomeCenter({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class _HomeCenterState extends State<HomeCenter> {
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage(
-                        'https://www.elitemcommerce.com/blog/wp-content/uploads/sites/7/2019/04/Taxi-app.png',
+                        'https://www.taxionthego.com/wp-content/uploads/2019/12/banner_1-min.jpg',
                       ),
                       fit: BoxFit.cover,
                     ),
@@ -145,7 +146,7 @@ class _HomeCenterState extends State<HomeCenter> {
                             'https://cdn-icons-png.flaticon.com/512/1801/1801444.png',
                         text: 'Ô tô',
                         onTap: () {
-                          log('Ô tô tapped');
+                          log('Ô tô');
                         },
                       ),
                       ButtonImage(
@@ -153,7 +154,7 @@ class _HomeCenterState extends State<HomeCenter> {
                             'https://cdn2.iconfinder.com/data/icons/transportation-colorized/64/transportation-vehicle-11-512.png',
                         text: 'Xe máy',
                         onTap: () {
-                          log('Xe máy tapped');
+                          log('Xe máy');
                         },
                       ),
                       ButtonImage(
@@ -161,7 +162,7 @@ class _HomeCenterState extends State<HomeCenter> {
                             'https://static.thenounproject.com/png/11178-200.png',
                         text: 'Thuê Xe',
                         onTap: () {
-                          log('Thuê Xe tapped');
+                          log('Thuê Xe');
                         },
                       ),
                       ButtonImage(
@@ -169,7 +170,15 @@ class _HomeCenterState extends State<HomeCenter> {
                             'https://static.thenounproject.com/png/36376-200.png',
                         text: 'Sân bay',
                         onTap: () {
-                          log('Sân bay tapped');
+                          log('Sân bay');
+                        },
+                      ),
+                      ButtonImage(
+                        imagePath:
+                            'https://cdn-icons-png.flaticon.com/512/3246/3246722.png',
+                        text: 'Đồ ăn',
+                        onTap: () {
+                          log('Đồ ăn');
                         },
                       ),
                       ButtonImage(
@@ -177,7 +186,7 @@ class _HomeCenterState extends State<HomeCenter> {
                             'https://cdn-icons-png.flaticon.com/512/6947/6947616.png',
                         text: 'Giao Hàng',
                         onTap: () {
-                          log('Giao Hàng tapped');
+                          log('Giao Hàng');
                         },
                       ),
                       ButtonImage(
@@ -185,11 +194,22 @@ class _HomeCenterState extends State<HomeCenter> {
                             'https://cdn-icons-png.flaticon.com/512/5952/5952766.png',
                         text: 'Giao Hàng Ô tô',
                         onTap: () {
-                          log('Giao Hàng Ô tô tapped');
+                          log('Giao Hàng Ô tô');
                         },
                       ),
                     ],
                   ),
+                ),
+                const SizedBox(height: 15),
+                const HorizontalImageSlider(
+                  imageUrls: [
+                    'https://www.ganeshawebtech.com/wp-content/uploads/2018/06/Get-your-taxi-business-an-edge-by-getting-a-Taxi-booking-apps.jpg',
+                    'https://i.ytimg.com/vi/PN3YyMcHuhc/maxresdefault.jpg',
+                    'https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/263260978/original/01063a5489f4f3bccd2ae5db726c2f156dfbc6e0/taxi-booking-app-car-booking-app-taxi-app-uber-clone-app-car-rental-app.jpg',
+                    'https://cdn.grabon.in/gograbon/images/merchant/1624792553223.jpg',
+                    'https://couponswala.com/blog/wp-content/uploads/2021/08/goibibo-cab-coupons.jpg',
+                    'https://www.icoderzsolutions.com/blog/wp-content/uploads/2021/03/5-Steps-In-Hiring-The-Best-Taxi-App-Development-Company.png',
+                  ],
                 ),
               ],
             ),
@@ -379,6 +399,80 @@ class ButtonImage extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class HorizontalImageSlider extends StatefulWidget {
+  final List<String> imageUrls;
+
+  const HorizontalImageSlider({super.key, required this.imageUrls});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _HorizontalImageSliderState createState() => _HorizontalImageSliderState();
+}
+
+class _HorizontalImageSliderState extends State<HorizontalImageSlider> {
+  late PageController _pageController;
+  int _currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController();
+    _startAutoSlide();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  void _startAutoSlide() {
+    Timer.periodic(const Duration(seconds: 3), (timer) {
+      if (_currentPage < widget.imageUrls.length - 1) {
+        _currentPage++;
+      } else {
+        _currentPage = 0;
+      }
+      _pageController.animateToPage(
+        _currentPage,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 200.0, // Adjust the height as needed
+      child: PageView.builder(
+        controller: _pageController,
+        itemCount: widget.imageUrls.length,
+        onPageChanged: (index) {
+          setState(() {
+            _currentPage = index;
+          });
+        },
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 25),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: CachedNetworkImage(
+                imageUrl: widget.imageUrls[index],
+                placeholder: (context, url) =>
+                    const CircularProgressIndicator(),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
+                fit: BoxFit.cover,
+              ),
+            ),
+          );
+        },
       ),
     );
   }
