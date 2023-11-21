@@ -1,7 +1,7 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'package:flutter/material.dart';
-import 'package:skysoft_taxi/screen/home_demo.dart';
+import 'package:skysoft_taxi/screen/xanh_sm_clone/goi_xe.dart';
+import 'package:skysoft_taxi/screen/xanh_sm_clone/hoat_dong.dart';
+import 'package:skysoft_taxi/screen/xanh_sm_clone/thong_bao.dart';
 
 class BottomNavigateBar extends StatefulWidget {
   const BottomNavigateBar({Key? key}) : super(key: key);
@@ -14,10 +14,9 @@ class _BottomNavigateBarState extends State<BottomNavigateBar> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    HomeCenter(),
-    const ExploreScreen(),
-    const NotificationsScreen(),
-    const ProfileScreen(),
+    const BookingCar(),
+    const ActivityDaily(),
+    const NotificationPage()
   ];
 
   @override
@@ -105,28 +104,6 @@ class ExploreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: Text('Explore Screen'),
-    );
-  }
-}
-
-class NotificationsScreen extends StatelessWidget {
-  const NotificationsScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Notifications Screen'),
-    );
-  }
-}
-
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Profile Screen'),
     );
   }
 }

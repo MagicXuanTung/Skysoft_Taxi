@@ -3,14 +3,14 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class HomeCenter extends StatefulWidget {
-  const HomeCenter({Key? key}) : super(key: key);
+class BookingCar extends StatefulWidget {
+  const BookingCar({Key? key}) : super(key: key);
 
   @override
-  State<HomeCenter> createState() => _HomeCenterState();
+  State<BookingCar> createState() => _BookingCarState();
 }
 
-class _HomeCenterState extends State<HomeCenter> {
+class _BookingCarState extends State<BookingCar> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -432,24 +432,30 @@ class _HorizontalImageSliderState extends State<HorizontalImageSlider> {
   }
 
   void _startAutoSlide() {
-    Timer.periodic(const Duration(seconds: 3), (timer) {
-      if (_currentPage < widget.imageUrls.length - 1) {
-        _currentPage++;
-      } else {
-        _currentPage = 0;
-      }
-      _pageController.animateToPage(
-        _currentPage,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.easeInOut,
-      );
-    });
+    Timer.periodic(
+      const Duration(seconds: 2),
+      (timer) {
+        if (_currentPage < widget.imageUrls.length - 1) {
+          _currentPage++;
+        } else {
+          _currentPage = 0;
+        }
+
+        if (_pageController.hasClients) {
+          _pageController.animateToPage(
+            _currentPage,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.easeInOut,
+          );
+        }
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200.0, // Adjust the height as needed
+      height: 250.0,
       child: PageView.builder(
         controller: _pageController,
         itemCount: widget.imageUrls.length,

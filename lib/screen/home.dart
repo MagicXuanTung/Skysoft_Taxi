@@ -5,7 +5,7 @@ import 'package:flutter_map_animations/flutter_map_animations.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:skysoft_taxi/global/global.dart';
 import 'package:skysoft_taxi/models/user.model.dart';
-import 'package:skysoft_taxi/screen/bottom_navigate_bar.dart';
+import 'package:skysoft_taxi/widgets/bottom_navigate_bar.dart';
 
 import '../url/contants.dart';
 import '../widgets/user/reviews.dart';
