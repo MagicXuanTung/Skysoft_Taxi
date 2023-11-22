@@ -19,11 +19,15 @@ class _ActivityDailyState extends State<ActivityDaily> {
             color: const Color.fromARGB(242, 244, 243, 255),
             child: ListView(
               children: [
-                SizedBox(
-                  height: screenHeight / 5,
-                  child: Image.network(
-                    'https://img.freepik.com/premium-vector/taxi-online-service-mobile-application-with-yellow-taxicab-location-map-get-taxi-concept-order-taxi-service-3d-perspective-vector-illustration_473922-237.jpg',
-                    fit: BoxFit.cover,
+                Container(
+                  height: screenHeight / 4,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                        'https://www.taxionthego.com/wp-content/uploads/2019/12/banner_1-min.jpg',
+                      ),
+                      fit: BoxFit.fill,
+                    ),
                   ),
                 ),
                 Stack(

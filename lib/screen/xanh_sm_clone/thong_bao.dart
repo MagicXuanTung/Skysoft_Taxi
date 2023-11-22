@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:skysoft_taxi/screen/xanh_sm_clone/info_coupon.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -202,97 +203,104 @@ class Coupon extends StatelessWidget {
   Widget build(BuildContext context) {
     final formattedDateTime = DateFormat('MM/dd/yyyy HH:mm').format(dateTime);
 
-    return Container(
-      margin: const EdgeInsets.all(8),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Visibility(
-            visible: showCheckbox,
-            child: CheckboxExample(
-              isChecked: false,
-              onCheckboxChanged: onCheckboxChanged,
-            ),
-          ),
-          SizedBox(
-            width: 40,
-            height: 40,
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: Image.network(
-                'https://image.winudf.com/v2/image1/Y29tLnNreXNvZnQuZ3BzX2ljb25fMTU1OTE4NzY5NF8wMjQ/icon.png?w=184&fakeurl=1',
-                width: 120,
-                height: 120,
+    return GestureDetector(
+      onTap: () => {
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const InfoCoupon()),
+        ),
+      },
+      child: Container(
+        margin: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Visibility(
+              visible: showCheckbox,
+              child: CheckboxExample(
+                isChecked: false,
+                onCheckboxChanged: onCheckboxChanged,
               ),
             ),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  formattedDateTime,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.blueGrey,
-                  ),
+            SizedBox(
+              width: 40,
+              height: 40,
+              child: FittedBox(
+                fit: BoxFit.contain,
+                child: Image.network(
+                  'https://image.winudf.com/v2/image1/Y29tLnNreXNvZnQuZ3BzX2ljb25fMTU1OTE4NzY5NF8wMjQ/icon.png?w=184&fakeurl=1',
+                  width: 120,
+                  height: 120,
                 ),
-                const SizedBox(height: 8),
-                Text(
-                  'Đồng giá 40K Xelo đưa bạn đi ăn trưa!',
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.green.shade500,
-                      fontWeight: FontWeight.bold),
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 8),
-                const Row(
-                  children: [
-                    Icon(Icons.sell, color: Colors.blue, size: 16),
-                    SizedBox(width: 8),
-                    Expanded(
-                      child: Text(
-                        'Lên kèo đi chơi, lượn lờ phố phường, tận hưởng buổi trưa vui vẻ cùng người thân!',
-                        style: TextStyle(fontSize: 14, color: Colors.black),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                const Row(
-                  children: [
-                    Icon(Icons.group, color: Colors.blueGrey, size: 16),
-                    SizedBox(width: 8),
-                    Text(
-                      'Lượt sử dụng 1,8k',
-                      style: TextStyle(fontSize: 14, color: Colors.black),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  children: [
-                    Icon(Icons.star, color: Colors.yellow.shade700, size: 16),
-                    const SizedBox(width: 8),
-                    const Text(
-                      'Đánh giá 5 sao',
-                      style: TextStyle(fontSize: 14, color: Colors.black),
-                    ),
-                  ],
-                ),
-              ],
+              ),
             ),
-          ),
-        ],
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    formattedDateTime,
+                    style: const TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.blueGrey,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    'Đồng giá 40K Xelo đưa bạn đi ăn trưa!',
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.green.shade500,
+                        fontWeight: FontWeight.bold),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 8),
+                  const Row(
+                    children: [
+                      Icon(Icons.sell, color: Colors.blue, size: 16),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          'Lên kèo đi chơi, lượn lờ phố phường, tận hưởng buổi trưa vui vẻ cùng người thân!',
+                          style: TextStyle(fontSize: 14, color: Colors.black),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  const Row(
+                    children: [
+                      Icon(Icons.group, color: Colors.blueGrey, size: 16),
+                      SizedBox(width: 8),
+                      Text(
+                        'Lượt sử dụng 1,8k',
+                        style: TextStyle(fontSize: 14, color: Colors.black),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Icon(Icons.star, color: Colors.yellow.shade700, size: 16),
+                      const SizedBox(width: 8),
+                      const Text(
+                        'Đánh giá 5 sao',
+                        style: TextStyle(fontSize: 14, color: Colors.black),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

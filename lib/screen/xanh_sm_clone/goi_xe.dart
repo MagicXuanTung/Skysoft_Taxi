@@ -29,7 +29,7 @@ class _BookingCarState extends State<BookingCar> {
                       image: NetworkImage(
                         'https://www.taxionthego.com/wp-content/uploads/2019/12/banner_1-min.jpg',
                       ),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                     ),
                   ),
                 ),
