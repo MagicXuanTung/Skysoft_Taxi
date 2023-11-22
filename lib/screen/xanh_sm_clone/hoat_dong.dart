@@ -22,7 +22,7 @@ class _ActivityDailyState extends State<ActivityDaily> {
                 SizedBox(
                   height: screenHeight / 5,
                   child: Image.network(
-                    'https://www.shutterstock.com/image-vector/taxi-service-vector-banner-poster-260nw-1470629312.jpg',
+                    'https://img.freepik.com/premium-vector/taxi-online-service-mobile-application-with-yellow-taxicab-location-map-get-taxi-concept-order-taxi-service-3d-perspective-vector-illustration_473922-237.jpg',
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -66,7 +66,12 @@ class _ActivityDailyState extends State<ActivityDaily> {
                         ElevatedButton(
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.blueAccent,
+                            padding: EdgeInsets.symmetric(
+                              vertical: 10,
+                              horizontal:
+                                  MediaQuery.of(context).size.width * 0.1,
+                            ),
+                            backgroundColor: Colors.green,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0),
                             ),
@@ -74,6 +79,7 @@ class _ActivityDailyState extends State<ActivityDaily> {
                           child: const Text(
                             'Đặt xe ngay',
                             style: TextStyle(
+                              fontSize: 15,
                               color: Colors.white,
                               fontWeight: FontWeight.normal,
                             ),

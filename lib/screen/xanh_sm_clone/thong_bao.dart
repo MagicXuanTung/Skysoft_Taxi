@@ -10,15 +10,101 @@ class NotificationPage extends StatefulWidget {
 
 class _NotificationPageState extends State<NotificationPage> {
   bool showCheckbox = false;
+  List<bool> checkboxStates = List.filled(10, false);
 
+  List<Coupon> couponList = [
+    Coupon(
+      id: 0,
+      dateTime: DateTime.now(),
+      showCheckbox: false,
+      onCheckboxChanged: (bool isChecked) {},
+    ),
+    Coupon(
+      id: 2,
+      dateTime: DateTime.now(),
+      showCheckbox: false,
+      onCheckboxChanged: (bool isChecked) {},
+    ),
+    Coupon(
+      id: 3,
+      dateTime: DateTime.now(),
+      showCheckbox: false,
+      onCheckboxChanged: (bool isChecked) {},
+    ),
+    Coupon(
+      id: 4,
+      dateTime: DateTime.now(),
+      showCheckbox: false,
+      onCheckboxChanged: (bool isChecked) {},
+    ),
+    Coupon(
+      id: 5,
+      dateTime: DateTime.now(),
+      showCheckbox: false,
+      onCheckboxChanged: (bool isChecked) {},
+    ),
+    Coupon(
+      id: 6,
+      dateTime: DateTime.now(),
+      showCheckbox: false,
+      onCheckboxChanged: (bool isChecked) {},
+    ),
+    Coupon(
+      id: 7,
+      dateTime: DateTime.now(),
+      showCheckbox: false,
+      onCheckboxChanged: (bool isChecked) {},
+    ),
+  ];
+
+  void handleRemoveButtonPressed() {
+    // Get the indices of checked items
+    List<int> checkedIndices = [];
+    for (int i = 0; i < checkboxStates.length; i++) {
+      if (checkboxStates[i]) {
+        checkedIndices.add(i);
+      }
+    }
+
+    // Remove the checked items from the couponList
+    for (int index in checkedIndices) {
+      // Ensure the index is within the bounds of the list
+      if (index >= 0 && index < couponList.length) {
+        couponList.removeAt(index);
+      }
+    }
+
+    // Clear checkboxStates after removal
+    setState(() {
+      checkboxStates = List.filled(couponList.length, false);
+      showCheckbox = false; // Hide checkboxes after removal
+    });
+  }
+
+//show or hide the checkboxes in the list
   void toggleCheckboxVisibility() {
     setState(() {
       showCheckbox = !showCheckbox;
     });
   }
 
+//the state of a checkbox changes
+  void handleCheckboxChanged(int index, bool isChecked) {
+    setState(() {
+      checkboxStates[index] = isChecked;
+    });
+  }
+
+//checks whether at least one checkbox is checked
+  bool isAnyCheckboxChecked() {
+    return checkboxStates.any((element) => element);
+  }
+
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+    double buttonTopPosition = screenHeight * 0.65;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -42,28 +128,75 @@ class _NotificationPageState extends State<NotificationPage> {
           ),
         ],
       ),
-      body: Container(
-        color: const Color.fromARGB(242, 244, 243, 255),
-        child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          itemCount: 10,
-          itemBuilder: (context, index) => ContainerItem(
-            dateTime: DateTime.now(),
-            showCheckbox: showCheckbox,
+      body: Stack(
+        children: [
+          Container(
+            color: const Color.fromARGB(242, 244, 243, 255),
+            child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              itemCount: couponList.length,
+              itemBuilder: (context, index) => Coupon(
+                id: index, // Pass index as id for simplicity; replace with actual id if available
+                dateTime: couponList[index].dateTime,
+                showCheckbox: showCheckbox,
+                onCheckboxChanged: (isChecked) {
+                  handleCheckboxChanged(index, isChecked);
+                },
+              ),
+            ),
           ),
-        ),
+          Positioned(
+            top: buttonTopPosition,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Visibility(
+              visible: showCheckbox && isAnyCheckboxChecked(),
+              child: Center(
+                child: ElevatedButton(
+                  onPressed: handleRemoveButtonPressed,
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 15,
+                      horizontal: MediaQuery.of(context).size.width * 0.2,
+                    ),
+                    backgroundColor: Colors.red,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                  ),
+                  child: const Text(
+                    'Xóa 1 thông báo',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
-class ContainerItem extends StatelessWidget {
+// ITEMS IN CONTAINER
+class Coupon extends StatelessWidget {
   final DateTime dateTime;
   final bool showCheckbox;
+  final Function(bool) onCheckboxChanged;
+  final int id;
 
-  const ContainerItem(
-      {Key? key, required this.dateTime, required this.showCheckbox})
-      : super(key: key);
+  const Coupon({
+    Key? key,
+    required this.dateTime,
+    required this.showCheckbox,
+    required this.onCheckboxChanged,
+    required this.id,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -81,11 +214,14 @@ class ContainerItem extends StatelessWidget {
         children: [
           Visibility(
             visible: showCheckbox,
-            child: const CheckboxExample(),
+            child: CheckboxExample(
+              isChecked: false,
+              onCheckboxChanged: onCheckboxChanged,
+            ),
           ),
           SizedBox(
-            width: 40, // Adjust the width as needed
-            height: 40, // Adjust the height as needed
+            width: 40,
+            height: 40,
             child: FittedBox(
               fit: BoxFit.contain,
               child: Image.network(
@@ -162,15 +298,29 @@ class ContainerItem extends StatelessWidget {
   }
 }
 
+// CHECK BOX
 class CheckboxExample extends StatefulWidget {
-  const CheckboxExample({Key? key}) : super(key: key);
+  final bool isChecked;
+  final Function(bool) onCheckboxChanged;
+
+  const CheckboxExample({
+    Key? key,
+    required this.isChecked,
+    required this.onCheckboxChanged,
+  }) : super(key: key);
 
   @override
   State<CheckboxExample> createState() => _CheckboxExampleState();
 }
 
 class _CheckboxExampleState extends State<CheckboxExample> {
-  bool isChecked = false;
+  late bool isChecked;
+
+  @override
+  void initState() {
+    super.initState();
+    isChecked = false; // Set the initial value here if needed
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -193,6 +343,7 @@ class _CheckboxExampleState extends State<CheckboxExample> {
       onChanged: (bool? value) {
         setState(() {
           isChecked = value!;
+          widget.onCheckboxChanged(isChecked);
         });
       },
     );

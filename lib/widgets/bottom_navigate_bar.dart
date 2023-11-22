@@ -16,6 +16,7 @@ class _BottomNavigateBarState extends State<BottomNavigateBar> {
   final List<Widget> _pages = [
     const BookingCar(),
     const ActivityDaily(),
+    const NotificationPage(),
     const NotificationPage()
   ];
 
