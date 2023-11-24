@@ -133,16 +133,19 @@ class _NotificationPageState extends State<NotificationPage> {
         children: [
           Container(
             color: const Color.fromARGB(242, 244, 243, 255),
-            child: ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: couponList.length,
-              itemBuilder: (context, index) => Coupon(
-                id: index, // Pass index as id for simplicity; replace with actual id if available
-                dateTime: couponList[index].dateTime,
-                showCheckbox: showCheckbox,
-                onCheckboxChanged: (isChecked) {
-                  handleCheckboxChanged(index, isChecked);
-                },
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 60),
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: couponList.length,
+                itemBuilder: (context, index) => Coupon(
+                  id: index,
+                  dateTime: couponList[index].dateTime,
+                  showCheckbox: showCheckbox,
+                  onCheckboxChanged: (isChecked) {
+                    handleCheckboxChanged(index, isChecked);
+                  },
+                ),
               ),
             ),
           ),

@@ -27,7 +27,7 @@ class _ActivityDailyState extends State<ActivityDaily> {
                       image: NetworkImage(
                         'https://neetable.com/img/blog/blog-inner/taxi-app-service/what-are-the-key-components-of-a-taxi-booking-app.jpg',
                       ),
-                      fit: BoxFit.fill,
+                      fit: BoxFit.cover,
                     ),
                   ),
                 ),

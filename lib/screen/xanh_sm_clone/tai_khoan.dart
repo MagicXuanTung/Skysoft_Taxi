@@ -20,7 +20,6 @@ class _ProfilePageState extends State<ProfilePage> {
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Container(
-            // height: screenHeight,
             color: const Color.fromARGB(242, 244, 243, 255),
             child: Stack(
               children: [
@@ -33,7 +32,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           image: NetworkImage(
                             'https://www.pyramidions.com/blog/wp-content/uploads/2018/10/Big-Data.jpg',
                           ),
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ),
@@ -48,7 +47,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         },
                         child: Container(
                           height: 100,
-                          width: 500,
+                          width: 5 * MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(

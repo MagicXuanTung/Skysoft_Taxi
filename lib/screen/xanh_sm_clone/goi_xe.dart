@@ -15,11 +15,11 @@ class _BookingCarState extends State<BookingCar> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            color: const Color.fromARGB(242, 244, 243, 255),
-            child: Column(
+      body: Container(
+        color: const Color.fromARGB(242, 244, 243, 255),
+        child: Stack(
+          children: [
+            Column(
               children: [
                 SizedBox(
                   height: screenHeight / 4,
@@ -28,7 +28,7 @@ class _BookingCarState extends State<BookingCar> {
                       Positioned.fill(
                         child: Image.network(
                           'https://www.taxionthego.com/wp-content/uploads/2019/12/banner_1-min.jpg',
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                         ),
                       ),
                       Positioned.fill(
@@ -63,9 +63,10 @@ class _BookingCarState extends State<BookingCar> {
                 ),
                 const SizedBox(height: 35),
                 SizedBox(
-                  width: 320,
+                  width: 0.9 * MediaQuery.of(context).size.width,
                   height: 50,
                   child: ListView(
+                    physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     children: [
                       SaveMaker(
@@ -164,9 +165,10 @@ class _BookingCarState extends State<BookingCar> {
                 ),
                 const SizedBox(height: 30),
                 SizedBox(
-                  width: 320,
+                  width: 0.9 * MediaQuery.of(context).size.width,
                   height: 90,
                   child: ListView(
+                    physics: const BouncingScrollPhysics(),
                     scrollDirection: Axis.horizontal,
                     children: [
                       ButtonImage(
@@ -241,88 +243,88 @@ class _BookingCarState extends State<BookingCar> {
                 ),
               ],
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 0.05 * MediaQuery.of(context).size.width,
-              vertical: 0.21 * screenHeight,
-            ),
-            child: GestureDetector(
-              onTap: () {
-                log("Bạn muốn đi đâu ?");
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(15.0),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 0.1,
-                      blurRadius: 20,
-                      offset: const Offset(0, 10),
-                    ),
-                  ],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 10.0,
-                    vertical: 0.2,
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(Icons.flag,
-                          color: Color.fromARGB(255, 255, 64, 64)),
-                      const SizedBox(width: 10),
-                      const Text(
-                        'Bạn muốn đi đâu ?',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w400,
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const Spacer(),
-                      ElevatedButton(
-                        onPressed: () {
-                          log("bản đồ");
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.grey.shade200,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 5, vertical: 8),
-                          elevation: 0,
-                        ),
-                        child: const Row(
-                          children: [
-                            Icon(
-                              Icons.map,
-                              size: 13,
-                              color: Colors.black,
-                            ),
-                            SizedBox(width: 2),
-                            Text(
-                              'Bản Đồ',
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ],
-                        ),
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 0.05 * MediaQuery.of(context).size.width,
+                vertical: 0.22 * MediaQuery.of(context).size.height,
+              ),
+              child: GestureDetector(
+                onTap: () {
+                  log("Bạn muốn đi đâu ?");
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15.0),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 0.1,
+                        blurRadius: 20,
+                        offset: const Offset(0, 10),
                       ),
                     ],
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10.0,
+                      vertical: 0.2,
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.flag,
+                            color: Color.fromARGB(255, 255, 64, 64)),
+                        const SizedBox(width: 10),
+                        const Text(
+                          'Bạn muốn đi đâu ?',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const Spacer(),
+                        ElevatedButton(
+                          onPressed: () {
+                            log("bản đồ");
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.grey.shade200,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30.0),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 5, vertical: 8),
+                            elevation: 0,
+                          ),
+                          child: const Row(
+                            children: [
+                              Icon(
+                                Icons.map,
+                                size: 13,
+                                color: Colors.black,
+                              ),
+                              SizedBox(width: 2),
+                              Text(
+                                'Bản Đồ',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -485,6 +487,7 @@ class _HorizontalImageSliderState extends State<HorizontalImageSlider> {
     return SizedBox(
       height: 250.0,
       child: PageView.builder(
+        physics: const BouncingScrollPhysics(),
         controller: _pageController,
         itemCount: widget.imageUrls.length,
         onPageChanged: (index) {
