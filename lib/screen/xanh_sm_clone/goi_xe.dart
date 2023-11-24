@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:skysoft_taxi/screen/home.dart';
 
 class BookingCar extends StatefulWidget {
   const BookingCar({Key? key}) : super(key: key);
@@ -288,6 +289,8 @@ class _BookingCarState extends State<BookingCar> {
                         ElevatedButton(
                           onPressed: () {
                             log("bản đồ");
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => const Home()));
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.grey.shade200,

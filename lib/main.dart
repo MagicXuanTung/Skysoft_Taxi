@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:skysoft_taxi/screen/home.dart';
+import 'package:skysoft_taxi/screen/login_screen.dart';
 import 'package:skysoft_taxi/util/notification_controller.dart';
-import 'package:skysoft_taxi/widgets/bottom_navigate_bar.dart';
 
 void main() async {
   await NotificationController.initializeLocalNotifications();
@@ -29,6 +30,6 @@ class _MyAppState extends State<MyApp> {
         navigatorKey: MyApp.navigatorKey,
         debugShowCheckedModeBanner: false,
         title: 'SKYSOFT Map',
-        home: const BottomNavigateBar());
+        home: const LoginScreen());
   }
 }

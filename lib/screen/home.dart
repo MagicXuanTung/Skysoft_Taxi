@@ -302,25 +302,6 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                 ),
               ),
             ),
-            //màn hình DriverInfor
-            Visibility(
-              visible: isDriverInfo,
-              child: SlidingUpPanel(
-                minHeight: 600,
-                maxHeight: 600,
-                backdropEnabled: true,
-                borderRadius:
-                    const BorderRadius.vertical(top: Radius.circular(20.0)),
-                panel: const Material(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20.0),
-                    topRight: Radius.circular(20.0),
-                  ),
-                  child: DriverInfo(),
-                ),
-              ),
-            ),
-            const BottomNavigateBar(),
           ],
         ),
       ),

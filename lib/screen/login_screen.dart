@@ -3,6 +3,7 @@ import 'package:skysoft_taxi/global/global.dart';
 import 'package:skysoft_taxi/models/user.model.dart';
 import 'package:skysoft_taxi/screen/home.dart';
 import 'package:skysoft_taxi/screen/home_driver.dart';
+import 'package:skysoft_taxi/screen/xanh_sm_clone/goi_xe.dart';
 
 import 'register_screen.dart';
 
