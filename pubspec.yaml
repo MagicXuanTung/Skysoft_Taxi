@@ -54,6 +54,8 @@ dependencies:
   sliding_up_panel: ^2.0.0+1
   web_socket_channel: ^2.4.0
   intl: ^0.18.1
+  awesome_notifications: ^0.8.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

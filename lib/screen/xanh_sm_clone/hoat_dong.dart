@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 class ActivityDaily extends StatefulWidget {
@@ -11,7 +13,6 @@ class _ActivityDailyState extends State<ActivityDaily> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
       body: Stack(
         children: [
@@ -24,7 +25,7 @@ class _ActivityDailyState extends State<ActivityDaily> {
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: NetworkImage(
-                        'https://www.taxionthego.com/wp-content/uploads/2019/12/banner_1-min.jpg',
+                        'https://neetable.com/img/blog/blog-inner/taxi-app-service/what-are-the-key-components-of-a-taxi-booking-app.jpg',
                       ),
                       fit: BoxFit.fill,
                     ),
@@ -41,7 +42,7 @@ class _ActivityDailyState extends State<ActivityDaily> {
                           height: screenHeight / 12,
                           child: ClipOval(
                             child: Image.network(
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfywSMGV0KkBIMFVH4PkRlH63yLFhXjL56tQ&usqp=CAU',
+                              'https://image.winudf.com/v2/image1/Y29tLnNreXNvZnQuZ3BzX2ljb25fMTU1OTE4NzY5NF8wMjQ/icon.png?w=184&fakeurl=1',
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -68,7 +69,10 @@ class _ActivityDailyState extends State<ActivityDaily> {
                         ),
                         const SizedBox(height: 10),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            // sendNotificationOrder();
+                            log('Đặt xe ngay');
+                          },
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.symmetric(
                               vertical: 10,

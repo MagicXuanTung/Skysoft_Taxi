@@ -1,6 +1,9 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone/goi_xe.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone/hoat_dong.dart';
+import 'package:skysoft_taxi/screen/xanh_sm_clone/tai_khoan.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone/thong_bao.dart';
 
 class BottomNavigateBar extends StatefulWidget {
@@ -17,7 +20,7 @@ class _BottomNavigateBarState extends State<BottomNavigateBar> {
     const BookingCar(),
     const ActivityDaily(),
     const NotificationPage(),
-    const NotificationPage()
+    const ProfilePage()
   ];
 
   @override

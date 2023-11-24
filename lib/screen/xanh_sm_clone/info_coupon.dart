@@ -14,19 +14,24 @@ class InfoCoupon extends StatelessWidget {
           children: [
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.11,
-              child: const Row(
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 16.0),
-                    child: Icon(
-                      Icons.arrow_back_ios_new,
-                      size: 22,
-                      color: Colors.black,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.only(left: 16.0),
+                      child: Icon(
+                        Icons.arrow_back_ios_new,
+                        size: 22,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
-                  Spacer(),
-                  Padding(
+                  const Spacer(),
+                  const Padding(
                     padding: EdgeInsets.only(right: 16.0),
                     child: Icon(
                       Icons.share,

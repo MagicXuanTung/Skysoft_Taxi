@@ -167,7 +167,7 @@ class _NotificationPageState extends State<NotificationPage> {
                     ),
                   ),
                   child: const Text(
-                    'Xóa 1 thông báo',
+                    'Xóa thông báo',
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,

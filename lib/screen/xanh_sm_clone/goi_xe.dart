@@ -14,7 +14,6 @@ class _BookingCarState extends State<BookingCar> {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
       body: Stack(
         children: [
@@ -22,15 +21,44 @@ class _BookingCarState extends State<BookingCar> {
             color: const Color.fromARGB(242, 244, 243, 255),
             child: Column(
               children: [
-                Container(
+                SizedBox(
                   height: screenHeight / 4,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        'https://www.taxionthego.com/wp-content/uploads/2019/12/banner_1-min.jpg',
+                  child: Stack(
+                    children: [
+                      Positioned.fill(
+                        child: Image.network(
+                          'https://www.taxionthego.com/wp-content/uploads/2019/12/banner_1-min.jpg',
+                          fit: BoxFit.fill,
+                        ),
                       ),
-                      fit: BoxFit.fill,
-                    ),
+                      Positioned.fill(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.5),
+                          ),
+                        ),
+                      ),
+                      const Positioned(
+                        top: 90,
+                        left: 20,
+                        // bottom: 0,
+                        // right: 0,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Chào I Am Aang,',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 35),
