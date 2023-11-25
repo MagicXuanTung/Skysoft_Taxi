@@ -1,13 +1,11 @@
-// ignore_for_file: file_names
-
-import 'dart:developer';
+// ignore_for_file: non_constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:skysoft_taxi/global/global.dart';
 
 class PaymentInfo extends StatefulWidget {
-  final VoidCallback cashPaymentReceived;
-  const PaymentInfo({Key? key, required this.cashPaymentReceived})
+  final VoidCallback CashPaymentReceived;
+  const PaymentInfo({Key? key, required this.CashPaymentReceived})
       : super(key: key);
 
   @override
@@ -166,8 +164,8 @@ class _PaymentInfoState extends State<PaymentInfo> {
           ),
           child: InkWell(
             onTap: () {
-              log('cash');
-              widget.cashPaymentReceived();
+              print('cash');
+              widget.CashPaymentReceived();
             },
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 12),

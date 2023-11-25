@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:skysoft_taxi/global/global.dart';
+import 'package:skysoft_taxi/screen/login_screen.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -108,7 +110,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         horizontal: 0.05 * MediaQuery.of(context).size.width,
                       ),
                       child: Container(
-                        height: 290,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(15.0),
@@ -174,7 +175,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         horizontal: 0.05 * MediaQuery.of(context).size.width,
                       ),
                       child: Container(
-                        height: 170,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(15.0),
@@ -212,6 +212,19 @@ class _ProfilePageState extends State<ProfilePage> {
                               onTap: () {
                                 log('Ngôn Ngữ (Language)');
                               },
+                            ),
+                            SmallContainer(
+                              iconLeft: Icons.logout,
+                              text: 'Đăng xuất',
+                              iconRight: Icons.chevron_right,
+                              onTap: () {
+                                log('Đăng xuất');
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => const LoginScreen(),
+                                  ),
+                                );
+                              },
                               isLast: true,
                             ),
                           ],
@@ -224,7 +237,6 @@ class _ProfilePageState extends State<ProfilePage> {
                         horizontal: 0.05 * MediaQuery.of(context).size.width,
                       ),
                       child: Container(
-                        height: 55,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(15.0),
@@ -330,29 +342,32 @@ class _ProfilePageState extends State<ProfilePage> {
                               ),
                             ),
                             const SizedBox(width: 20),
-                            const Expanded(
+                            Expanded(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'I Am Aang',
-                                    style: TextStyle(
+                                    userModel.name,
+                                    style: const TextStyle(
                                       fontSize: 20,
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
+                                      fontStyle: FontStyle.italic,
                                     ),
                                     overflow: TextOverflow.ellipsis,
+                                    maxLines: 2,
                                   ),
-                                  SizedBox(height: 5),
-                                  Text(
+                                  const SizedBox(height: 5),
+                                  const Text(
                                     '037.455.1092',
                                     style: TextStyle(
                                       fontSize: 12,
-                                      color: Colors.black,
+                                      color: Colors.blue,
                                       fontWeight: FontWeight.bold,
                                     ),
                                     overflow: TextOverflow.ellipsis,
+                                    maxLines: 1,
                                   ),
                                 ],
                               ),
@@ -435,16 +450,16 @@ class _SmallContainerState extends State<SmallContainer> {
                   children: [
                     Icon(
                       widget.iconLeft,
-                      size: 25,
-                      color: Colors.black,
+                      size: 20,
+                      color: Colors.blueGrey,
                     ),
                     const SizedBox(width: 10),
                     Text(
                       widget.text,
                       style: const TextStyle(
-                        fontSize: 15,
+                        fontSize: 16,
                         color: Colors.black,
-                        fontWeight: FontWeight.normal,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],

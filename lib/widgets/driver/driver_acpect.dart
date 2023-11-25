@@ -14,8 +14,7 @@ class DriverAcpect extends StatelessWidget {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
-        margin: EdgeInsets.only(
-            top: screenHeight * 0.5), // Adjust this value as needed
+        margin: EdgeInsets.only(top: screenHeight * 0.5),
         child: Dialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
@@ -42,7 +41,7 @@ class DriverAcpect extends StatelessWidget {
                                 padding: EdgeInsets.only(top: 15),
                                 child: CircleAvatar(
                                   backgroundImage: NetworkImage(
-                                    'https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png',
+                                    'https://www.shareicon.net/data/512x512/2016/05/24/770137_man_512x512.png',
                                   ),
                                 ),
                               ),
@@ -103,7 +102,7 @@ class DriverAcpect extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(right: 5),
+                          padding: const EdgeInsets.only(right: 10),
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30),
@@ -134,7 +133,9 @@ class DriverAcpect extends StatelessWidget {
               const SizedBox(
                 width: 300,
                 child: LinearProgressIndicator(
-                    color: Colors.orangeAccent, backgroundColor: Colors.blue),
+                  color: Colors.orangeAccent,
+                  backgroundColor: Colors.blue,
+                ),
               ),
               const SizedBox(height: 10),
               const Column(
@@ -144,9 +145,9 @@ class DriverAcpect extends StatelessWidget {
                       SizedBox(width: 8),
                       Icon(
                         Icons.near_me,
-                        color: Colors.grey, // Set the icon color to grey
+                        color: Colors.grey,
                       ),
-                      SizedBox(width: 8), // Add spacing between icon and text
+                      SizedBox(width: 8),
                       Flexible(
                         child: Text(
                           '1190-Mission Street, West Somarrow 213546789',
@@ -154,10 +155,10 @@ class DriverAcpect extends StatelessWidget {
                             fontFamily: 'Outfit',
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
-                            color: Colors.grey, // Set the text color to grey
+                            color: Colors.grey,
                           ),
                           overflow: TextOverflow.ellipsis,
-                          maxLines: 1, // Adjust the number of lines
+                          maxLines: 1,
                         ),
                       ),
                     ],
@@ -168,9 +169,9 @@ class DriverAcpect extends StatelessWidget {
                       SizedBox(width: 8),
                       Icon(
                         Icons.location_on,
-                        color: Colors.grey, // Set the icon color to grey
+                        color: Colors.grey,
                       ),
-                      SizedBox(width: 8), // Add spacing between icon and text
+                      SizedBox(width: 8),
                       Flexible(
                         child: Text(
                           '1190-Mission Street, West Somarrow 123123132131',
@@ -178,10 +179,10 @@ class DriverAcpect extends StatelessWidget {
                             fontFamily: 'Outfit',
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
-                            color: Colors.grey, // Set the text color to grey
+                            color: Colors.grey,
                           ),
                           overflow: TextOverflow.ellipsis,
-                          maxLines: 1, // Adjust the number of lines
+                          maxLines: 1,
                         ),
                       ),
                     ],
@@ -203,7 +204,7 @@ class DriverAcpect extends StatelessWidget {
                       ),
                       child: ElevatedButton(
                         onPressed: () {
-                          log('Acpect Booking');
+                          log('Accept Booking');
                           onAcpectBooking();
                         },
                         style: ElevatedButton.styleFrom(

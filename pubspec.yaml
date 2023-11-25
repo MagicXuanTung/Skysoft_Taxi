@@ -55,6 +55,15 @@ dependencies:
   web_socket_channel: ^2.4.0
   intl: ^0.18.1
   awesome_notifications: ^0.8.2
+  path_provider: ^2.1.1
+  permission_handler: ^11.0.1
+  audio_session: ^0.1.18
+  flutter_sound: ^9.2.13
+  file_picker: ^6.1.1
+  audio_waveforms: ^1.0.4
+  share_plus: ^7.2.1
+  bluetooth_connector: ^0.0.3
+  flutter_bluetooth_serial: ^0.4.0
 
 dev_dependencies:
   flutter_test:

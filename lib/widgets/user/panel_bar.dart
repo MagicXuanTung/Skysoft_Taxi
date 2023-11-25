@@ -66,7 +66,7 @@ class _PanelBarState extends State<PanelBar> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-              const SizedBox(height: 16.0),
+              SizedBox(height: 16.0),
               Expanded(
                 child: ListView(
                   children: [

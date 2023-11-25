@@ -19,6 +19,7 @@ class _ActivityDailyState extends State<ActivityDaily> {
           Container(
             color: const Color.fromARGB(242, 244, 243, 255),
             child: ListView(
+              physics: BouncingScrollPhysics(),
               children: [
                 Container(
                   height: screenHeight / 4,

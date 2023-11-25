@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:skysoft_taxi/screen/home.dart';
 import 'package:skysoft_taxi/screen/login_screen.dart';
+
 import 'package:skysoft_taxi/util/notification_controller.dart';
 
 void main() async {
@@ -26,6 +28,10 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
         navigatorKey: MyApp.navigatorKey,
         debugShowCheckedModeBanner: false,

@@ -1,69 +1,74 @@
+import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:skysoft_taxi/url/contants.dart';
+import 'package:http/http.dart';
+import 'package:skysoft_taxi/audiochat_widget/audio_message.dart';
+import 'package:skysoft_taxi/audiochat_widget/input_voice.dart';
+import 'package:skysoft_taxi/global/global.dart';
+import 'package:skysoft_taxi/models/user.model.dart';
+import 'package:skysoft_taxi/screen_test/globaltest.dart';
+import 'package:skysoft_taxi/services/ChatService.dart';
+import 'package:skysoft_taxi/view/message_view.dart';
 
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/status.dart' as status;
 
-import '../../global/global.dart';
-
-class ChatScreen extends StatefulWidget {
-  const ChatScreen({Key? key}) : super(key: key);
+class ChatWithDriverScreen extends StatefulWidget {
+  const ChatWithDriverScreen({Key? key}) : super(key: key);
   @override
   State createState() => ChatScreenState();
 }
 
-class ChatMessage {
-  final String text;
-  final bool isUser;
-
-  ChatMessage({required this.text, required this.isUser});
-}
-
-class ChatScreenState extends State<ChatScreen> {
-  final FocusNode textFocus = FocusNode();
-  final List<ChatMessage> messages = [];
-  String formattedDate = DateTime.now().toString();
-  final TextEditingController textController = TextEditingController();
-  final channel = IOWebSocketChannel.connect("${URL_CHAT}ND_Dong");
+class ChatScreenState extends State<ChatWithDriverScreen>
+    with SingleTickerProviderStateMixin {
+  final player = AudioPlayer();
+  DateTime? time;
+  final List<MessageView> messages = [];
+  StreamSubscription<dynamic>? subscription;
+  // final channel = IOWebSocketChannel.connect(
+  //     URL_WS + userModel.role + "_" + userModel.name);
 
   @override
   void initState() {
     super.initState();
 
-    // // Gửi tin nhắn lên server khi màn hình được khởi tạo
-    // channel.sink.add(jsonEncode(
-    //     {"message": "Bắt đầu chat", "sender": "Guest", "received": ""}));
-
-    channel.stream.listen((message) {
-      // print("ChatScreen: " + message);
-
-      final Map<String, dynamic> messageData = jsonDecode(message);
-      final String receivedMessage = messageData['message'];
-
-      // Thêm tin nhắn từ máy chủ vào danh sách messages
-      messages.insert(0, ChatMessage(text: receivedMessage, isUser: false));
+    getAll().then((value) {
+      final resver = value.reversed;
+      for (var element in resver) {
+        //log("message: $element");
+        // final Map<String, dynamic> model = jsonDecode(element);
+        messages.add(MessageView(
+            content: element["chatId"],
+            rightSide: element["name"] == userModel.name));
+      }
       setState(() {});
     });
+    if (subscription != null) {
+      subscription ==
+          channel.stream.listen((message) {
+            final Map<String, dynamic> messageData = jsonDecode(message);
+            print(message);
+
+            final String receivedMessage = messageData['message'];
+            if (messageData["sender"] == userModel.name) {
+              return;
+            }
+            MessageView mes =
+                MessageView(content: receivedMessage, rightSide: false);
+            messages.insert(0, mes);
+            setState(() {});
+          });
+    }
   }
 
   @override
   void dispose() {
     channel.sink.close(status.goingAway);
+    subscription?.cancel();
+    player.dispose();
     super.dispose();
-  }
-
-  void SubmittedMessage(String text) {
-    if (text.isNotEmpty) {
-      messages.insert(0, ChatMessage(text: text, isUser: true));
-      channel.sink.add(jsonEncode({
-        "message": text,
-        "sender": "Phạm Đức Đông",
-        "received": formattedDate
-      }));
-      textController.clear();
-      setState(() {});
-    }
   }
 
   @override
@@ -71,27 +76,31 @@ class ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 90,
-        backgroundColor: const Color.fromARGB(255, 57, 56, 56),
+        backgroundColor: Colors.blue[400],
         title: Text(
           driverModel.name,
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 16.0),
+            padding: const EdgeInsets.only(right: 16.0),
             child: CircleAvatar(
               radius: 35,
               backgroundImage: NetworkImage(
-                'https://cdn0.iconfinder.com/data/icons/taxi-12/500/SingleCartoonTaxiYulia_10-512.png',
+                'https://cdn.thuvienphapluat.vn/uploads/Hoidapphapluat/2023/MDV/Thang-1/van-chuyen-hanh-khach.jpg',
               ),
             ),
           ),
         ],
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
-            textFocus.unfocus();
-            Navigator.of(context).pop();
+            Navigator.of(context).pop({
+              if (driverModel.status == Status.BUSY)
+                {
+                  {driverModel.name = driverModel.name}
+                }
+            });
           },
         ),
       ),
@@ -103,72 +112,40 @@ class ChatScreenState extends State<ChatScreen> {
               itemCount: messages.length,
               itemBuilder: (BuildContext context, int index) {
                 final message = messages[index];
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Align(
-                    alignment: message.isUser
-                        ? Alignment.centerRight
-                        : Alignment.centerLeft,
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                        maxWidth: MediaQuery.of(context).size.width * 0.7,
-                      ),
-                      child: Container(
-                        padding: const EdgeInsets.all(16.0),
-                        decoration: BoxDecoration(
-                          color: message.isUser
-                              ? const Color.fromARGB(255, 57, 56, 56)
-                              : Colors.grey[300],
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text(
-                          message.text,
-                          style: TextStyle(
-                              color: message.isUser
-                                  ? Colors.grey[300]
-                                  : const Color.fromARGB(255, 57, 56, 56)),
-                        ),
-                      ),
-                    ),
-                  ),
+
+                return AudioMessageWidget(
+                  audioURL: message.content,
+                  player: player,
+                  favorite: message.favorite,
+                  rightSide: message.rightSide,
+                  tag: message.tag,
+                  autoPlay: message.autoPlay,
+                  time: DateTime.now(),
                 );
               },
             ),
           ),
-          const Divider(height: 1.0),
-          const SizedBox(height: 5),
+          SizedBox(height: 10),
+          Divider(height: 1.0),
+          SizedBox(height: 10),
           Container(
+            height: 250,
             decoration: BoxDecoration(
               color: Theme.of(context).cardColor,
             ),
-            child: Row(
-              children: <Widget>[
-                Flexible(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: TextField(
-                      focusNode: textFocus,
-                      controller: textController,
-                      onSubmitted: SubmittedMessage,
-                      decoration: InputDecoration(
-                        hintText: 'Nhập tin nhắn...',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                IconButton(
-                  color: const Color.fromARGB(255, 57, 56, 56),
-                  iconSize: 40,
-                  icon: const Icon(Icons.send),
-                  onPressed: () => SubmittedMessage(textController.text),
-                ),
-              ],
+            child: InputVoice(
+              onDone: (isDone, chatId) {
+                if (isDone) {
+                  messages.insert(
+                      0,
+                      MessageView(
+                          content: chatId, rightSide: true, autoPlay: true));
+                  setState(() {});
+                }
+              },
             ),
           ),
-          const SizedBox(height: 5),
+          SizedBox(height: 5),
         ],
       ),
     );

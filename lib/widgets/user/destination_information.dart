@@ -1,7 +1,3 @@
-// ignore_for_file: library_private_types_in_public_api
-
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -51,32 +47,15 @@ class _DestinationInformationState extends State<DestinationInformation> {
               controller: controller,
               children: <Widget>[
                 Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  margin: const EdgeInsets.only(bottom: 5, left: 5),
-                  decoration: BoxDecoration(
-                    border: Border(
-                      bottom: BorderSide(
-                        color: Colors.grey[300]!,
-                        width: 1.0,
-                      ),
-                    ),
-                  ),
-                  child: const Text(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  margin: EdgeInsets.only(bottom: 5, left: 5),
+                  child: Text(
                     'Hà Nội',
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(left: 16.0, top: 16),
-                  child: const Text('Thời gian: 150 phút',
-                      style: TextStyle(fontSize: 18)),
-                ),
-                Container(
-                  padding:
-                      const EdgeInsets.only(left: 16.0, top: 10, bottom: 16),
                   decoration: BoxDecoration(
                     border: Border(
                       bottom: BorderSide(
@@ -85,17 +64,33 @@ class _DestinationInformationState extends State<DestinationInformation> {
                       ),
                     ),
                   ),
-                  child: const Text('Quãng đường: 117 km',
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 16.0, top: 16),
+                  child: Text('Thời gian: 150 phút',
                       style: TextStyle(fontSize: 18)),
                 ),
-                const SizedBox(height: 16.0),
+                Container(
+                  padding: EdgeInsets.only(left: 16.0, top: 10, bottom: 16),
+                  child: Text('Quãng đường: 117 km',
+                      style: TextStyle(fontSize: 18)),
+                  decoration: BoxDecoration(
+                    border: Border(
+                      bottom: BorderSide(
+                        color: Colors.grey[300]!,
+                        width: 1.0,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16.0),
                 Row(
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 16.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          log('instruction');
+                          print('instruction');
                         },
                         style: ButtonStyle(
                           backgroundColor:
@@ -105,7 +100,7 @@ class _DestinationInformationState extends State<DestinationInformation> {
                             borderRadius: BorderRadius.circular(30.0),
                           )),
                         ),
-                        child: const Row(
+                        child: Row(
                           children: [
                             Icon(Icons.directions, size: 24),
                             Text(' Đường đi'),
@@ -117,7 +112,7 @@ class _DestinationInformationState extends State<DestinationInformation> {
                       padding: const EdgeInsets.only(left: 16.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          log('start');
+                          print('start');
                           widget.bookCar();
                         },
                         style: ButtonStyle(
@@ -128,7 +123,7 @@ class _DestinationInformationState extends State<DestinationInformation> {
                             borderRadius: BorderRadius.circular(30.0),
                           )),
                         ),
-                        child: const Row(
+                        child: Row(
                           children: [
                             Icon(Icons.assistant_navigation, size: 24),
                             Text(' Đặt xe'),

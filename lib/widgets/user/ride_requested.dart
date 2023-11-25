@@ -18,10 +18,10 @@ class _RideRequestedState extends State<RideRequested> {
         child: Padding(
           padding: const EdgeInsets.all(0.0),
           child: Container(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(16.0),
             child: ListView(
               children: [
-                const Text(
+                Text(
                   'Ride Requested',
                   style: TextStyle(
                     fontSize: 24,
@@ -29,17 +29,16 @@ class _RideRequestedState extends State<RideRequested> {
                   ),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 18.0),
-                const LinearProgressIndicator(
-                    color: Colors.orangeAccent, backgroundColor: Colors.blue),
-                const SizedBox(height: 18.0),
-                const Text(
+                SizedBox(height: 18.0),
+                LinearProgressIndicator(),
+                SizedBox(height: 18.0),
+                Text(
                   'We are looking for the nearest driver for you',
                   style: TextStyle(
                     fontSize: 18,
                   ),
                 ),
-                const SizedBox(height: 18.0),
+                SizedBox(height: 18.0),
                 ElevatedButton(
                   onPressed: () {
                     print('cancel requested');
@@ -54,7 +53,7 @@ class _RideRequestedState extends State<RideRequested> {
                     backgroundColor:
                         MaterialStateProperty.all(Colors.grey[200]),
                   ),
-                  child: const Text('Cancel Request',
+                  child: Text('Cancel Request',
                       style: TextStyle(color: Colors.black)),
                 ),
               ],

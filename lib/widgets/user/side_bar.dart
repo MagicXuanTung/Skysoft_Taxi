@@ -1,9 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:skysoft_taxi/global/global.dart';
-
-import '../../screen/login_screen.dart';
+import 'package:skysoft_taxi/screen/login_screen.dart';
 
 class SideBar extends StatefulWidget {
   const SideBar({super.key});
@@ -133,27 +131,25 @@ class _SideBarState extends State<SideBar> {
   Widget _buildHeader() {
     return Container(
       padding: const EdgeInsets.all(50),
-      child: Row(
+      child: const Row(
         children: [
-          const CircleAvatar(
+          CircleAvatar(
             radius: 40,
             backgroundImage: NetworkImage(
                 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm3RFDZM21teuCMFYx_AROjt-AzUwDBROFww&usqp=CAU'),
           ),
-          const SizedBox(width: 10),
+          SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  userModel.name,
-                  style: const TextStyle(
+                  'User Name',
+                  style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
                   ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 3,
                 ),
               ],
             ),

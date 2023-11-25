@@ -14,21 +14,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _signUpPasswordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
 
-  // late UserModel user;
   final _emailFocusNode = FocusNode();
   final _passwordFocusNode = FocusNode();
   final _confirmPasswordFocusNode = FocusNode();
 
-  bool isEmailFieldEmpty = true; // icon delete text
-  bool isPasswordFieldEmpty = true; // icon show the password
+  bool isEmailFieldEmpty = true;
+  bool isPasswordFieldEmpty = true;
   bool _obscurePassword = true;
-  bool _obscureconfirmPassword = true;
+  bool _obscureConfirmPassword = true;
 
   @override
   void dispose() {
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
+    _confirmPasswordFocusNode.dispose();
     super.dispose();
+  }
+
+  bool _validatePassword() {
+    return _signUpPasswordController.text == _confirmPasswordController.text;
   }
 
   @override
@@ -185,19 +189,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               : IconButton(
                                   color: Colors.black,
                                   icon: Icon(
-                                    _obscureconfirmPassword
+                                    _obscureConfirmPassword
                                         ? Icons.visibility
                                         : Icons.visibility_off,
                                   ),
                                   onPressed: () {
                                     setState(() {
-                                      _obscureconfirmPassword =
-                                          !_obscureconfirmPassword;
+                                      _obscureConfirmPassword =
+                                          !_obscureConfirmPassword;
                                     });
                                   },
                                 ),
                         ),
-                        obscureText: _obscureconfirmPassword,
+                        obscureText: _obscureConfirmPassword,
                         onChanged: (text) {
                           setState(() {
                             isPasswordFieldEmpty = text.isEmpty;
@@ -211,14 +215,69 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   //sign in button
                   GestureDetector(
                     onTap: () => {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => const LoginScreen()))
+                      if (_validatePassword())
+                        {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text(
+                                  'Skysoft Taxi',
+                                  style: TextStyle(
+                                    color: Colors.green,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                content: const Text('Đăng ký thành công!'),
+                                actions: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LoginScreen(),
+                                        ),
+                                      );
+                                    },
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        }
+                      else
+                        {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: const Text(
+                                  'Lỗi !',
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                content: const Text('Mật khẩu không trùng.'),
+                                actions: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        },
                     },
                     child: Container(
                       padding: const EdgeInsets.all(15),
                       margin: const EdgeInsets.symmetric(horizontal: 25),
                       decoration: BoxDecoration(
-                        color: Colors.cyan,
+                        color: Colors.deepOrange,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const Center(
@@ -249,8 +308,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         ),
                         GestureDetector(
                           onTap: () => {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const LoginScreen()))
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => const LoginScreen(),
+                              ),
+                            ),
                           },
                           child: Text(
                             'Đăng Nhập',

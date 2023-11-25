@@ -20,7 +20,7 @@ class _PriceCarState extends State<PriceCar> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 300), () {
+    Future.delayed(Duration(milliseconds: 300), () {
       setState(() {
         opacity = 1.0;
       });
@@ -72,7 +72,7 @@ class _PriceCarState extends State<PriceCar> {
   Widget build(BuildContext context) {
     return AnimatedOpacity(
       opacity: opacity,
-      duration: const Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 500),
       child: Column(
         children: [
           const SizedBox(
@@ -301,14 +301,14 @@ class _PriceCarState extends State<PriceCar> {
                               context: context,
                               builder: (context) {
                                 return AlertDialog(
-                                  title: const Text('Thông báo'),
-                                  content: const Text('Vui lòng chọn xe'),
+                                  title: Text('Thông báo'),
+                                  content: Text('Vui lòng chọn xe'),
                                   actions: [
                                     TextButton(
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                       },
-                                      child: const Text('OK'),
+                                      child: Text('OK'),
                                     ),
                                   ],
                                 );
@@ -365,7 +365,7 @@ class _PriceCarState extends State<PriceCar> {
               ),
             ),
           ),
-          const SizedBox(height: 16),
+          SizedBox(height: 16),
         ],
       ),
     );

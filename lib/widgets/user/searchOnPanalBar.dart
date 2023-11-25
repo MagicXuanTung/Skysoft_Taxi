@@ -15,14 +15,14 @@ class SearchOnPanalBar extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 16.0),
+              padding: EdgeInsets.only(top: 16.0),
               child: Material(
                 color: Colors.transparent, // Đặt màu nền là trong suốt
                 child: InkWell(
                   onTap: () {
                     Navigator.of(context).pop();
                   },
-                  child: const IconButton(
+                  child: IconButton(
                     icon: Icon(Icons.close),
                     onPressed: null,
                   ),
@@ -98,7 +98,7 @@ class SearchOnPanalBar extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Card(
                     elevation: 4,
-                    margin: const EdgeInsets.all(8.0),
+                    margin: EdgeInsets.all(8.0),
                     color: Colors.grey[200],
                     child: ListTile(
                       contentPadding: const EdgeInsets.symmetric(
@@ -130,7 +130,7 @@ class ChooseOnMapButton extends StatelessWidget {
         print('choose on map');
       },
       icon: const Icon(Icons.location_searching),
-      label: const Text('Choose on Map'),
+      label: Text('Choose on Map'),
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(Colors.grey),
       ),

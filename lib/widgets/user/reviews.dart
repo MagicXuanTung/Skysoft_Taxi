@@ -1,8 +1,6 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-
 import 'package:skysoft_taxi/widgets/user/stars.dart';
+
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class Reviews extends StatefulWidget {
@@ -59,7 +57,7 @@ class _ReviewsState extends State<Reviews> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 300), () {
+    Future.delayed(Duration(milliseconds: 300), () {
       setState(() {
         opacity = 1.0;
       });
@@ -77,7 +75,7 @@ class _ReviewsState extends State<Reviews> {
   Widget build(BuildContext context) {
     return AnimatedOpacity(
       opacity: opacity,
-      duration: const Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 500),
       child: Padding(
         padding: const EdgeInsets.all(10),
         child: Column(
@@ -92,7 +90,7 @@ class _ReviewsState extends State<Reviews> {
                     widget.panelController.open();
                   }
                 },
-                child: const Row(
+                child: Row(
                   children: [
                     Expanded(
                       child: Icon(
@@ -113,8 +111,8 @@ class _ReviewsState extends State<Reviews> {
                 children: [
                   Container(
                     alignment: Alignment.center,
-                    margin: const EdgeInsets.only(top: 5, bottom: 5),
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    margin: EdgeInsets.only(top: 5, bottom: 5),
+                    padding: EdgeInsets.symmetric(vertical: 10),
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
@@ -123,7 +121,7 @@ class _ReviewsState extends State<Reviews> {
                         ),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       'How was your ride?',
                       style: TextStyle(
                         fontSize: 24,
@@ -132,8 +130,8 @@ class _ReviewsState extends State<Reviews> {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(top: 5, bottom: 5),
-                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    margin: EdgeInsets.only(top: 5, bottom: 5),
+                    padding: EdgeInsets.symmetric(vertical: 10),
                     decoration: BoxDecoration(
                       border: Border(
                         bottom: BorderSide(
@@ -144,7 +142,7 @@ class _ReviewsState extends State<Reviews> {
                     ),
                     child: Column(
                       children: [
-                        const Text(
+                        Text(
                             'Help us improve your experience by rating your driver',
                             style: TextStyle(fontSize: 18)),
                         StarsWidget(
@@ -174,33 +172,33 @@ class _ReviewsState extends State<Reviews> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
                                   children: [
-                                    const Icon(Icons.heart_broken_rounded),
-                                    const Text("Nice Poins"),
+                                    Icon(Icons.heart_broken_rounded),
+                                    Text("Nice Poins"),
                                     buidButton(goodDriving, () {
                                       goodDriving.isSelect =
                                           !goodDriving.isSelect;
                                       unSelect(badDriving);
                                       setState(() {});
-                                      log(goodDriving.title);
+                                      print(goodDriving.title);
                                     }),
                                     buidButton(goodRouting, () {
                                       goodRouting.isSelect =
                                           !goodRouting.isSelect;
                                       unSelect(badRouting);
                                       setState(() {});
-                                      log(goodRouting.title);
+                                      print(goodRouting.title);
                                     }),
                                     buidButton(cleanCar, () {
                                       cleanCar.isSelect = !cleanCar.isSelect;
                                       unSelect(dirtyCar);
                                       setState(() {});
-                                      log(cleanCar.title);
+                                      print(cleanCar.title);
                                     }),
                                     buidButton(polite, () {
                                       polite.isSelect = !polite.isSelect;
                                       unSelect(impolite);
                                       setState(() {});
-                                      log(polite.title);
+                                      print(polite.title);
                                     }),
                                   ],
                                 ),
@@ -211,33 +209,33 @@ class _ReviewsState extends State<Reviews> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Column(
                                   children: [
-                                    const Icon(Icons.heart_broken_rounded),
-                                    const Text("Negative Poins"),
+                                    Icon(Icons.heart_broken_rounded),
+                                    Text("Negative Poins"),
                                     buidButton(badDriving, () {
                                       badDriving.isSelect =
                                           !badDriving.isSelect;
                                       unSelect(goodDriving);
                                       setState(() {});
-                                      log(badDriving.title);
+                                      print(badDriving.title);
                                     }),
                                     buidButton(badRouting, () {
                                       badRouting.isSelect =
                                           !badRouting.isSelect;
                                       unSelect(goodRouting);
                                       setState(() {});
-                                      log(badRouting.title);
+                                      print(badRouting.title);
                                     }),
                                     buidButton(dirtyCar, () {
                                       dirtyCar.isSelect = !dirtyCar.isSelect;
                                       unSelect(cleanCar);
                                       setState(() {});
-                                      log(dirtyCar.title);
+                                      print(dirtyCar.title);
                                     }),
                                     buidButton(impolite, () {
                                       impolite.isSelect = !impolite.isSelect;
                                       unSelect(polite);
                                       setState(() {});
-                                      log(impolite.title);
+                                      print(impolite.title);
                                     }),
                                   ],
                                 ),
@@ -253,14 +251,14 @@ class _ReviewsState extends State<Reviews> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        child: const Text("Add Comment"),
+                        margin: EdgeInsets.only(bottom: 10),
+                        child: Text("Add Comment"),
                       ),
                       TextFormField(
                         minLines: 5,
                         maxLines: null,
                         keyboardType: TextInputType.multiline,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           hintText: 'Write comment',
                           hintStyle: TextStyle(color: Colors.grey),
                           border: OutlineInputBorder(
@@ -276,7 +274,7 @@ class _ReviewsState extends State<Reviews> {
                               onPressed: () {
                                 showNotification(
                                     "Đã gửi FeedBack thành công.!", context);
-                                log('Send FeedBack');
+                                print('Send FeedBack');
                                 widget.onClose();
                               },
                               style: ButtonStyle(
@@ -287,7 +285,7 @@ class _ReviewsState extends State<Reviews> {
                                   borderRadius: BorderRadius.circular(10.0),
                                 )),
                               ),
-                              child: const Text('Send FeedBack'),
+                              child: Text('Send FeedBack'),
                             ),
                           ),
                         ],

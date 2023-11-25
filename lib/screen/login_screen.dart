@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:skysoft_taxi/global/global.dart';
 import 'package:skysoft_taxi/models/user.model.dart';
-import 'package:skysoft_taxi/screen/home.dart';
-import 'package:skysoft_taxi/screen/home_driver.dart';
-import 'package:skysoft_taxi/screen/xanh_sm_clone/goi_xe.dart';
+import 'package:skysoft_taxi/screen/homeDriver.dart';
+import 'package:skysoft_taxi/screen/xanh_sm_clone_User/home_user_xanh_sm.dart';
 
 import 'register_screen.dart';
 
@@ -169,7 +168,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         userModel.name = userName;
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) {
-                            return const Home();
+                            return const HomeUserXanhSm();
                           },
                         ));
                         userModel.changeStatusWithMessage("ENDTRIP");
@@ -212,7 +211,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       padding: const EdgeInsets.all(15),
                       margin: const EdgeInsets.symmetric(horizontal: 25),
                       decoration: BoxDecoration(
-                        color: Colors.cyan,
+                        color: Colors.deepOrange,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: const Center(

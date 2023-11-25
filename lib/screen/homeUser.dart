@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:flutter_map_animations/flutter_map_animations.dart';
@@ -53,24 +54,33 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
     //   //"points": "[21.03735349640734, 105.78897826869654]",
     // }));
     channel = IOWebSocketChannel.connect(
-        URL_CHAT + userModel.role + "_" + userModel.name);
+        "$URL_WS${userModel.role}_${userModel.name}");
     channel.stream.listen((message) {
-      print("ChatScreen: " + message);
+      // print("ChatScreen: " + message);
       final Map<String, dynamic> messageData = jsonDecode(message);
       final String receivedMessage = messageData['message'];
       driverModel.name = messageData['sender'];
       if (receivedMessage == "ACPECT") {
-        if (userModel.status == Status.BUSY) {
+        if (userModel.status == Status.NORMAL) {
           isRequested = false;
           isDriverInfo = true;
-          setState(() {});
           userModel.changeStatusWithMessage("ACPECT");
-          print(userModel.status.toString() + "user");
+          print("${userModel.status}_user");
+          channel.sink.add(jsonEncode({
+            "message": "OK",
+            "sender": userModel.name,
+            "receiver": driverModel.name, //người nhận
+            "type": "private",
+            //"points": "[21.03735349640734, 105.78897826869654]",
+          }));
+          setState(() {});
         }
       } else if (receivedMessage == "KETTHUC") {
-        if (userModel.status != Status.NORMAL) {
+        if (userModel.status == Status.BUSY) {
           isDriverInfo = false;
           isReviews = true;
+          userModel.changeStatusWithMessage("ENDTRIP");
+          print("${userModel.status}_user");
           setState(() {});
         }
       }
@@ -124,7 +134,6 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
             SidebarToggleButton(
               scaffoldKey: _scaffoldKey, // Pass the scaffoldKey to the widget
             ),
-
             //search_onpanlbar
             Visibility(
               visible: isPanelVisible,
@@ -135,30 +144,27 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                 backdropEnabled: true,
                 controller: panelController,
                 panel: Material(
-                  borderRadius:
-                      const BorderRadius.vertical(top: Radius.circular(20.0)),
-                  child: PanelBar(
-                    panelController: panelController,
-                    onTextFieldPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Material(
-                            child: SearchOnPanalBar(),
+                    borderRadius:
+                        const BorderRadius.vertical(top: Radius.circular(20.0)),
+                    child: PanelBar(
+                      panelController: panelController,
+                      onTextFieldPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Material(
+                              child: SearchOnPanalBar(),
+                            ),
                           ),
-                        ),
-                      ).then((value) {
-                        if (value == 'startButtonPressed') {
-                          isPanelVisible = false;
-                          isPriceCar = true;
-                          setState(() {});
-                          userModel.changeStatusWithMessage("ACPECT");
-                          print(userModel.status.toString() + "user");
-                        }
-                      });
-                    },
-                  ),
-                ),
+                        ).then((value) {
+                          if (value == 'startButtonPressed') {
+                            isPanelVisible = false;
+                            isPriceCar = true;
+                            setState(() {});
+                          }
+                        });
+                      },
+                    )),
               ),
             ),
             //màn hình reviews
@@ -185,7 +191,7 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       isPanelVisible = true;
                       setState(() {});
                       userModel.changeStatusWithMessage("ENDTRIP");
-                      print(driverModel.status.toString() + "user");
+                      print("${driverModel.status}user");
                     },
                   ),
                 ),
@@ -225,11 +231,11 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                             icon: const Icon(Icons.close),
                             onPressed: () {
                               _textFieldController.clear();
-                              //isReviews = true; //test man reviews.
-                              //isRequested = true; //test man ride request
                               isPriceCar = false;
-                              //isCarInfo = true;
-                              isPanelVisible = true;
+                              isDriverInfo = true;
+                              //isPanelVisible = true;
+                              // userModel.changeStatusWithMessage("ENDTRIP");
+                              // print(driverModel.status.toString() + "user");
                               setState(() {});
                             },
                           ),
@@ -254,13 +260,14 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                             channel.sink.add(jsonEncode({
                               "message": "BOOKING",
                               "sender": userModel.name,
-                              "receiver": driverModel.name //người nhận
+                              "receiver": driverModel.name, //người nhận
+                              "type": "public",
                               //"points": "[21.03735349640734, 105.78897826869654]",
                             }));
-
                             isPriceCar = false;
                             isRequested = true;
-
+                            print("${userModel.status}user");
+                            print("${driverModel.status}driver");
                             setState(() {});
                           },
                         ),
@@ -290,11 +297,46 @@ class HomeState extends State<Home> with TickerProviderStateMixin {
                       channel.sink.add(jsonEncode({
                         "message": "CANCELREQUEST",
                         "sender": userModel.name,
-                        "receiver": driverModel.name //người nhận
+                        "receiver": driverModel.name, //người nhận
+                        "type": "public",
                         //"points": "[21.03735349640734, 105.78897826869654]",
                       }));
                       isRequested = false;
                       isPriceCar = true;
+                      setState(() {});
+                    },
+                  ),
+                ),
+              ),
+            ),
+            //màn hình DriverInfor
+            Visibility(
+              visible: isDriverInfo,
+              child: SlidingUpPanel(
+                minHeight: 500,
+                maxHeight: 500,
+                backdropEnabled: true,
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(20.0)),
+                panel: Material(
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0),
+                  ),
+                  child: DriverInfo(
+                    cancelTrip: () {
+                      channel.sink.add(jsonEncode({
+                        "message": "CANCELTRIP",
+                        "sender": userModel.name,
+                        "receiver": driverModel.name, //người nhận
+                        "type": "public",
+                        //"points": "[21.03735349640734, 105.78897826869654]",
+                      }));
+                      isDriverInfo = false;
+                      isPanelVisible = true;
+                      userModel.changeStatusWithMessage("ENDTRIP");
+                      print("${userModel.status}user");
+                      print("${driverModel.status}driver");
                       setState(() {});
                     },
                   ),

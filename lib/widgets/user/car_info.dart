@@ -1,11 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+
 import 'package:skysoft_taxi/global/global.dart';
 import 'package:skysoft_taxi/widgets/user/chat_with_driver.dart';
 
 class DriverInfo extends StatefulWidget {
-  const DriverInfo({Key? key}) : super(key: key);
+  final VoidCallback cancelTrip;
+  const DriverInfo({Key? key, required this.cancelTrip}) : super(key: key);
 
   @override
   State<DriverInfo> createState() => _DriverInfoState();
@@ -31,9 +33,6 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
                 ],
               ),
               GestureDetector(
-                onTap: () {
-                  log("Arriving in 2 minutes from now");
-                },
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border(
@@ -131,8 +130,6 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
                                         fontWeight: FontWeight.bold,
                                         color: Colors.blueGrey,
                                       ),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 1,
                                     ),
                                   ],
                                 ),
@@ -165,9 +162,6 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
                       child: SizedBox(
                         height: 130,
                         child: GestureDetector(
-                          onTap: () {
-                            log("Tapped John Doe");
-                          },
                           child: ListTile(
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -183,25 +177,20 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          const Padding(
-                                            padding: EdgeInsets.fromLTRB(
-                                                5, 15, 5, 15),
-                                            child: CircleAvatar(
-                                              radius: 40,
-                                              backgroundImage: NetworkImage(
-                                                'https://cdn0.iconfinder.com/data/icons/taxi-12/500/SingleCartoonTaxiYulia_10-512.png',
-                                              ),
-                                            ),
+                                          const Icon(
+                                            Icons.account_circle,
+                                            size: 120,
+                                            color: Colors.blueGrey,
                                           ),
                                           Flexible(
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.center,
                                               children: [
                                                 Padding(
                                                   padding:
-                                                      const EdgeInsets.fromLTRB(
-                                                          5, 30, 5, 0),
+                                                      const EdgeInsets.only(
+                                                          top: 30),
                                                   child: Text(
                                                     driverModel.name,
                                                     style: const TextStyle(
@@ -210,33 +199,26 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
                                                       fontWeight:
                                                           FontWeight.w600,
                                                     ),
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
-                                                    maxLines: 2,
                                                   ),
                                                 ),
-                                                const Padding(
-                                                  padding: EdgeInsets.fromLTRB(
-                                                      5, 0, 5, 0),
-                                                  child: Row(
-                                                    children: [
-                                                      Icon(
-                                                        Icons.star,
-                                                        color: Colors.yellow,
-                                                        size: 20,
+                                                const Row(
+                                                  children: [
+                                                    Icon(
+                                                      Icons.star,
+                                                      color: Colors.yellow,
+                                                      size: 20,
+                                                    ),
+                                                    SizedBox(width: 2),
+                                                    Text(
+                                                      "5",
+                                                      style: TextStyle(
+                                                        fontFamily: 'Outfit',
+                                                        fontSize: 16,
+                                                        fontWeight:
+                                                            FontWeight.w600,
                                                       ),
-                                                      SizedBox(width: 2),
-                                                      Text(
-                                                        "5",
-                                                        style: TextStyle(
-                                                          fontFamily: 'Outfit',
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ],
                                             ),
@@ -259,7 +241,7 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
                                           Navigator.of(context).push(
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  const ChatScreen(),
+                                                  const ChatWithDriverScreen(),
                                             ),
                                           ); // Add your mail icon's onTap functionality here
                                         },
@@ -332,10 +314,6 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       GestureDetector(
-                        onTap: () {
-                          log("Tapped Ride Options");
-                          // Handle the "Ride Options" onTap event
-                        },
                         child: const Row(
                           children: [
                             Icon(
@@ -401,30 +379,26 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
                     children: [
                       Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
-                          30,
+                          10,
                           20,
-                          30,
+                          20,
                           10,
                         ),
                         child: ElevatedButton(
                           onPressed: () {
-                            // Add your "Pay for a ride" action here
-                            log("Tapped Pay for a ride");
+                            showCancelReasonDialog();
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor:
-                                const Color.fromARGB(255, 245, 21, 21),
-                            padding: EdgeInsets.symmetric(
-                              horizontal:
-                                  MediaQuery.of(context).size.width * 0.1,
-                              vertical: 15,
-                            ),
+                                const Color.fromARGB(255, 13, 93, 240),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 85, vertical: 15),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15),
                             ),
                           ),
                           child: const Text(
-                            'Cancel Booking!',
+                            'Cancel trip',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 20,
@@ -441,6 +415,66 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
           ),
         ),
       ],
+    );
+  }
+
+  List<String> cancelReasons = [
+    'Tôi không muốn đi nữa',
+    'Tôi muốn thay đổi địa điểm',
+    'Đợi tài xế quá lâu',
+    'Khác',
+  ];
+
+  void showCancelReasonDialog() {
+    int selectedReasonIndex = -1;
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return AlertDialog(
+              title: const Text('Chọn lý do hủy chuyến đi'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: cancelReasons.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final reason = entry.value;
+
+                  return Row(
+                    children: <Widget>[
+                      Radio<int>(
+                        activeColor: Colors.black,
+                        value: index,
+                        groupValue: selectedReasonIndex,
+                        onChanged: (int? value) {
+                          setState(() {
+                            selectedReasonIndex = value ?? -1;
+                          });
+                        },
+                      ),
+                      Text(reason),
+                    ],
+                  );
+                }).toList(),
+              ),
+              actions: <Widget>[
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    if (selectedReasonIndex >= 0) {
+                      final selectedReason = cancelReasons[selectedReasonIndex];
+                      print('Lý do hủy: $selectedReason');
+                      widget.cancelTrip();
+                    }
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 }
