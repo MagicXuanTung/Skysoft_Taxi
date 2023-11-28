@@ -1,7 +1,4 @@
-// ignore_for_file: library_private_types_in_public_api
-
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:skysoft_taxi/global/global.dart';
 import 'package:skysoft_taxi/models/user.model.dart';
@@ -9,6 +6,7 @@ import 'package:skysoft_taxi/screen/xanh_sm_clone_User/goi_xe.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/hoat_dong.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/tai_khoan.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/thong_bao.dart';
+import 'package:skysoft_taxi/screen/xanh_sm_clone_User/user_chat_all.dart';
 import 'package:skysoft_taxi/url/contants.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/status.dart' as status;
@@ -17,6 +15,7 @@ class HomeUserXanhSm extends StatefulWidget {
   const HomeUserXanhSm({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomeUserXanhSmState createState() => _HomeUserXanhSmState();
 }
 
@@ -30,8 +29,9 @@ class _HomeUserXanhSmState extends State<HomeUserXanhSm> {
   final List<Widget> _pages = [
     const BookingCar(),
     const ActivityDaily(),
+    const UserChatAll(),
     const NotificationPage(),
-    const ProfilePage()
+    const ProfilePage(),
   ];
 
   @override
@@ -111,6 +111,7 @@ class _HomeUserXanhSmState extends State<HomeUserXanhSm> {
                   topRight: Radius.circular(25),
                 ),
                 child: BottomNavigationBar(
+                  type: BottomNavigationBarType.fixed,
                   currentIndex: _currentIndex,
                   onTap: (index) {
                     setState(() {
@@ -136,15 +137,22 @@ class _HomeUserXanhSmState extends State<HomeUserXanhSm> {
                       label: 'Hoạt động',
                     ),
                     BottomNavigationBarItem(
-                      icon: Icon(Icons.notifications_active,
+                      icon: Icon(Icons.group,
                           color: _currentIndex == 2
+                              ? Colors.blue.shade700
+                              : Colors.grey),
+                      label: 'Trò chuyện',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.notifications_active,
+                          color: _currentIndex == 3
                               ? Colors.blue.shade700
                               : Colors.grey),
                       label: 'Thông báo',
                     ),
                     BottomNavigationBarItem(
                       icon: Icon(Icons.account_circle,
-                          color: _currentIndex == 3
+                          color: _currentIndex == 4
                               ? Colors.blue.shade700
                               : Colors.grey),
                       label: 'Tài Khoản',
@@ -158,17 +166,6 @@ class _HomeUserXanhSmState extends State<HomeUserXanhSm> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class ExploreScreen extends StatelessWidget {
-  const ExploreScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Explore Screen'),
     );
   }
 }

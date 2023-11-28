@@ -65,6 +65,7 @@ class _InputVoiceState extends State<InputVoice> {
   Future<void> openTheRecorder() async {
     await _mRecorder.openRecorder();
     final session = await a_s.AudioSession.instance;
+
     await session.configure(a_s.AudioSessionConfiguration(
       avAudioSessionCategory: a_s.AVAudioSessionCategory.playAndRecord,
       avAudioSessionCategoryOptions:
@@ -104,21 +105,78 @@ class _InputVoiceState extends State<InputVoice> {
       bool started = await flutterbluetoothconnector.startServer();
       String address = "";
       if (started) {
-        for (var element in listDevice) {
-          if (element.name != "B02PTT-03DD") continue;
+        // for (var element in listDevice) {
+        //   if (element.name == "B02PTT-080F" || element.name == "B02PTT-03DD") {
+        //     address = element.address!;
+        //     break;
+        //   }
 
-          // bool connected = await flutterbluetoothconnector.startClient(
-          //     listDevice.indexOf(element), false);
-          // log("${element.address} - ${element.name}: $connected");
-          address = element.address!;
-          break;
+        // bool connected = await flutterbluetoothconnector.startClient(
+        //     listDevice.indexOf(element), false);
+        // log("${element.address} - ${element.name}: $connected");
+        // }
+        BluetoothDevice? selectedDevice =
+            await _showBluetoothDeviceSelectionDialog(listDevice);
+        if (selectedDevice != null) {
+          log("address: ${selectedDevice.address}");
+          bluetoothConnect(selectedDevice.address);
+        } else {
+          log("Mic được lấy từ điện thoại");
         }
       }
-      if (address != "") {
-        log("address: $address");
-        bluetoothConnect(address);
-      }
     }
+  }
+
+  Future<BluetoothDevice?> _showBluetoothDeviceSelectionDialog(
+      List<BtDevice> listDevice) async {
+    BluetoothDevice? selectedDevice = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Chọn Thiết Bị Bluetooth"),
+          content: Container(
+            width: double.maxFinite,
+            child: ListView(
+              shrinkWrap: true,
+              children:
+                  listDevice.map((device) => _buildDeviceItem(device)).toList(),
+            ),
+          ),
+        );
+      },
+    );
+
+    return selectedDevice;
+  }
+
+  Widget _buildDeviceItem(BtDevice device) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pop(
+            context,
+            BluetoothDevice(
+                name: device.name, address: device.address.toString()));
+      },
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 12.0),
+        decoration: BoxDecoration(
+          border: Border(bottom: BorderSide(color: Colors.grey)),
+        ),
+        child: Text(
+          device.name.toString(),
+          style: TextStyle(fontSize: 16.0),
+        ),
+      ),
+    );
+  }
+
+  void turnOnOffSco(bool start) {
+    if (start) {
+      a_s.AndroidAudioManager().startBluetoothSco();
+    } else {
+      a_s.AndroidAudioManager().stopBluetoothSco();
+    }
+    a_s.AndroidAudioManager().setBluetoothScoOn(start);
   }
 
   Future<void> bluetoothConnect(String address) async {
@@ -141,11 +199,14 @@ class _InputVoiceState extends State<InputVoice> {
 
           connection!.output.add(data); // Sending data
           if (command == "+PTT=P") {
+            turnOnOffSco(true);
+            isRecord = true;
             startRecord();
             setState(() {});
           }
 
           if (command == "+PTT=R") {
+            turnOnOffSco(false);
             uploadRecord(_mRecorder);
             isRecord = false;
             setState(() {});
@@ -169,9 +230,13 @@ class _InputVoiceState extends State<InputVoice> {
     if (status != PermissionStatus.granted) {
       log("Chưa cấp quyền microphone");
     }
-    status = await Permission.storage.request();
-    if (status != PermissionStatus.granted) {
+    PermissionStatus storageStatus = await Permission.storage.request();
+    if (storageStatus != PermissionStatus.granted) {
       log("Chưa cấp quyền thư mục");
+    }
+    PermissionStatus bluetoothStatus = await Permission.bluetooth.request();
+    if (bluetoothStatus != PermissionStatus.granted) {
+      log("Chưa cấp quyền Bluetooth");
     }
 
     await openTheRecorder();
@@ -195,8 +260,8 @@ class _InputVoiceState extends State<InputVoice> {
         numChannels: 1,
         sampleRate: 8000,
         audioSource: AudioSource.microphone);
-    timer?.cancel();
-    pos = 0;
+    // timer?.cancel();
+    // pos = 0;
     timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
       pos += 1000;
       setState(() {});
@@ -395,6 +460,7 @@ class _InputVoiceState extends State<InputVoice> {
   void dispose() {
     cancelRecording(_mRecorder);
     cancelRecorderSubscriptions();
+    connection?.finish();
     timer?.cancel();
     // Be careful : you must `close` the audio session when you have finished with it.
     _mRecorder.closeRecorder();
@@ -593,7 +659,7 @@ class _InputVoiceState extends State<InputVoice> {
 
   void startRecord() {
     pos = 0;
-    timer?.cancel;
+    timer?.cancel();
     record(_mRecorder);
     isRecord = true;
   }

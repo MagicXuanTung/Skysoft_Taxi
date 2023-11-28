@@ -1,6 +1,5 @@
-import 'dart:async';
 import 'dart:convert';
-import 'package:audioplayers/audioplayers.dart';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:skysoft_taxi/audiochat_widget/audio_message.dart';
 import 'package:skysoft_taxi/audiochat_widget/input_voice.dart';
@@ -8,57 +7,94 @@ import 'package:skysoft_taxi/global/global.dart';
 import 'package:skysoft_taxi/models/user.model.dart';
 import 'package:skysoft_taxi/screen_test/globaltest.dart';
 import 'package:skysoft_taxi/services/ChatService.dart';
+import 'package:skysoft_taxi/url/contants.dart';
 import 'package:skysoft_taxi/view/message_view.dart';
 
+import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/status.dart' as status;
 
-class ChatWithUserScreen extends StatefulWidget {
-  const ChatWithUserScreen({Key? key}) : super(key: key);
+class UserChatAll extends StatefulWidget {
+  const UserChatAll({Key? key}) : super(key: key);
   @override
   State createState() => ChatScreenState();
 }
 
-class ChatScreenState extends State<ChatWithUserScreen>
+class ChatScreenState extends State<UserChatAll>
     with SingleTickerProviderStateMixin {
-  final player = AudioPlayer();
   DateTime? time;
   final List<MessageView> messages = [];
-  StreamSubscription<dynamic>? subscription;
-  // final channel = IOWebSocketChannel.connect(
-  //     URL_WS + driverModel.role + "_" + driverModel.name);
+
+  ScrollController? controller = ScrollController();
 
   @override
   void initState() {
     super.initState();
+
     getAll().then((value) {
-      final resver = value.reversed;
-      for (var element in resver) {
+      for (var element in value) {
+        //log("message: $element");
+        // final Map<String, dynamic> model = jsonDecode(element);
         messages.add(MessageView(
             content: element["chatId"],
             rightSide: element["name"] == userModel.name));
       }
+
       setState(() {});
+
+      // log("controller!.position.maxScrollExtent: ${controller!.position.maxScrollExtent}");
+
+      controller!.animateTo(
+        messages.length * 200,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.fastOutSlowIn,
+      );
     });
-    if (subscription != null) {
-      subscription = channel.stream.listen((message) {
+
+    subscription?.cancel();
+    channelWS?.sink.close(status.goingAway);
+
+    channelWS = null;
+    subscription = null;
+
+    if (channelWS == null) {
+      channelWS = IOWebSocketChannel.connect(
+          URL_WS + userModel.role + "_" + userModel.name);
+    }
+
+    if (subscription == null) {
+      subscription = channelWS!.stream.listen((message) {
         final Map<String, dynamic> messageData = jsonDecode(message);
         print(message);
+
         final String receivedMessage = messageData['message'];
-        if (messageData["sender"] == driverModel.name) {
+        if (messageData["sender"] == userModel.name) {
           return;
         }
-        MessageView mes =
-            MessageView(content: receivedMessage, rightSide: false);
-        messages.insert(0, mes);
+
+        MessageView mes = MessageView(
+            content: receivedMessage, rightSide: false, autoPlay: true);
+
+        messages.add(mes);
         setState(() {});
+
+        controller!.animateTo(
+          controller!.position.maxScrollExtent + 200,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.fastOutSlowIn,
+        );
+
+        // log("messages: ${messages.toList()}");
       });
     }
+
+    log("initState");
   }
 
   @override
   void dispose() {
-    channel.sink.close(status.goingAway);
-    player.dispose();
+    channelWS!.sink.close(status.goingAway);
+    subscription?.cancel();
+    log("dispose");
     super.dispose();
   }
 
@@ -69,7 +105,7 @@ class ChatScreenState extends State<ChatWithUserScreen>
         toolbarHeight: 90,
         backgroundColor: Colors.blue[400],
         title: Text(
-          userModel.name,
+          driverModel.name,
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
         actions: [
@@ -78,7 +114,7 @@ class ChatScreenState extends State<ChatWithUserScreen>
             child: CircleAvatar(
               radius: 35,
               backgroundImage: NetworkImage(
-                'https://cdn.thuvienphapluat.vn/uploads/Hoidapphapluat/2023/MDV/Thang-1/van-chuyen-hanh-khach.jpg',
+                'https://yt3.googleusercontent.com/-CFTJHU7fEWb7BYEb6Jh9gm1EpetvVGQqtof0Rbh-VQRIznYYKJxCaqv_9HeBcmJmIsp2vOO9JU=s900-c-k-c0x00ffffff-no-rj',
               ),
             ),
           ),
@@ -86,11 +122,12 @@ class ChatScreenState extends State<ChatWithUserScreen>
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
-            if (userModel.status == Status.BUSY) {
-              userModel.name = userModel.name;
-            }
-
-            Navigator.of(context).pop(userModel.name);
+            Navigator.of(context).pop({
+              if (driverModel.status == Status.BUSY)
+                {
+                  {driverModel.name = driverModel.name}
+                }
+            });
           },
         ),
       ),
@@ -98,16 +135,16 @@ class ChatScreenState extends State<ChatWithUserScreen>
         children: <Widget>[
           Flexible(
             child: ListView.builder(
-              reverse: true,
+              controller: controller,
               itemCount: messages.length,
               itemBuilder: (BuildContext context, int index) {
                 final message = messages[index];
-
                 return AudioMessageWidget(
                   audioURL: message.content,
                   favorite: message.favorite,
                   rightSide: message.rightSide,
                   tag: message.tag,
+                  autoPlay: message.autoPlay,
                   time: DateTime.now(),
                 );
               },
@@ -123,12 +160,13 @@ class ChatScreenState extends State<ChatWithUserScreen>
             ),
             child: InputVoice(
               onDone: (isDone, chatId) {
-                if (isDone) {
-                  MessageView mes =
-                      MessageView(content: chatId, rightSide: true);
-                  messages.insert(0, mes);
-                  setState(() {});
-                }
+                // if (isDone) {
+                //   messages.insert(
+                //       0,
+                //       MessageView(
+                //           content: chatId, rightSide: true, autoPlay: true));
+                //   setState(() {});
+                // }
               },
             ),
           ),

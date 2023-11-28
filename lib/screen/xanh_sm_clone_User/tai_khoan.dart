@@ -315,7 +315,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       log("USER INFO");
                     },
                     child: Container(
-                      height: 85,
+                      height: 83,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(15.0),
@@ -378,7 +378,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               children: [
                                 IconButton(
                                   onPressed: () {
-                                    log("bản đồ");
+                                    log("Điều hướng trang Profile");
                                   },
                                   icon: const Icon(
                                     Icons.chevron_right,

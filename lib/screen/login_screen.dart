@@ -175,11 +175,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       } else if (role == "driver") {
                         // Đăng nhập thành công với tài khoản driver, chuyển đến trang HomeDriver.
                         driverModel.name = userName;
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) {
-                            return const HomeDriver();
-                          },
-                        ));
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return const HomeDriver();
+                            },
+                          ),
+                        );
                         driverModel.changeStatusWithMessage("ENDTRIP");
                       } else {
                         showDialog(

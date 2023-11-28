@@ -1,11 +1,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!-- QUYỀN THÔNG BÁO-->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- QUYỀN BLUETOOTH-->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- Add the following permission on devices running Android 12.0 or later -->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <!-- Add the following permission on devices running Android 12.0 or later -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <application
         android:label="skysoft_taxi"
         android:name="${applicationName}"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
-        
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -19,12 +33,12 @@
                  while the Flutter UI initializes. After that, this theme continues
                  to determine the Window background behind the Flutter UI. -->
             <meta-data
-              android:name="io.flutter.embedding.android.NormalTheme"
-              android:resource="@style/NormalTheme"
-              />
+                android:name="io.flutter.embedding.android.NormalTheme"
+                android:resource="@style/NormalTheme"
+            />
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
@@ -32,5 +46,14 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <receiver android:name="flutter.moum.headset_event.HeadsetBroadcastReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.HEADSET_PLUG" />
+                <action android:name="android.intent.action.ACTION_MEDIA_BUTTON" />
+                <action android:name="android.intent.action.VOICE_COMMAND" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
     </application>
 </manifest>

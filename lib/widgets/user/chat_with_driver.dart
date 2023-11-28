@@ -1,15 +1,13 @@
-import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:skysoft_taxi/audiochat_widget/audio_message.dart';
 import 'package:skysoft_taxi/audiochat_widget/input_voice.dart';
 import 'package:skysoft_taxi/global/global.dart';
 import 'package:skysoft_taxi/models/user.model.dart';
 import 'package:skysoft_taxi/screen_test/globaltest.dart';
 import 'package:skysoft_taxi/services/ChatService.dart';
+import 'package:skysoft_taxi/url/contants.dart';
 import 'package:skysoft_taxi/view/message_view.dart';
 
 import 'package:web_socket_channel/io.dart';
@@ -23,51 +21,80 @@ class ChatWithDriverScreen extends StatefulWidget {
 
 class ChatScreenState extends State<ChatWithDriverScreen>
     with SingleTickerProviderStateMixin {
-  final player = AudioPlayer();
   DateTime? time;
   final List<MessageView> messages = [];
-  StreamSubscription<dynamic>? subscription;
-  // final channel = IOWebSocketChannel.connect(
-  //     URL_WS + userModel.role + "_" + userModel.name);
+
+  ScrollController? controller = ScrollController();
 
   @override
   void initState() {
     super.initState();
 
     getAll().then((value) {
-      final resver = value.reversed;
-      for (var element in resver) {
+      for (var element in value) {
         //log("message: $element");
         // final Map<String, dynamic> model = jsonDecode(element);
         messages.add(MessageView(
             content: element["chatId"],
             rightSide: element["name"] == userModel.name));
       }
-      setState(() {});
-    });
-    if (subscription != null) {
-      subscription ==
-          channel.stream.listen((message) {
-            final Map<String, dynamic> messageData = jsonDecode(message);
-            print(message);
 
-            final String receivedMessage = messageData['message'];
-            if (messageData["sender"] == userModel.name) {
-              return;
-            }
-            MessageView mes =
-                MessageView(content: receivedMessage, rightSide: false);
-            messages.insert(0, mes);
-            setState(() {});
-          });
+      setState(() {});
+
+      // log("controller!.position.maxScrollExtent: ${controller!.position.maxScrollExtent}");
+
+      controller!.animateTo(
+        messages.length * 200,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.fastOutSlowIn,
+      );
+    });
+
+    subscription?.cancel();
+    channelWS?.sink.close(status.goingAway);
+
+    channelWS = null;
+    subscription = null;
+
+    if (channelWS == null) {
+      channelWS = IOWebSocketChannel.connect(
+          URL_WS + userModel.role + "_" + userModel.name);
     }
+
+    if (subscription == null) {
+      subscription = channelWS!.stream.listen((message) {
+        final Map<String, dynamic> messageData = jsonDecode(message);
+        print(message);
+
+        final String receivedMessage = messageData['message'];
+        if (messageData["sender"] == userModel.name) {
+          return;
+        }
+
+        MessageView mes = MessageView(
+            content: receivedMessage, rightSide: false, autoPlay: true);
+
+        messages.add(mes);
+        setState(() {});
+
+        controller!.animateTo(
+          controller!.position.maxScrollExtent + 200,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.fastOutSlowIn,
+        );
+
+        // log("messages: ${messages.toList()}");
+      });
+    }
+
+    log("initState");
   }
 
   @override
   void dispose() {
-    channel.sink.close(status.goingAway);
+    channelWS!.sink.close(status.goingAway);
     subscription?.cancel();
-    player.dispose();
+    log("dispose");
     super.dispose();
   }
 
@@ -108,14 +135,12 @@ class ChatScreenState extends State<ChatWithDriverScreen>
         children: <Widget>[
           Flexible(
             child: ListView.builder(
-              reverse: true,
+              controller: controller,
               itemCount: messages.length,
               itemBuilder: (BuildContext context, int index) {
                 final message = messages[index];
-
                 return AudioMessageWidget(
                   audioURL: message.content,
-                  player: player,
                   favorite: message.favorite,
                   rightSide: message.rightSide,
                   tag: message.tag,
@@ -135,13 +160,13 @@ class ChatScreenState extends State<ChatWithDriverScreen>
             ),
             child: InputVoice(
               onDone: (isDone, chatId) {
-                if (isDone) {
-                  messages.insert(
-                      0,
-                      MessageView(
-                          content: chatId, rightSide: true, autoPlay: true));
-                  setState(() {});
-                }
+                // if (isDone) {
+                //   messages.insert(
+                //       0,
+                //       MessageView(
+                //           content: chatId, rightSide: true, autoPlay: true));
+                //   setState(() {});
+                // }
               },
             ),
           ),

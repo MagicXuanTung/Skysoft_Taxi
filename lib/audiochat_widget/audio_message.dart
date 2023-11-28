@@ -1,13 +1,12 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:math';
+import 'dart:math' as math;
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 
 class AudioMessageWidget extends StatefulWidget {
   String audioURL;
-  AudioPlayer player;
   bool favorite;
   bool tag;
   bool rightSide;
@@ -16,7 +15,6 @@ class AudioMessageWidget extends StatefulWidget {
   AudioMessageWidget(
       {Key? key,
       required this.audioURL,
-      required this.player,
       this.favorite = false,
       this.tag = false,
       this.rightSide = true,
@@ -36,6 +34,8 @@ class _AudioMessageWidgetState extends State<AudioMessageWidget> {
   int timeDuration = 0;
   int timePosition = 0;
 
+  final player = AudioPlayer();
+
   @override
   void initState() {
     super.initState();
@@ -43,20 +43,24 @@ class _AudioMessageWidgetState extends State<AudioMessageWidget> {
     isTag = widget.tag;
     isRight = widget.rightSide;
 
-    if (widget.player.state == PlayerState.stopped && widget.autoPlay) {
+    //log("widget.audioURL before: ${widget.audioURL} - ${player.state} - ${widget.autoPlay}");
+
+    if ((player.state == PlayerState.stopped ||
+            player.state == PlayerState.completed) &&
+        widget.autoPlay) {
+      log("widget.audioURL: ${widget.audioURL} - ${player.state} - ${widget.autoPlay}");
       isPlay = true;
-      widget.player.play(UrlSource(
+      player.play(UrlSource(
           'http://192.168.1.75:8080/devxelo/rest/chat/${widget.audioURL}.mp3'));
-      widget.player.onDurationChanged.listen((Duration d) {
+      player.onDurationChanged.listen((Duration d) {
         timeDuration = d.inSeconds;
         print("timeDuration: $timeDuration");
       });
-      widget.player.onPositionChanged.listen((Duration p) {
+      player.onPositionChanged.listen((Duration p) {
         timePosition = p.inSeconds;
         print("timePosition: $timePosition");
       });
-      widget.player.onPlayerComplete.listen((event) {
-        print('bug');
+      player.onPlayerComplete.listen((event) {
         isPlay = false;
         setState(() {});
       });
@@ -153,10 +157,10 @@ class _AudioMessageWidgetState extends State<AudioMessageWidget> {
                             onPressed: () {
                               isPlay = !isPlay;
                               if (isPlay) {
-                                widget.player.play(UrlSource(
+                                player.play(UrlSource(
                                     'http://192.168.1.75:8080/devxelo/rest/chat/${widget.audioURL}.mp3'));
                               } else {
-                                widget.player.stop();
+                                player.stop();
                               }
                               setState(() {});
                             },
@@ -294,7 +298,7 @@ class _AudioWaveWidgetState extends State<AudioWaveWidget> {
   }
 
   double _generateRandomHeight() {
-    final random = Random();
+    final random = math.Random();
     return (random.nextDouble() * 20.0) +
         5.0; // Tạo ra giá trị ngẫu nhiên từ 5.0 đến 25.0
   }

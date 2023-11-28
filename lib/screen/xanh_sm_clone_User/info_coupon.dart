@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 
 class InfoCoupon extends StatelessWidget {
   const InfoCoupon({Key? key}) : super(key: key);
@@ -35,12 +36,17 @@ class InfoCoupon extends StatelessWidget {
                         ),
                       ),
                       const Spacer(),
-                      const Padding(
-                        padding: EdgeInsets.only(right: 16.0),
-                        child: Icon(
-                          Icons.share,
-                          size: 22,
-                          color: Colors.blue,
+                      GestureDetector(
+                        onTap: () {
+                          log('shared the coupons');
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.only(right: 16.0),
+                          child: Icon(
+                            Icons.share,
+                            size: 22,
+                            color: Colors.blue,
+                          ),
                         ),
                       ),
                     ],
