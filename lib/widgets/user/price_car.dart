@@ -21,9 +21,8 @@ class _PriceCarState extends State<PriceCar> {
   void initState() {
     super.initState();
     Future.delayed(Duration(milliseconds: 300), () {
-      setState(() {
-        opacity = 1.0;
-      });
+      opacity = 1.0;
+      setState(() {});
     });
   }
 
@@ -116,9 +115,8 @@ class _PriceCarState extends State<PriceCar> {
                 return GestureDetector(
                   onTap: () {
                     log("Selected item: ${itemNames[index]}");
-                    setState(() {
-                      selectedIdx = index;
-                    });
+                    selectedIdx = index;
+                    setState(() {});
                   },
                   child: Container(
                     color: selectedIdx == index
@@ -171,9 +169,8 @@ class _PriceCarState extends State<PriceCar> {
             child: GestureDetector(
               onTap: () {
                 log("Payment");
-                setState(() {
-                  selectedText = "Payment";
-                });
+                selectedText = "Payment";
+                setState(() {});
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -237,9 +234,8 @@ class _PriceCarState extends State<PriceCar> {
                     GestureDetector(
                       onTap: () {
                         log("Coupon Code");
-                        setState(() {
-                          selectedText = "Coupon Code";
-                        });
+                        selectedText = "Coupon Code";
+                        setState(() {});
                       },
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
@@ -375,9 +371,8 @@ class _PriceCarState extends State<PriceCar> {
     return GestureDetector(
       onTap: () {
         log(text);
-        setState(() {
-          selectedText = text;
-        });
+        selectedText = text;
+        setState(() {});
       },
       child: Container(
         decoration: BoxDecoration(

@@ -350,7 +350,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   Text(
                                     userModel.name,
                                     style: const TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 16,
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
                                       fontStyle: FontStyle.italic,
@@ -382,7 +382,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   },
                                   icon: const Icon(
                                     Icons.chevron_right,
-                                    size: 35,
+                                    size: 25,
                                     color: Colors.black,
                                   ),
                                 ),

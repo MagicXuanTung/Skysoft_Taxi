@@ -114,9 +114,8 @@ class _HomeUserXanhSmState extends State<HomeUserXanhSm> {
                   type: BottomNavigationBarType.fixed,
                   currentIndex: _currentIndex,
                   onTap: (index) {
-                    setState(() {
-                      _currentIndex = index;
-                    });
+                    _currentIndex = index;
+                    setState(() {});
                   },
                   showSelectedLabels: true,
                   showUnselectedLabels: true,

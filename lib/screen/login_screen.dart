@@ -92,17 +92,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                   color: Colors.black,
                                   icon: const Icon(Icons.cancel),
                                   onPressed: () {
-                                    setState(() {
-                                      _emailController.clear();
-                                    });
+                                    _emailController.clear();
+                                    setState(() {});
                                   },
                                 )
                               : null,
                         ),
                         onChanged: (text) {
-                          setState(() {
-                            isEmailFieldEmpty = text.isEmpty;
-                          });
+                          isEmailFieldEmpty = text.isEmpty;
+                          setState(() {});
                         },
                       ),
                     ),
@@ -141,17 +139,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                         : Icons.visibility_off,
                                   ),
                                   onPressed: () {
-                                    setState(() {
-                                      _obscurePassword = !_obscurePassword;
-                                    });
+                                    _obscurePassword = !_obscurePassword;
+                                    setState(() {});
                                   },
                                 ),
                         ),
                         obscureText: _obscurePassword,
                         onChanged: (text) {
-                          setState(() {
-                            isPasswordFieldEmpty = text.isEmpty;
-                          });
+                          isPasswordFieldEmpty = text.isEmpty;
+                          setState(() {});
                         },
                       ),
                     ),

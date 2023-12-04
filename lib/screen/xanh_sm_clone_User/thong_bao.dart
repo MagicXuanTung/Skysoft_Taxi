@@ -76,24 +76,21 @@ class _NotificationPageState extends State<NotificationPage> {
     }
 
     // Clear checkboxStates after removal
-    setState(() {
-      checkboxStates = List.filled(couponList.length, false);
-      showCheckbox = false; // Hide checkboxes after removal
-    });
+    checkboxStates = List.filled(couponList.length, false);
+    showCheckbox = false;
+    setState(() {});
   }
 
 //show or hide the checkboxes in the list
   void toggleCheckboxVisibility() {
-    setState(() {
-      showCheckbox = !showCheckbox;
-    });
+    showCheckbox = !showCheckbox;
+    setState(() {});
   }
 
 //the state of a checkbox changes
   void handleCheckboxChanged(int index, bool isChecked) {
-    setState(() {
-      checkboxStates[index] = isChecked;
-    });
+    checkboxStates[index] = isChecked;
+    setState(() {});
   }
 
 //checks whether at least one checkbox is checked
@@ -352,10 +349,9 @@ class _CheckboxExampleState extends State<CheckboxExample> {
       fillColor: MaterialStateProperty.resolveWith(getColor),
       value: isChecked,
       onChanged: (bool? value) {
-        setState(() {
-          isChecked = value!;
-          widget.onCheckboxChanged(isChecked);
-        });
+        isChecked = value!;
+        widget.onCheckboxChanged(isChecked);
+        setState(() {});
       },
     );
   }

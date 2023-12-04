@@ -96,17 +96,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   color: Colors.black,
                                   icon: const Icon(Icons.cancel),
                                   onPressed: () {
-                                    setState(() {
-                                      _signUpEmailController.clear();
-                                    });
+                                    _signUpEmailController.clear();
+                                    setState(() {});
                                   },
                                 )
                               : null,
                         ),
                         onChanged: (text) {
-                          setState(() {
-                            isEmailFieldEmpty = text.isEmpty;
-                          });
+                          isEmailFieldEmpty = text.isEmpty;
+                          setState(() {});
                         },
                       ),
                     ),
@@ -145,17 +143,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         : Icons.visibility_off,
                                   ),
                                   onPressed: () {
-                                    setState(() {
-                                      _obscurePassword = !_obscurePassword;
-                                    });
+                                    _obscurePassword = !_obscurePassword;
+                                    setState(() {});
                                   },
                                 ),
                         ),
                         obscureText: _obscurePassword,
                         onChanged: (text) {
-                          setState(() {
-                            isPasswordFieldEmpty = text.isEmpty;
-                          });
+                          isPasswordFieldEmpty = text.isEmpty;
+                          setState(() {});
                         },
                       ),
                     ),
@@ -194,18 +190,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         : Icons.visibility_off,
                                   ),
                                   onPressed: () {
-                                    setState(() {
-                                      _obscureConfirmPassword =
-                                          !_obscureConfirmPassword;
-                                    });
+                                    _obscureConfirmPassword =
+                                        !_obscureConfirmPassword;
+                                    setState(() {});
                                   },
                                 ),
                         ),
                         obscureText: _obscureConfirmPassword,
                         onChanged: (text) {
-                          setState(() {
-                            isPasswordFieldEmpty = text.isEmpty;
-                          });
+                          isPasswordFieldEmpty = text.isEmpty;
+                          setState(() {});
                         },
                       ),
                     ),

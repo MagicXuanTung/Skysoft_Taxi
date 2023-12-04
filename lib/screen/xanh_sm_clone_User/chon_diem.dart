@@ -307,8 +307,7 @@ class _ChooseDestinationState extends State<ChooseDestination> {
             ? GestureDetector(
                 onTap: () {
                   controller.clear();
-                  setState(
-                      () {}); // Trigger a rebuild to hide the delete button
+                  setState(() {});
                 },
                 child: const Icon(Icons.clear),
               )

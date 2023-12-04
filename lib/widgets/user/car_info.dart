@@ -448,9 +448,8 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
                         value: index,
                         groupValue: selectedReasonIndex,
                         onChanged: (int? value) {
-                          setState(() {
-                            selectedReasonIndex = value ?? -1;
-                          });
+                          selectedReasonIndex = value ?? -1;
+                          setState(() {});
                         },
                       ),
                       Text(reason),

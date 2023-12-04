@@ -15,10 +15,8 @@ class _SideBarDriverState extends State<SideBarDriver> {
   int selectedIndex = 0; // Add your initial state logic here
 
   void onItemTapped(int index) {
-    // Implement the logic for item selection here
-    setState(() {
-      selectedIndex = index;
-    });
+    selectedIndex = index;
+    setState(() {});
   }
 
   @override
