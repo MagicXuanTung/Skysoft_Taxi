@@ -252,6 +252,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         child: Column(
                           children: [
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 SmallContainer(
                                   iconLeft: Icons.mail,
@@ -262,7 +263,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                   },
                                   isLast: true,
                                 ),
-                                const Spacer(),
                                 SmallContainer(
                                   iconLeft: Icons.support_agent,
                                   text: '1900 2097',
@@ -459,14 +459,14 @@ class _SmallContainerState extends State<SmallContainer> {
                       style: const TextStyle(
                         fontSize: 16,
                         color: Colors.black,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                   ],
                 ),
                 Icon(
                   widget.iconRight,
-                  size: 25,
+                  size: 20,
                   color: Colors.black,
                 ),
               ],
