@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:skysoft_taxi/screen/home.dart';
 import 'package:skysoft_taxi/screen/login_screen.dart';
 
 import 'package:skysoft_taxi/util/notification_controller.dart';

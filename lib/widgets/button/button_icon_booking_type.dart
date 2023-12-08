@@ -34,9 +34,9 @@ class _ButtonIconBookingTypeState extends State<ButtonIconBookingType> {
               children: [
                 Image.network(
                   widget.imagePath,
-                  width: 30,
-                  height: 30,
-                  fit: BoxFit.cover,
+                  width: 20,
+                  height: 20,
+                  fit: BoxFit.fill,
                   color: Colors.blue,
                 ),
               ],

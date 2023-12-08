@@ -1,7 +1,5 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:share_plus/share_plus.dart';
 
 class InfoCoupon extends StatelessWidget {
   const InfoCoupon({Key? key}) : super(key: key);
@@ -9,6 +7,33 @@ class InfoCoupon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pop();
+          },
+          child: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.black,
+          ),
+        ),
+        actions: [
+          GestureDetector(
+            onTap: () {
+              log('shared the coupons');
+            },
+            child: const Padding(
+              padding: EdgeInsets.only(right: 16.0),
+              child: Icon(
+                Icons.share,
+                size: 22,
+                color: Colors.blue,
+              ),
+            ),
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: SingleChildScrollView(
@@ -17,41 +42,6 @@ class InfoCoupon extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.only(left: 16.0),
-                          child: Icon(
-                            Icons.arrow_back_ios_new,
-                            size: 22,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ),
-                      const Spacer(),
-                      GestureDetector(
-                        onTap: () {
-                          log('shared the coupons');
-                        },
-                        child: const Padding(
-                          padding: EdgeInsets.only(right: 16.0),
-                          child: Icon(
-                            Icons.share,
-                            size: 22,
-                            color: Colors.blue,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
                 Container(
                   width: 350,
                   height: 350,

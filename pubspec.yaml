@@ -65,6 +65,9 @@ dependencies:
   bluetooth_connector: ^0.0.3
   flutter_bluetooth_serial: ^0.4.0
   flutter_blue_plus: ^1.29.6
+  connectivity: ^3.0.6
+  fluttertoast: ^8.0.8
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -114,3 +117,4 @@ flutter:
     - assets/images/premium.png
     - assets/images/luxury.png
     - assets/images/sport.png
+    - assets/images/logo.png

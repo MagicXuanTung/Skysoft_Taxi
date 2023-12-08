@@ -1,6 +1,11 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:skysoft_taxi/models/banner_image.dart';
+import 'package:skysoft_taxi/models/circular_image_widget_model.dart';
+import 'package:skysoft_taxi/screen/xanh_sm_clone_User/chon_diem_den.dart';
+import 'package:skysoft_taxi/widgets/Image/banner_image.dart';
+import 'package:skysoft_taxi/widgets/Image/circular_image_widget.dart';
 
 class ActivityDaily extends StatefulWidget {
   const ActivityDaily({Key? key}) : super(key: key);
@@ -10,9 +15,17 @@ class ActivityDaily extends StatefulWidget {
 }
 
 class _ActivityDailyState extends State<ActivityDaily> {
+  BannerImageModel bannerImageModel = BannerImageModel(
+    imageUrl: "https://toataxis.co.uk/uploads/toa-banner-image-3.jpg.webp",
+  );
+
+  CircularImageModel circularImageModel = CircularImageModel(
+    imageUrl:
+        "https://image.winudf.com/v2/image1/Y29tLnNreXNvZnQuZ3BzX2ljb25fMTU1OTE4NzY5NF8wMjQ/icon.png?w=184&fakeurl=1",
+  );
+
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Stack(
         children: [
@@ -21,17 +34,7 @@ class _ActivityDailyState extends State<ActivityDaily> {
             child: ListView(
               physics: BouncingScrollPhysics(),
               children: [
-                Container(
-                  height: screenHeight / 4,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        'https://neetable.com/img/blog/blog-inner/taxi-app-service/what-are-the-key-components-of-a-taxi-booking-app.jpg',
-                      ),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+                BannerImage(imageUrl: bannerImageModel.imageUrl),
                 Stack(
                   alignment: Alignment.center,
                   children: [
@@ -39,15 +42,8 @@ class _ActivityDailyState extends State<ActivityDaily> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const SizedBox(height: 40),
-                        SizedBox(
-                          height: screenHeight / 12,
-                          child: ClipOval(
-                            child: Image.network(
-                              'https://image.winudf.com/v2/image1/Y29tLnNreXNvZnQuZ3BzX2ljb25fMTU1OTE4NzY5NF8wMjQ/icon.png?w=184&fakeurl=1',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
+                        CircularImageWidget(
+                            imageUrl: circularImageModel.imageUrl),
                         const SizedBox(height: 10),
                         const Text(
                           'Bạn đã trải nghiệm\nxe Xelo chưa?',
@@ -71,7 +67,13 @@ class _ActivityDailyState extends State<ActivityDaily> {
                         const SizedBox(height: 10),
                         ElevatedButton(
                           onPressed: () {
-                            // sendNotificationOrder();
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return const ChooseDestination();
+                                },
+                              ),
+                            );
                             log('Đặt xe ngay');
                           },
                           style: ElevatedButton.styleFrom(

@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:skysoft_taxi/global/global.dart';
 import 'package:skysoft_taxi/screen/login_screen.dart';
+import 'package:skysoft_taxi/widgets/menu_widget_profile.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -124,7 +125,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         child: Column(
                           children: [
-                            SmallContainer(
+                            MenuWidget(
                               iconLeft: Icons.military_tech,
                               text: 'Hạng thành viên',
                               iconRight: Icons.chevron_right,
@@ -132,7 +133,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 log('Hạng thành viên');
                               },
                             ),
-                            SmallContainer(
+                            MenuWidget(
                               iconLeft: Icons.person_add,
                               text: 'Giới thiệu bạn bè',
                               iconRight: Icons.chevron_right,
@@ -140,7 +141,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 log('Giới thiệu bạn bè');
                               },
                             ),
-                            SmallContainer(
+                            MenuWidget(
                               iconLeft: Icons.credit_card,
                               text: 'Thanh toán',
                               iconRight: Icons.chevron_right,
@@ -148,7 +149,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 log('Thanh toán');
                               },
                             ),
-                            SmallContainer(
+                            MenuWidget(
                               iconLeft: Icons.receipt_long,
                               text: 'Thông tin đơn',
                               iconRight: Icons.chevron_right,
@@ -156,7 +157,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 log('Thông tin đơn');
                               },
                             ),
-                            SmallContainer(
+                            MenuWidget(
                               iconLeft: Icons.pin_drop,
                               text: 'Địa chỉ đã lưu',
                               iconRight: Icons.chevron_right,
@@ -189,7 +190,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         ),
                         child: Column(
                           children: [
-                            SmallContainer(
+                            MenuWidget(
                               iconLeft: Icons.help,
                               text: 'Trung tâm hỗ trợ',
                               iconRight: Icons.chevron_right,
@@ -197,7 +198,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 log('Trung tâm hỗ trợ');
                               },
                             ),
-                            SmallContainer(
+                            MenuWidget(
                               iconLeft: Icons.policy,
                               text: 'Điều khoản và chính sách',
                               iconRight: Icons.chevron_right,
@@ -205,7 +206,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 log('Điều khoản và chính sách');
                               },
                             ),
-                            SmallContainer(
+                            MenuWidget(
                               iconLeft: Icons.language,
                               text: 'Ngôn Ngữ (Language)',
                               iconRight: Icons.chevron_right,
@@ -213,7 +214,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 log('Ngôn Ngữ (Language)');
                               },
                             ),
-                            SmallContainer(
+                            MenuWidget(
                               iconLeft: Icons.logout,
                               text: 'Đăng xuất',
                               iconRight: Icons.chevron_right,
@@ -254,7 +255,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                SmallContainer(
+                                MenuWidget(
                                   iconLeft: Icons.mail,
                                   text: 'Email CSKH',
                                   iconRight: Icons.chevron_right,
@@ -263,7 +264,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                   },
                                   isLast: true,
                                 ),
-                                SmallContainer(
+                                MenuWidget(
                                   iconLeft: Icons.support_agent,
                                   text: '1900 2097',
                                   iconRight: Icons.chevron_right,
@@ -397,81 +398,6 @@ class _ProfilePageState extends State<ProfilePage> {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class SmallContainer extends StatefulWidget {
-  final IconData iconLeft;
-  final String text;
-  final IconData iconRight;
-  final VoidCallback onTap;
-  final bool isLast;
-
-  const SmallContainer({
-    required this.iconLeft,
-    required this.text,
-    required this.iconRight,
-    required this.onTap,
-    this.isLast = false,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<SmallContainer> createState() => _SmallContainerState();
-}
-
-class _SmallContainerState extends State<SmallContainer> {
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: widget.onTap,
-      child: Container(
-        padding: const EdgeInsetsDirectional.all(15),
-        decoration: BoxDecoration(
-          border: widget.isLast
-              ? null
-              : Border(
-                  bottom: BorderSide(
-                    color: Colors.grey.shade200,
-                    width: 0.5,
-                  ),
-                ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Icon(
-                      widget.iconLeft,
-                      size: 20,
-                      color: Colors.blueGrey,
-                    ),
-                    const SizedBox(width: 10),
-                    Text(
-                      widget.text,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: Colors.black,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                  ],
-                ),
-                Icon(
-                  widget.iconRight,
-                  size: 20,
-                  color: Colors.black,
-                ),
-              ],
-            ),
-          ],
         ),
       ),
     );

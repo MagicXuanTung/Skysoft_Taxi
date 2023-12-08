@@ -3,6 +3,7 @@ import 'package:skysoft_taxi/global/global.dart';
 import 'package:skysoft_taxi/models/user.model.dart';
 import 'package:skysoft_taxi/screen/homeDriver.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/home_user_xanh_sm.dart';
+import 'package:skysoft_taxi/util/connectivity_handler.dart';
 
 import 'register_screen.dart';
 
@@ -26,8 +27,18 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isPasswordFieldEmpty = true;
   bool _obscurePassword = true;
 
+  late ConnectivityHandler _connectivityHandler;
+
+  @override
+  void initState() {
+    _connectivityHandler = ConnectivityHandler();
+    _connectivityHandler.startListening(context);
+    super.initState();
+  }
+
   @override
   void dispose() {
+    _connectivityHandler.stopListening();
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
     super.dispose();
@@ -46,14 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 50),
-                  FittedBox(
-                    fit: BoxFit.contain,
-                    child: Image.network(
-                      'https://image.winudf.com/v2/image1/Y29tLnNreXNvZnQuZ3BzX2ljb25fMTU1OTE4NzY5NF8wMjQ/icon.png?w=184&fakeurl=1',
-                      width: 120,
-                      height: 120,
-                    ),
-                  ),
+                  const LogoImage(imageUrl: '-assets/images/logo.png'),
                   const SizedBox(height: 10),
                   const Text(
                     'Skysoft Taxi',
@@ -64,7 +68,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 25),
-                  // Email or Username
                   SizedBox(
                     height: 55,
                     child: Padding(
@@ -106,7 +109,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  //Passwords
                   SizedBox(
                     height: 55,
                     child: Padding(
@@ -224,9 +226,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 20),
-                  // Register now
                   Padding(
                     padding: const EdgeInsets.all(5.0),
                     child: Row(
@@ -262,6 +262,22 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class LogoImage extends StatelessWidget {
+  final String imageUrl;
+
+  const LogoImage({Key? key, required this.imageUrl}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      'assets/images/logo.png', // Update with the correct path to your image
+      height: 100,
+      width: 100,
+      fit: BoxFit.cover,
     );
   }
 }

@@ -4,14 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:skysoft_taxi/audiochat_widget/audio_message.dart';
 import 'package:skysoft_taxi/audiochat_widget/input_voice.dart';
 import 'package:skysoft_taxi/global/global.dart';
-import 'package:skysoft_taxi/models/user.model.dart';
 import 'package:skysoft_taxi/screen_test/globaltest.dart';
 import 'package:skysoft_taxi/services/ChatService.dart';
 import 'package:skysoft_taxi/url/contants.dart';
 import 'package:skysoft_taxi/view/message_view.dart';
 
 import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/status.dart' as status;
 
 class UserChatAll extends StatefulWidget {
   const UserChatAll({Key? key}) : super(key: key);
@@ -45,55 +43,51 @@ class ChatScreenState extends State<UserChatAll>
 
       controller!.animateTo(
         messages.length * 200,
-        duration: Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 500),
         curve: Curves.fastOutSlowIn,
       );
     });
 
-    subscription?.cancel();
-    channelWS?.sink.close(status.goingAway);
+    // subscription?.cancel();
+    // channelWS?.sink.close(status.goingAway);
 
     channelWS = null;
     subscription = null;
 
-    if (channelWS == null) {
-      channelWS = IOWebSocketChannel.connect(
-          URL_WS + userModel.role + "_" + userModel.name);
-    }
+    channelWS ??= IOWebSocketChannel.connect(
+        "$URL_WS${userModel.role}_${userModel.name}");
 
-    if (subscription == null) {
-      subscription = channelWS!.stream.listen((message) {
-        final Map<String, dynamic> messageData = jsonDecode(message);
-        print(message);
+    subscription ??= channelWS!.stream.listen((message) {
+      final Map<String, dynamic> messageData = jsonDecode(message);
+      log(message);
 
-        final String receivedMessage = messageData['message'];
-        if (messageData["sender"] == userModel.name) {
-          return;
-        }
+      final String receivedMessage = messageData['message'];
+      if (messageData["sender"] == userModel.name) {
+        return;
+      }
 
-        MessageView mes = MessageView(
-            content: receivedMessage, rightSide: false, autoPlay: true);
+      MessageView mes = MessageView(
+          content: receivedMessage, rightSide: false, autoPlay: true);
 
-        messages.add(mes);
-        setState(() {});
+      messages.add(mes);
+      setState(() {});
 
-        controller!.animateTo(
-          controller!.position.maxScrollExtent + 200,
-          duration: Duration(milliseconds: 500),
-          curve: Curves.fastOutSlowIn,
-        );
+      controller!.animateTo(
+        controller!.position.maxScrollExtent + 200,
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.fastOutSlowIn,
+      );
 
-        // log("messages: ${messages.toList()}");
-      });
-    }
+      // log("messages: ${messages.toList()}");
+    });
 
     log("initState");
   }
 
   @override
   void dispose() {
-    channelWS!.sink.close(status.goingAway);
-    subscription?.cancel();
+    // channelWS!.sink.close(status.goingAway);
+    // subscription?.cancel();
     log("dispose");
     super.dispose();
   }
@@ -106,11 +100,11 @@ class ChatScreenState extends State<UserChatAll>
         backgroundColor: Colors.blue[400],
         title: Text(
           driverModel.name,
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-        actions: [
+        actions: const [
           Padding(
-            padding: const EdgeInsets.only(right: 16.0),
+            padding: EdgeInsets.only(right: 16.0),
             child: CircleAvatar(
               radius: 35,
               backgroundImage: NetworkImage(
@@ -119,17 +113,6 @@ class ChatScreenState extends State<UserChatAll>
             ),
           ),
         ],
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.of(context).pop({
-              if (driverModel.status == Status.BUSY)
-                {
-                  {driverModel.name = driverModel.name}
-                }
-            });
-          },
-        ),
       ),
       body: Column(
         children: <Widget>[
@@ -150,9 +133,9 @@ class ChatScreenState extends State<UserChatAll>
               },
             ),
           ),
-          SizedBox(height: 10),
-          Divider(height: 1.0),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
+          const Divider(height: 1.0),
+          const SizedBox(height: 10),
           Container(
             height: 250,
             decoration: BoxDecoration(
@@ -170,7 +153,7 @@ class ChatScreenState extends State<UserChatAll>
               },
             ),
           ),
-          SizedBox(height: 5),
+          const SizedBox(height: 5),
         ],
       ),
     );

@@ -21,11 +21,11 @@ class HomeUserXanhSm extends StatefulWidget {
 
 class _HomeUserXanhSmState extends State<HomeUserXanhSm> {
   int _currentIndex = 0;
-  late IOWebSocketChannel channel;
+  // late IOWebSocketChannel channel;
   bool isRequested = false;
   bool isDriverInfo = false;
   bool isReviews = false;
-  final TextEditingController _textFieldController = TextEditingController();
+
   final List<Widget> _pages = [
     const BookingCar(),
     const ActivityDaily(),
@@ -43,44 +43,44 @@ class _HomeUserXanhSmState extends State<HomeUserXanhSm> {
     //   "receiver": "" //người nhận
     //   //"points": "[21.03735349640734, 105.78897826869654]",
     // }));
-    channel = IOWebSocketChannel.connect(
-        "$URL_WS${userModel.role}_${userModel.name}");
-    channel.stream.listen((message) {
-      // print("ChatScreen: " + message);
-      final Map<String, dynamic> messageData = jsonDecode(message);
-      final String receivedMessage = messageData['message'];
-      driverModel.name = messageData['sender'];
-      if (receivedMessage == "ACPECT") {
-        if (userModel.status == Status.NORMAL) {
-          isRequested = false;
-          isDriverInfo = true;
-          userModel.changeStatusWithMessage("ACPECT");
-          print("${userModel.status}_user");
-          channel.sink.add(jsonEncode({
-            "message": "OK",
-            "sender": userModel.name,
-            "receiver": driverModel.name, //người nhận
-            "type": "private",
-            //"points": "[21.03735349640734, 105.78897826869654]",
-          }));
-          setState(() {});
-        }
-      } else if (receivedMessage == "KETTHUC") {
-        if (userModel.status == Status.BUSY) {
-          isDriverInfo = false;
-          isReviews = true;
-          userModel.changeStatusWithMessage("ENDTRIP");
-          print("${userModel.status}_user");
-          setState(() {});
-        }
-      }
-    });
+    // channel = IOWebSocketChannel.connect(
+    //     "$URL_WS${userModel.role}_${userModel.name}");
+    // channel.stream.listen((message) {
+    //   // print("ChatScreen: " + message);
+    //   final Map<String, dynamic> messageData = jsonDecode(message);
+    //   final String receivedMessage = messageData['message'];
+    //   driverModel.name = messageData['sender'];
+    //   if (receivedMessage == "ACPECT") {
+    //     if (userModel.status == Status.NORMAL) {
+    //       isRequested = false;
+    //       isDriverInfo = true;
+    //       userModel.changeStatusWithMessage("ACPECT");
+    //       print("${userModel.status}_user");
+    //       channel.sink.add(jsonEncode({
+    //         "message": "OK",
+    //         "sender": userModel.name,
+    //         "receiver": driverModel.name, //người nhận
+    //         "type": "private",
+    //         //"points": "[21.03735349640734, 105.78897826869654]",
+    //       }));
+    //       setState(() {});
+    //     }
+    //   } else if (receivedMessage == "KETTHUC") {
+    //     if (userModel.status == Status.BUSY) {
+    //       isDriverInfo = false;
+    //       isReviews = true;
+    //       userModel.changeStatusWithMessage("ENDTRIP");
+    //       print("${userModel.status}_user");
+    //       setState(() {});
+    //     }
+    //   }
+    // });
   }
 
   @override
   void dispose() {
-    channel.sink.close(status.goingAway);
-    _textFieldController.dispose();
+    // channel.sink.close(status.goingAway);
+
     super.dispose();
   }
 

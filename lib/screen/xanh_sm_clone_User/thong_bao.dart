@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:skysoft_taxi/screen/xanh_sm_clone_User/info_coupon.dart';
+import 'package:skysoft_taxi/screen/xanh_sm_clone_User/thongtin_coupon.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
