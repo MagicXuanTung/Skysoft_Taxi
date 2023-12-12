@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skysoft_taxi/global/global.dart';
 import 'package:skysoft_taxi/models/user.model.dart';
-import 'package:skysoft_taxi/screen/homeDriver.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/home_user_xanh_sm.dart';
 import 'package:skysoft_taxi/util/connectivity_handler.dart';
 
@@ -22,18 +21,16 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordFocusNode = FocusNode();
 
   late UserModel user;
-
   bool isEmailFieldEmpty = true;
   bool isPasswordFieldEmpty = true;
   bool _obscurePassword = true;
-
   late ConnectivityHandler _connectivityHandler;
 
   @override
   void initState() {
+    super.initState();
     _connectivityHandler = ConnectivityHandler();
     _connectivityHandler.startListening(context);
-    super.initState();
   }
 
   @override
@@ -156,13 +153,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 15),
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       String enteredUsername = _emailController.text;
                       List<String> temp = enteredUsername.split(".");
                       String role = temp.first;
                       String userName = temp.last;
                       if (role == "user") {
-                        // Đăng nhập thành công với tài khoản user, chuyển đến trang Home.
                         userModel.name = userName;
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) {
@@ -171,15 +167,14 @@ class _LoginScreenState extends State<LoginScreen> {
                         ));
                         userModel.changeStatusWithMessage("ENDTRIP");
                       } else if (role == "driver") {
-                        // Đăng nhập thành công với tài khoản driver, chuyển đến trang HomeDriver.
                         driverModel.name = userName;
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const HomeDriver();
-                            },
-                          ),
-                        );
+                        // Navigator.of(context).push(
+                        //   MaterialPageRoute(
+                        //     builder: (context) {
+                        //       return const HomeDriver();
+                        //     },
+                        //   ),
+                        // );
                         driverModel.changeStatusWithMessage("ENDTRIP");
                       } else {
                         showDialog(

@@ -27,13 +27,20 @@ class ConnectivityHandler {
         } else {
           // Internet connection is restored
           if (_showLoading) {
-            Navigator.pop(
-                context); // Remove loading screen if it's currently shown
+            Navigator.pop(context);
             _showLoading = false;
           }
         }
       },
     );
+  }
+
+  bool isShowingLoadingScreen() {
+    return _showLoading;
+  }
+
+  void setLoadingScreen(bool showLoading) {
+    _showLoading = showLoading;
   }
 
   void stopListening() {

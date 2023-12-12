@@ -1,15 +1,11 @@
-import 'dart:convert';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:skysoft_taxi/global/global.dart';
-import 'package:skysoft_taxi/models/user.model.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/goi_xe.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/hoat_dong.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/tai_khoan.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/thong_bao.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/user_chat_all.dart';
-import 'package:skysoft_taxi/url/contants.dart';
-import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/status.dart' as status;
+import '../../util/connectivity_handler.dart';
 
 class HomeUserXanhSm extends StatefulWidget {
   const HomeUserXanhSm({Key? key}) : super(key: key);
@@ -25,6 +21,7 @@ class _HomeUserXanhSmState extends State<HomeUserXanhSm> {
   bool isRequested = false;
   bool isDriverInfo = false;
   bool isReviews = false;
+  late ConnectivityHandler _connectivityHandler;
 
   final List<Widget> _pages = [
     const BookingCar(),
@@ -36,52 +33,25 @@ class _HomeUserXanhSmState extends State<HomeUserXanhSm> {
 
   @override
   void initState() {
+    _connectivityHandler = ConnectivityHandler();
+    _connectivityHandler.startListening(context);
+    // _connectivityHandler.setOnConnectivityChanged(onConnectivityChanged);
     super.initState();
-    // channel.sink.add(jsonEncode({
-    //   "message": "Booking",
-    //   "sender": "Phạm Đức Đông",
-    //   "receiver": "" //người nhận
-    //   //"points": "[21.03735349640734, 105.78897826869654]",
-    // }));
-    // channel = IOWebSocketChannel.connect(
-    //     "$URL_WS${userModel.role}_${userModel.name}");
-    // channel.stream.listen((message) {
-    //   // print("ChatScreen: " + message);
-    //   final Map<String, dynamic> messageData = jsonDecode(message);
-    //   final String receivedMessage = messageData['message'];
-    //   driverModel.name = messageData['sender'];
-    //   if (receivedMessage == "ACPECT") {
-    //     if (userModel.status == Status.NORMAL) {
-    //       isRequested = false;
-    //       isDriverInfo = true;
-    //       userModel.changeStatusWithMessage("ACPECT");
-    //       print("${userModel.status}_user");
-    //       channel.sink.add(jsonEncode({
-    //         "message": "OK",
-    //         "sender": userModel.name,
-    //         "receiver": driverModel.name, //người nhận
-    //         "type": "private",
-    //         //"points": "[21.03735349640734, 105.78897826869654]",
-    //       }));
-    //       setState(() {});
-    //     }
-    //   } else if (receivedMessage == "KETTHUC") {
-    //     if (userModel.status == Status.BUSY) {
-    //       isDriverInfo = false;
-    //       isReviews = true;
-    //       userModel.changeStatusWithMessage("ENDTRIP");
-    //       print("${userModel.status}_user");
-    //       setState(() {});
-    //     }
-    //   }
-    // });
   }
 
   @override
   void dispose() {
     // channel.sink.close(status.goingAway);
-
+    _connectivityHandler.stopListening();
     super.dispose();
+  }
+
+  void onConnectivityChanged(ConnectivityResult result) {
+    if (result != ConnectivityResult.none &&
+        _connectivityHandler.isShowingLoadingScreen()) {
+      Navigator.pop(context);
+      _connectivityHandler.setLoadingScreen(false);
+    }
   }
 
   @override

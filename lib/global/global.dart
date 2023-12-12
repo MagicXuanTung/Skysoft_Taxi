@@ -1,5 +1,8 @@
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
-import 'package:skysoft_taxi/models/user.model.dart';
+
+import '../models/user.model.dart';
+import '../services/WebSocketService.dart';
+import '../url/contants.dart';
 
 class GlobalData {
   static final GlobalData _instance = GlobalData._internal();
@@ -27,3 +30,4 @@ UserModel userModel = GlobalData().userModel;
 
 // kết nối bộ đàm bluetooth
 BluetoothConnection? connection;
+WebSocketService webSocketService = WebSocketService(url: URL_WS);

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class SaveMaker {
+class SaveMakerModel {
   IconData icon;
   String text;
   VoidCallback? onTap;
 
-  SaveMaker({required this.icon, required this.text, this.onTap});
+  SaveMakerModel({required this.icon, required this.text, this.onTap});
 }

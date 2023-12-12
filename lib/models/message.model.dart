@@ -1,7 +1,3 @@
-//enum contentUser { OK, BOOKING, CANCELREQUEST, CANCELTRIP }
-
-// enum ContentDriver { OK, ACPECT, KETTHUC }
-
 enum Type { public, private }
 
 class MessageModel {
@@ -18,15 +14,4 @@ class MessageModel {
     this.type = Type.public,
     this.isServer = false,
   });
-
-  void changeMessage(String content) {
-    // if (content == ContentDriver.ACPECT || content == ContentDriver.OK) {
-    //   type = Type.private;
-    //   driverModel.changeStatusWithMessage("ACPECT");
-    // }
-    // if (content == ContentDriver.KETTHUC) {
-    //   type = Type.public;
-    //   driverModel.changeStatusWithMessage("ENDTRIP");
-    // }
-  }
 }

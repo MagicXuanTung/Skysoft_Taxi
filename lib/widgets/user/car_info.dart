@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 
 import 'package:skysoft_taxi/global/global.dart';
-import 'package:skysoft_taxi/widgets/user/chat_with_driver.dart';
+import 'package:skysoft_taxi/screen/xanh_sm_clone_User/user_chat_all.dart';
 
 class DriverInfo extends StatefulWidget {
   final VoidCallback cancelTrip;
@@ -241,7 +241,7 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
                                           Navigator.of(context).push(
                                             MaterialPageRoute(
                                               builder: (context) =>
-                                                  const ChatWithDriverScreen(),
+                                                  const UserChatAll(),
                                             ),
                                           ); // Add your mail icon's onTap functionality here
                                         },

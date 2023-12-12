@@ -64,10 +64,13 @@ dependencies:
   share_plus: ^7.2.1
   bluetooth_connector: ^0.0.3
   flutter_bluetooth_serial: ^0.4.0
-  flutter_blue_plus: ^1.29.6
   connectivity: ^3.0.6
   fluttertoast: ^8.0.8
-
+  audio_service: ^0.18.12
+  flutter_foreground_task: ^6.1.2
+  screen_state: ^3.0.1
+  just_audio: ^0.9.36
+  just_audio_background: ^0.0.1-beta.11
 dev_dependencies:
   flutter_test:
     sdk: flutter

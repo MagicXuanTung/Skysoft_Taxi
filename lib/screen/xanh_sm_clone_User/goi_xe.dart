@@ -1,18 +1,17 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:skysoft_taxi/global/global.dart';
-import 'package:skysoft_taxi/models/banner_image.dart';
-import 'package:skysoft_taxi/models/booking_type.dart';
-import 'package:skysoft_taxi/models/save_marker.dart';
+import 'package:skysoft_taxi/models/banner_image_model.dart';
+import 'package:skysoft_taxi/models/booking_type_model.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/chon_diem_den.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/luu_diem_don.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/tim_diem_den%20_nhanh.dart';
-import 'package:skysoft_taxi/widgets/Image/banner_image.dart';
-import 'package:skysoft_taxi/widgets/Image/slide_image_horizontal.dart';
+import 'package:skysoft_taxi/widgets/imageWidget/banner_image.dart';
+import 'package:skysoft_taxi/widgets/imageWidget/slide_image_horizontal.dart';
 import 'package:skysoft_taxi/widgets/button/button_icon_booking_type.dart';
 import 'package:skysoft_taxi/widgets/button/button_save_maker.dart';
 
-import '../../util/connectivity_handler.dart';
+import '../../models/save_marker_model.dart';
 
 class BookingCar extends StatefulWidget {
   const BookingCar({Key? key}) : super(key: key);
@@ -31,64 +30,54 @@ class _BookingCarState extends State<BookingCar> {
     'https://www.icoderzsolutions.com/blog/wp-content/uploads/2021/03/5-Steps-In-Hiring-The-Best-Taxi-App-Development-Company.png',
   ];
   // List options type vehicle
-  List<BookingType> listBookingType = [
-    BookingType(
+  List<BookingTypeModel> listBookingType = [
+    BookingTypeModel(
         imagePath: 'https://cdn-icons-png.flaticon.com/512/1801/1801444.png',
         text: 'Ô tô'),
-    BookingType(
+    BookingTypeModel(
       imagePath:
           'https://cdn2.iconfinder.com/data/icons/transportation-colorized/64/transportation-vehicle-11-512.png',
       text: 'Xe máy',
     ),
-    BookingType(
+    BookingTypeModel(
       imagePath:
           'https://icon-library.com/images/on-time-icon/on-time-icon-13.jpg',
       text: 'Thuê xe theo giờ',
     ),
-    BookingType(
+    BookingTypeModel(
       imagePath: 'https://www.airasia.com/aa/ride/images/icon-car.png',
       text: 'Sân bay',
     ),
-    BookingType(
+    BookingTypeModel(
       imagePath: 'https://cdn-icons-png.flaticon.com/512/4234/4234147.png',
       text: 'Đặt xe cho bạn bè',
     ),
-    BookingType(
+    BookingTypeModel(
       imagePath: 'https://cdn-icons-png.flaticon.com/512/6947/6947616.png',
       text: 'Giao Hàng',
     ),
-    BookingType(
+    BookingTypeModel(
       imagePath: 'https://cdn-icons-png.flaticon.com/512/776/776443.png',
       text: 'Đồ ăn',
     ),
-    BookingType(
+    BookingTypeModel(
       imagePath: 'https://cdn-icons-png.flaticon.com/512/5952/5952766.png',
       text: 'Giao Hàng Ô tô',
     ),
   ];
 
-  late List<SaveMaker> listButtonSaveMaker;
+  late List<SaveMakerModel> listButtonSaveMaker;
 // banner behind usernames
   BannerImageModel bannerImageModel = BannerImageModel(
     imageUrl:
         "https://www.taxionthego.com/wp-content/uploads/2019/12/banner_1-min.jpg",
   );
 
-  late ConnectivityHandler _connectivityHandler;
-
-  @override
-  void dispose() {
-    _connectivityHandler.stopListening();
-    super.dispose();
-  }
-
   @override
   void initState() {
-    _connectivityHandler = ConnectivityHandler();
-    _connectivityHandler.startListening(context);
     super.initState();
     listButtonSaveMaker = [
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.home,
         text: 'Nhà riêng',
         onTap: () => {
@@ -102,7 +91,7 @@ class _BookingCarState extends State<BookingCar> {
           )
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.work,
         text: 'Công ty',
         onTap: () => {
@@ -116,7 +105,7 @@ class _BookingCarState extends State<BookingCar> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.restaurant,
         text: 'Nhà hàng',
         onTap: () => {
@@ -130,7 +119,7 @@ class _BookingCarState extends State<BookingCar> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.coffee,
         text: 'Coffee',
         onTap: () => {
@@ -144,7 +133,7 @@ class _BookingCarState extends State<BookingCar> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.hotel,
         text: 'Khách sạn',
         onTap: () => {
@@ -158,7 +147,7 @@ class _BookingCarState extends State<BookingCar> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.shopping_cart,
         text: 'Trung tâm thương mại',
         onTap: () => {
@@ -172,7 +161,7 @@ class _BookingCarState extends State<BookingCar> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.local_atm,
         text: 'ATMs',
         onTap: () => {
@@ -186,7 +175,7 @@ class _BookingCarState extends State<BookingCar> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.emergency,
         text: 'Bệnh viện',
         onTap: () => {
@@ -200,7 +189,7 @@ class _BookingCarState extends State<BookingCar> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.medication,
         text: 'Hiệu thuốc',
         onTap: () => {
@@ -214,7 +203,7 @@ class _BookingCarState extends State<BookingCar> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.garage,
         text: 'Nhà để xe',
         onTap: () => {
@@ -228,7 +217,7 @@ class _BookingCarState extends State<BookingCar> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.local_gas_station,
         text: 'Trạm xăng',
         onTap: () => {
@@ -242,7 +231,7 @@ class _BookingCarState extends State<BookingCar> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.ev_station,
         text: 'Trạm sạc điện',
         onTap: () => {
@@ -256,7 +245,7 @@ class _BookingCarState extends State<BookingCar> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.pin_drop,
         text: 'Thêm địa điểm',
         onTap: () => {
@@ -344,7 +333,7 @@ class _BookingCarState extends State<BookingCar> {
                           scrollDirection: Axis.horizontal,
                           itemCount: listButtonSaveMaker.length,
                           itemBuilder: (context, index) {
-                            SaveMaker item = listButtonSaveMaker[index];
+                            SaveMakerModel item = listButtonSaveMaker[index];
                             return ButtonSaveMaker(
                               icon: item.icon,
                               text: item.text,
@@ -362,7 +351,7 @@ class _BookingCarState extends State<BookingCar> {
                           scrollDirection: Axis.horizontal,
                           itemCount: listBookingType.length,
                           itemBuilder: (context, index) {
-                            BookingType item = listBookingType[index];
+                            BookingTypeModel item = listBookingType[index];
                             return ButtonIconBookingType(
                               imagePath: item.imagePath,
                               text: item.text,

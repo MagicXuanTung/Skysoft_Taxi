@@ -1,93 +1,52 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:skysoft_taxi/audiochat_widget/audio_message.dart';
-import 'package:skysoft_taxi/audiochat_widget/input_voice.dart';
-import 'package:skysoft_taxi/global/global.dart';
-import 'package:skysoft_taxi/screen_test/globaltest.dart';
-import 'package:skysoft_taxi/services/ChatService.dart';
-import 'package:skysoft_taxi/url/contants.dart';
-import 'package:skysoft_taxi/view/message_view.dart';
 
-import 'package:web_socket_channel/io.dart';
+import '../../audiochat_widget/audio_message.dart';
+import '../../audiochat_widget/input_voice.dart';
+import '../../global/global.dart';
+import '../../models/user.model.dart';
+import '../../services/ChatService.dart';
+import '../../view/message_view.dart';
 
 class UserChatAll extends StatefulWidget {
   const UserChatAll({Key? key}) : super(key: key);
   @override
-  State createState() => ChatScreenState();
+  State createState() => UserChatAllState();
 }
 
-class ChatScreenState extends State<UserChatAll>
+class UserChatAllState extends State<UserChatAll>
     with SingleTickerProviderStateMixin {
   DateTime? time;
   final List<MessageView> messages = [];
-
   ScrollController? controller = ScrollController();
 
   @override
   void initState() {
     super.initState();
 
-    getAll().then((value) {
-      for (var element in value) {
-        //log("message: $element");
-        // final Map<String, dynamic> model = jsonDecode(element);
-        messages.add(MessageView(
-            content: element["chatId"],
-            rightSide: element["name"] == userModel.name));
+    getAll().then((List<dynamic>? value) {
+      if (value != null) {
+        for (var element in value) {
+          //log("message: $element");
+          messages.add(MessageView(
+              content: element["chatId"],
+              rightSide: element["name"] == userModel.name));
+        }
+        setState(() {});
+
+        // log("controller!.position.maxScrollExtent: ${controller!.position.maxScrollExtent}");
+
+        controller!.animateTo(
+          messages.length * 200,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.fastOutSlowIn,
+        );
       }
-
-      setState(() {});
-
-      // log("controller!.position.maxScrollExtent: ${controller!.position.maxScrollExtent}");
-
-      controller!.animateTo(
-        messages.length * 200,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.fastOutSlowIn,
-      );
     });
-
-    // subscription?.cancel();
-    // channelWS?.sink.close(status.goingAway);
-
-    channelWS = null;
-    subscription = null;
-
-    channelWS ??= IOWebSocketChannel.connect(
-        "$URL_WS${userModel.role}_${userModel.name}");
-
-    subscription ??= channelWS!.stream.listen((message) {
-      final Map<String, dynamic> messageData = jsonDecode(message);
-      log(message);
-
-      final String receivedMessage = messageData['message'];
-      if (messageData["sender"] == userModel.name) {
-        return;
-      }
-
-      MessageView mes = MessageView(
-          content: receivedMessage, rightSide: false, autoPlay: true);
-
-      messages.add(mes);
-      setState(() {});
-
-      controller!.animateTo(
-        controller!.position.maxScrollExtent + 200,
-        duration: const Duration(milliseconds: 500),
-        curve: Curves.fastOutSlowIn,
-      );
-
-      // log("messages: ${messages.toList()}");
-    });
-
-    log("initState");
   }
 
   @override
   void dispose() {
-    // channelWS!.sink.close(status.goingAway);
-    // subscription?.cancel();
     log("dispose");
     super.dispose();
   }
@@ -100,19 +59,30 @@ class ChatScreenState extends State<UserChatAll>
         backgroundColor: Colors.blue[400],
         title: Text(
           driverModel.name,
-          style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 16.0),
+            padding: const EdgeInsets.only(right: 16.0),
             child: CircleAvatar(
               radius: 35,
               backgroundImage: NetworkImage(
-                'https://yt3.googleusercontent.com/-CFTJHU7fEWb7BYEb6Jh9gm1EpetvVGQqtof0Rbh-VQRIznYYKJxCaqv_9HeBcmJmIsp2vOO9JU=s900-c-k-c0x00ffffff-no-rj',
+                'https://cdn.thuvienphapluat.vn/uploads/Hoidapphapluat/2023/MDV/Thang-1/van-chuyen-hanh-khach.jpg',
               ),
             ),
           ),
         ],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.of(context).pop({
+              if (driverModel.status == Status.BUSY)
+                {
+                  {driverModel.name = driverModel.name}
+                }
+            });
+          },
+        ),
       ),
       body: Column(
         children: <Widget>[
@@ -133,9 +103,9 @@ class ChatScreenState extends State<UserChatAll>
               },
             ),
           ),
-          const SizedBox(height: 10),
-          const Divider(height: 1.0),
-          const SizedBox(height: 10),
+          SizedBox(height: 10),
+          Divider(height: 1.0),
+          SizedBox(height: 10),
           Container(
             height: 250,
             decoration: BoxDecoration(
@@ -153,7 +123,7 @@ class ChatScreenState extends State<UserChatAll>
               },
             ),
           ),
-          const SizedBox(height: 5),
+          SizedBox(height: 5),
         ],
       ),
     );

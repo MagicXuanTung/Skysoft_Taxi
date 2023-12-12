@@ -1,10 +1,15 @@
 import 'dart:async';
 import 'dart:developer';
 import 'dart:math' as math;
-import 'package:audioplayers/audioplayers.dart';
+import 'package:audio_session/audio_session.dart';
 import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 
+import '../url/contants.dart';
+
+// ignore: must_be_immutable
 class AudioMessageWidget extends StatefulWidget {
   String audioURL;
   bool favorite;
@@ -34,7 +39,13 @@ class _AudioMessageWidgetState extends State<AudioMessageWidget> {
   int timeDuration = 0;
   int timePosition = 0;
 
-  final player = AudioPlayer();
+  AudioPlayer player = AudioPlayer();
+  final String imageURL =
+      "https://image.winudf.com/v2/image1/Y29tLnNreXNvZnQuZ3BzX2ljb25fMTU1OTE4NzY5NF8wMjQ/icon.png?w=184&fakeurl=1";
+  final String rightImage =
+      "https://inkythuatso.com/uploads/thumbnails/800/2023/03/9-anh-dai-dien-trang-inkythuatso-03-15-27-03.jpg";
+  final String leftImage =
+      "https://cdn.sforum.vn/sforum/wp-content/uploads/2023/10/avatar-trang-3.jpg";
 
   @override
   void initState() {
@@ -43,27 +54,72 @@ class _AudioMessageWidgetState extends State<AudioMessageWidget> {
     isTag = widget.tag;
     isRight = widget.rightSide;
 
-    //log("widget.audioURL before: ${widget.audioURL} - ${player.state} - ${widget.autoPlay}");
+    //log("widget.audioURL before: ${widget.audioURL} - ${player.playerState} - ${widget.autoPlay}");
 
-    if ((player.state == PlayerState.stopped ||
-            player.state == PlayerState.completed) &&
+    if ((player.playerState == ProcessingState.idle ||
+            player.playerState == ProcessingState.completed) &&
         widget.autoPlay) {
-      log("widget.audioURL: ${widget.audioURL} - ${player.state} - ${widget.autoPlay}");
-      isPlay = true;
-      player.play(UrlSource(
-          'http://192.168.1.75:8080/devxelo/rest/chat/${widget.audioURL}.mp3'));
-      player.onDurationChanged.listen((Duration d) {
-        timeDuration = d.inSeconds;
-        print("timeDuration: $timeDuration");
-      });
-      player.onPositionChanged.listen((Duration p) {
-        timePosition = p.inSeconds;
-        print("timePosition: $timePosition");
-      });
-      player.onPlayerComplete.listen((event) {
+      //log("widget.audioURL: ${widget.audioURL} - ${player.playerState} - ${widget.autoPlay}");
+      playAudioFromURL();
+    }
+    player.durationStream.listen((event) {
+      timeDuration = event!.inSeconds;
+      //log("timeDuration: $timeDuration");
+    });
+    player.positionStream.listen((event) {
+      timePosition = event.inSeconds;
+      //log("timePosition: $timePosition");
+    });
+    // kết thúc âm thanh
+    player.playerStateStream.listen((event) {
+      if (event.processingState == ProcessingState.completed) {
+        // Khi âm thanh kết thúc, dừng và đặt lại vị trí 0
+        player.stop();
+        player.seek(Duration.zero);
         isPlay = false;
         setState(() {});
-      });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    player.dispose();
+    super.dispose();
+  }
+
+  void playAudioFromURL() async {
+    try {
+      final url = '$URL_CHAT${widget.audioURL}.mp3';
+      final mediaItem = MediaItem(
+        id: widget.audioURL,
+        album: widget.audioURL,
+        title: 'Audio Message',
+        artUri: Uri.parse(imageURL),
+      );
+
+      // Chọn chế độ loa ngoài
+      final session = await AudioSession.instance;
+      await session.configure(const AudioSessionConfiguration.speech());
+
+      // Tạo audioSource và đặt tag là MediaItem
+      final audioSource = AudioSource.uri(
+        Uri.parse(url),
+        tag: mediaItem,
+      );
+
+      // Đặt audioSource cho player
+      await player.setAudioSource(audioSource);
+      if (player.sequenceState?.currentSource != null) {
+        final currentMediaItem =
+            player.sequenceState!.currentSource!.tag as MediaItem;
+        log('Current MediaItem: $currentMediaItem');
+        player.play();
+      } else {
+        log('Error loading audio: currentSource is null');
+      }
+    } catch (e) {
+      log('Error loading audio: $e');
     }
   }
 
@@ -142,8 +198,7 @@ class _AudioMessageWidgetState extends State<AudioMessageWidget> {
                             icon: Icons.share,
                             iconColor: Colors.black,
                             onPressed: () {
-                              Share.share(
-                                  'http://192.168.1.75:8080/devxelo/rest/chat/${widget.audioURL}.mp3');
+                              Share.share(URL_CHAT + '${widget.audioURL}.mp3');
                             },
                           ),
                           SizedBox(width: 8.0),
@@ -157,8 +212,7 @@ class _AudioMessageWidgetState extends State<AudioMessageWidget> {
                             onPressed: () {
                               isPlay = !isPlay;
                               if (isPlay) {
-                                player.play(UrlSource(
-                                    'http://192.168.1.75:8080/devxelo/rest/chat/${widget.audioURL}.mp3'));
+                                playAudioFromURL();
                               } else {
                                 player.stop();
                               }

@@ -11,12 +11,12 @@ import 'package:flutter_sound/flutter_sound.dart';
 import 'package:audio_session/audio_session.dart' as a_s;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-
 import 'package:logger/logger.dart' show Level;
 import 'package:flutter_sound_platform_interface/flutter_sound_recorder_platform_interface.dart';
 import 'package:skysoft_taxi/global/global.dart';
 import 'package:skysoft_taxi/url/contants.dart';
 
+// ignore: must_be_immutable
 class InputVoice extends StatefulWidget {
   Function(bool, String) onDone;
   InputVoice({super.key, required this.onDone});
@@ -25,18 +25,18 @@ class InputVoice extends StatefulWidget {
   State<InputVoice> createState() => _InputVoiceState();
 }
 
-class ChatMessage {
-  String text;
-  bool isUser;
-  int type;
+// class ChatMessage {
+//   String text;
+//   bool isUser;
+//   int type;
 
-  ChatMessage({required this.text, required this.isUser, this.type = 1});
-}
+//   ChatMessage({required this.text, required this.isUser, this.type = 1});
+// }
 
 typedef Fn = void Function();
 
 class _InputVoiceState extends State<InputVoice> {
-  final List<ChatMessage> messages = [];
+  // final List<ChatMessage> messages = [];
   final FlutterSoundRecorder _mRecorder =
       FlutterSoundRecorder(logLevel: Level.nothing);
   final Codec _codec = Codec.aacMP4;
@@ -103,7 +103,6 @@ class _InputVoiceState extends State<InputVoice> {
       BluetoothConnector flutterbluetoothconnector = BluetoothConnector();
       List<BtDevice> listDevice = await flutterbluetoothconnector.getDevices();
       bool started = await flutterbluetoothconnector.startServer();
-      String address = "";
       if (started) {
         // for (var element in listDevice) {
         //   if (element.name == "B02PTT-080F" || element.name == "B02PTT-03DD") {
@@ -256,9 +255,9 @@ class _InputVoiceState extends State<InputVoice> {
     recorder.startRecorder(
         codec: _codec,
         toFile: _tempDirectory + "/" + _mPath,
-        bitRate: 8000,
-        numChannels: 1,
-        sampleRate: 8000,
+        // bitRate: 8000,
+        // numChannels: 1,
+        // sampleRate: 8000,
         audioSource: AudioSource.microphone);
     // timer?.cancel();
     // pos = 0;
@@ -332,6 +331,7 @@ class _InputVoiceState extends State<InputVoice> {
     // }
   }
 
+  // ignore: body_might_complete_normally_nullable
   Future<String?> uploadAudioFile(File audioFile) async {
     try {
       List<int> fileBytes = await audioFile.readAsBytes();
@@ -462,7 +462,6 @@ class _InputVoiceState extends State<InputVoice> {
     cancelRecorderSubscriptions();
     connection?.finish();
     timer?.cancel();
-    // Be careful : you must `close` the audio session when you have finished with it.
     _mRecorder.closeRecorder();
     super.dispose();
   }

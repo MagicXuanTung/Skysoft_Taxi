@@ -1,11 +1,11 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:skysoft_taxi/models/banner_image.dart';
+import 'package:skysoft_taxi/models/banner_image_model.dart';
 import 'package:skysoft_taxi/models/circular_image_widget_model.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/chon_diem_den.dart';
-import 'package:skysoft_taxi/widgets/Image/banner_image.dart';
-import 'package:skysoft_taxi/widgets/Image/circular_image_widget.dart';
+import 'package:skysoft_taxi/widgets/imageWidget/banner_image.dart';
+import 'package:skysoft_taxi/widgets/imageWidget/circular_image_widget.dart';
 
 class ActivityDaily extends StatefulWidget {
   const ActivityDaily({Key? key}) : super(key: key);

@@ -1,14 +1,12 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:skysoft_taxi/models/save_marker.dart';
+import 'package:skysoft_taxi/models/save_marker_model.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/luu_diem_don.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/tim_diem_den%20_nhanh.dart';
 import 'package:skysoft_taxi/widgets/button/button_save_maker.dart';
 import 'package:skysoft_taxi/widgets/destination_header.dart';
 import 'package:skysoft_taxi/widgets/history_widget.dart';
-
-import '../../util/connectivity_handler.dart';
 
 class ChooseDestination extends StatefulWidget {
   const ChooseDestination({Key? key}) : super(key: key);
@@ -20,16 +18,13 @@ class ChooseDestination extends StatefulWidget {
 class _ChooseDestinationState extends State<ChooseDestination> {
   final TextEditingController _pickupController = TextEditingController();
   final TextEditingController _destinationController = TextEditingController();
-  late List<SaveMaker> listButtonSaveMaker;
-  late ConnectivityHandler _connectivityHandler;
+  late List<SaveMakerModel> listButtonSaveMaker;
 
   @override
   void initState() {
-    _connectivityHandler = ConnectivityHandler();
-    _connectivityHandler.startListening(context);
     super.initState();
     listButtonSaveMaker = [
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.home,
         text: 'Nhà riêng',
         onTap: () => {
@@ -43,7 +38,7 @@ class _ChooseDestinationState extends State<ChooseDestination> {
           )
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.work,
         text: 'Công ty',
         onTap: () => {
@@ -57,7 +52,7 @@ class _ChooseDestinationState extends State<ChooseDestination> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.restaurant,
         text: 'Nhà hàng',
         onTap: () => {
@@ -71,7 +66,7 @@ class _ChooseDestinationState extends State<ChooseDestination> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.coffee,
         text: 'Coffee',
         onTap: () => {
@@ -85,7 +80,7 @@ class _ChooseDestinationState extends State<ChooseDestination> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.hotel,
         text: 'Khách sạn',
         onTap: () => {
@@ -99,7 +94,7 @@ class _ChooseDestinationState extends State<ChooseDestination> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.shopping_cart,
         text: 'Trung tâm thương mại',
         onTap: () => {
@@ -113,7 +108,7 @@ class _ChooseDestinationState extends State<ChooseDestination> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.local_atm,
         text: 'ATMs',
         onTap: () => {
@@ -127,7 +122,7 @@ class _ChooseDestinationState extends State<ChooseDestination> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.emergency,
         text: 'Bệnh viện',
         onTap: () => {
@@ -141,7 +136,7 @@ class _ChooseDestinationState extends State<ChooseDestination> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.medication,
         text: 'Hiệu thuốc',
         onTap: () => {
@@ -155,7 +150,7 @@ class _ChooseDestinationState extends State<ChooseDestination> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.garage,
         text: 'Nhà để xe',
         onTap: () => {
@@ -169,7 +164,7 @@ class _ChooseDestinationState extends State<ChooseDestination> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.local_gas_station,
         text: 'Trạm xăng',
         onTap: () => {
@@ -183,7 +178,7 @@ class _ChooseDestinationState extends State<ChooseDestination> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.ev_station,
         text: 'Trạm sạc điện',
         onTap: () => {
@@ -197,7 +192,7 @@ class _ChooseDestinationState extends State<ChooseDestination> {
           ),
         },
       ),
-      SaveMaker(
+      SaveMakerModel(
         icon: Icons.pin_drop,
         text: 'Thêm địa điểm',
         onTap: () => {
@@ -212,12 +207,6 @@ class _ChooseDestinationState extends State<ChooseDestination> {
         },
       ),
     ];
-  }
-
-  @override
-  void dispose() {
-    _connectivityHandler.stopListening();
-    super.dispose();
   }
 
   @override
@@ -281,7 +270,7 @@ class _ChooseDestinationState extends State<ChooseDestination> {
                       scrollDirection: Axis.horizontal,
                       itemCount: listButtonSaveMaker.length,
                       itemBuilder: (context, index) {
-                        SaveMaker item = listButtonSaveMaker[index];
+                        SaveMakerModel item = listButtonSaveMaker[index];
                         return ButtonSaveMaker(
                           icon: item.icon,
                           text: item.text,
