@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/login_screen.dart';
-
 import 'package:skysoft_taxi/util/notification_controller.dart';
 
 void main() async {
   await NotificationController.initializeLocalNotifications();
+  await JustAudioBackground.init(
+    androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
+    androidNotificationChannelName: 'Audio playback',
+    androidNotificationOngoing: true,
+  );
   runApp(const MyApp());
 }
 
@@ -22,6 +27,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     NotificationController.startListeningNotificationEvents();
+
     super.initState();
   }
 

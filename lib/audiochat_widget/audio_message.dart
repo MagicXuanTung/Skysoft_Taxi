@@ -6,8 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
-
-import '../url/contants.dart';
+import 'package:skysoft_taxi/url/contants.dart';
 
 // ignore: must_be_immutable
 class AudioMessageWidget extends StatefulWidget {

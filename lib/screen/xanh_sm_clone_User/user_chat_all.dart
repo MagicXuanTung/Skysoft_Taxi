@@ -1,15 +1,16 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:skysoft_taxi/view/message_view.dart';
 
 import '../../audiochat_widget/audio_message.dart';
 import '../../audiochat_widget/input_voice.dart';
 import '../../global/global.dart';
-import '../../models/user.model.dart';
+import '../../models/circular_image_widget_model.dart';
 import '../../services/ChatService.dart';
-import '../../view/message_view.dart';
+import '../../widgets/imageWidget/circular_image_widget.dart';
 
 class UserChatAll extends StatefulWidget {
   const UserChatAll({Key? key}) : super(key: key);
+
   @override
   State createState() => UserChatAllState();
 }
@@ -19,35 +20,35 @@ class UserChatAllState extends State<UserChatAll>
   DateTime? time;
   final List<MessageView> messages = [];
   ScrollController? controller = ScrollController();
+  TextEditingController messageController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
 
-    getAll().then((List<dynamic>? value) {
-      if (value != null) {
-        for (var element in value) {
-          //log("message: $element");
-          messages.add(MessageView(
-              content: element["chatId"],
-              rightSide: element["name"] == userModel.name));
+    getAll().then(
+      (List<dynamic>? value) {
+        if (value != null) {
+          for (var element in value) {
+            messages.add(MessageView(
+                content: element["chatId"],
+                rightSide: element["name"] == userModel.name));
+          }
+          setState(() {});
+
+          controller!.animateTo(
+            messages.length * 200,
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.fastOutSlowIn,
+          );
         }
-        setState(() {});
-
-        // log("controller!.position.maxScrollExtent: ${controller!.position.maxScrollExtent}");
-
-        controller!.animateTo(
-          messages.length * 200,
-          duration: Duration(milliseconds: 500),
-          curve: Curves.fastOutSlowIn,
-        );
-      }
-    });
+      },
+    );
   }
 
   @override
   void dispose() {
-    log("dispose");
+    messageController.dispose();
     super.dispose();
   }
 
@@ -55,75 +56,90 @@ class UserChatAllState extends State<UserChatAll>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 90,
-        backgroundColor: Colors.blue[400],
+        automaticallyImplyLeading: false,
+        toolbarHeight: MediaQuery.of(context).size.height * 0.10,
+        backgroundColor: Colors.blue.shade600,
         title: Text(
           driverModel.name,
           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
         ),
-        actions: [
+        actions: const [
           Padding(
-            padding: const EdgeInsets.only(right: 16.0),
+            padding: EdgeInsets.only(right: 16.0),
             child: CircleAvatar(
-              radius: 35,
+              radius: 40,
               backgroundImage: NetworkImage(
-                'https://cdn.thuvienphapluat.vn/uploads/Hoidapphapluat/2023/MDV/Thang-1/van-chuyen-hanh-khach.jpg',
+                'https://yt3.googleusercontent.com/-CFTJHU7fEWb7BYEb6Jh9gm1EpetvVGQqtof0Rbh-VQRIznYYKJxCaqv_9HeBcmJmIsp2vOO9JU=s900-c-k-c0x00ffffff-no-rj',
               ),
             ),
           ),
         ],
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.of(context).pop({
-              if (driverModel.status == Status.BUSY)
-                {
-                  {driverModel.name = driverModel.name}
-                }
-            });
-          },
+      ),
+      body: Padding(
+        padding: const EdgeInsets.only(bottom: 55),
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                controller: controller,
+                itemCount: messages.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final message = messages[index];
+                  return AudioMessageWidget(
+                    audioURL: message.content,
+                    favorite: message.favorite,
+                    rightSide: message.rightSide,
+                    tag: message.tag,
+                    autoPlay: message.autoPlay,
+                    time: DateTime.now(),
+                  );
+                },
+              ),
+            ),
+            _buildMessageInputField(),
+            InputVoice(
+              onDone: (bool, String) {},
+            ),
+          ],
         ),
       ),
-      body: Column(
-        children: <Widget>[
-          Flexible(
-            child: ListView.builder(
-              controller: controller,
-              itemCount: messages.length,
-              itemBuilder: (BuildContext context, int index) {
-                final message = messages[index];
-                return AudioMessageWidget(
-                  audioURL: message.content,
-                  favorite: message.favorite,
-                  rightSide: message.rightSide,
-                  tag: message.tag,
-                  autoPlay: message.autoPlay,
-                  time: DateTime.now(),
-                );
-              },
+    );
+  }
+
+  Widget _buildMessageInputField() {
+    return Container(
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        children: [
+          IconButton(
+            icon: const Icon(
+              Icons.mic,
+              color: Colors.redAccent,
+            ),
+            onPressed: () {},
+          ),
+          Expanded(
+            child: TextField(
+              controller: messageController,
+              decoration: const InputDecoration(
+                hintText: 'Tin nhắn của bạn...',
+              ),
             ),
           ),
-          SizedBox(height: 10),
-          Divider(height: 1.0),
-          SizedBox(height: 10),
-          Container(
-            height: 250,
-            decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
+          IconButton(
+            icon: const Icon(
+              Icons.send,
+              color: Colors.blueAccent,
             ),
-            child: InputVoice(
-              onDone: (isDone, chatId) {
-                // if (isDone) {
-                //   messages.insert(
-                //       0,
-                //       MessageView(
-                //           content: chatId, rightSide: true, autoPlay: true));
-                //   setState(() {});
-                // }
-              },
-            ),
+            onPressed: () {
+              // Handle send button press
+              String message = messageController.text;
+              // Process and send the message
+              // ...
+              messageController.clear();
+            },
           ),
-          SizedBox(height: 5),
         ],
       ),
     );

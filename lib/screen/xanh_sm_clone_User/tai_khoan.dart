@@ -1,15 +1,22 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:skysoft_taxi/global/global.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/login_screen.dart';
 import 'package:skysoft_taxi/widgets/menu_widget_profile.dart';
+
+import '../../models/user.model.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
+}
+
+Future<bool> _stopForegroundTask() {
+  return FlutterForegroundTask.stopService();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
@@ -220,6 +227,7 @@ class _ProfilePageState extends State<ProfilePage> {
                               iconRight: Icons.chevron_right,
                               onTap: () {
                                 log('Đăng xuất');
+                                _stopForegroundTask();
                                 Navigator.of(context).push(
                                   MaterialPageRoute(
                                     builder: (context) => const LoginScreen(),

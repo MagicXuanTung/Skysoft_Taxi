@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../util/connectivity_handler.dart';
 import 'login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -23,8 +24,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
+  late ConnectivityHandler _connectivityHandler;
+
+  @override
+  void initState() {
+    super.initState();
+    _connectivityHandler = ConnectivityHandler();
+    _connectivityHandler.startListening(context);
+  }
+
   @override
   void dispose() {
+    _connectivityHandler.stopListening();
     _emailFocusNode.dispose();
     _passwordFocusNode.dispose();
     _confirmPasswordFocusNode.dispose();
@@ -48,14 +59,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 50),
-                  FittedBox(
-                    fit: BoxFit.contain,
-                    child: Image.network(
-                      'https://image.winudf.com/v2/image1/Y29tLnNreXNvZnQuZ3BzX2ljb25fMTU1OTE4NzY5NF8wMjQ/icon.png?w=184&fakeurl=1',
-                      width: 120,
-                      height: 120,
-                    ),
-                  ),
+                  const LogoImage(imageUrl: '-assets/images/logo.png'),
                   const SizedBox(height: 10),
                   const Text(
                     'Skysoft Taxi',

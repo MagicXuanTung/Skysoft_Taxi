@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/io.dart';
 
@@ -41,7 +41,7 @@ class WebSocketService {
 
     webSocket?.stream.listen((message) {
       final Map<String, dynamic> messageData = jsonDecode(message);
-      print(message);
+      log(message);
 
       String sender = messageData[SENDER];
       content = messageData[MESSAGE];
