@@ -25,14 +25,6 @@ class InputVoice extends StatefulWidget {
   State<InputVoice> createState() => _InputVoiceState();
 }
 
-// class ChatMessage {
-//   String text;
-//   bool isUser;
-//   int type;
-
-//   ChatMessage({required this.text, required this.isUser, this.type = 1});
-// }
-
 typedef Fn = void Function();
 
 class _InputVoiceState extends State<InputVoice> {

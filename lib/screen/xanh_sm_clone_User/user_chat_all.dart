@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:skysoft_taxi/view/message_view.dart';
 
-import '../../audiochat_widget/audio_message.dart';
 import '../../audiochat_widget/input_voice.dart';
 import '../../global/global.dart';
-import '../../models/circular_image_widget_model.dart';
 import '../../services/ChatService.dart';
-import '../../widgets/imageWidget/circular_image_widget.dart';
 
 class UserChatAll extends StatefulWidget {
   const UserChatAll({Key? key}) : super(key: key);
@@ -79,24 +76,6 @@ class UserChatAllState extends State<UserChatAll>
         padding: const EdgeInsets.only(bottom: 55),
         child: Column(
           children: <Widget>[
-            Expanded(
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                controller: controller,
-                itemCount: messages.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final message = messages[index];
-                  return AudioMessageWidget(
-                    audioURL: message.content,
-                    favorite: message.favorite,
-                    rightSide: message.rightSide,
-                    tag: message.tag,
-                    autoPlay: message.autoPlay,
-                    time: DateTime.now(),
-                  );
-                },
-              ),
-            ),
             _buildMessageInputField(),
             InputVoice(
               onDone: (bool, String) {},
@@ -132,13 +111,7 @@ class UserChatAllState extends State<UserChatAll>
               Icons.send,
               color: Colors.blueAccent,
             ),
-            onPressed: () {
-              // Handle send button press
-              String message = messageController.text;
-              // Process and send the message
-              // ...
-              messageController.clear();
-            },
+            onPressed: () {},
           ),
         ],
       ),
