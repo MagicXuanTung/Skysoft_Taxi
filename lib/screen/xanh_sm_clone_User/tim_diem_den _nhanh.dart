@@ -158,10 +158,9 @@ class _QuickFindPlacesState extends State<QuickFindPlaces>
           Positioned(
             top: MediaQuery.of(context).size.height * 0.65,
             left: MediaQuery.of(context).size.width * 0.85,
-            right: 0,
             child: SizedBox(
-              width: 45,
-              height: 45,
+              width: 40,
+              height: 40,
               child: FloatingActionButton(
                 backgroundColor: Colors.white,
                 onPressed: () {

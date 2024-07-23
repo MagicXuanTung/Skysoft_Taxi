@@ -300,7 +300,7 @@ class _ChooseDestinationState extends State<ChooseDestination> {
             Expanded(
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(),
-                itemCount: 3,
+                itemCount: 5,
                 itemBuilder: (context, index) {
                   return Column(
                     children: [

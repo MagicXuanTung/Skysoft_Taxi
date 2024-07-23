@@ -291,8 +291,8 @@ class _BookingCarState extends State<BookingCar> {
                               ),
                             ),
                             Positioned(
-                              top: 90,
-                              left: 20,
+                              top: 95,
+                              left: 15,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -307,7 +307,7 @@ class _BookingCarState extends State<BookingCar> {
                                           fontStyle: FontStyle.italic,
                                         ),
                                         overflow: TextOverflow.ellipsis,
-                                        maxLines: 3,
+                                        maxLines: 2,
                                       ),
                                       const SizedBox(
                                         width: 5,

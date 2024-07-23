@@ -160,11 +160,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       String userName = temp.last;
                       if (role == "user") {
                         userModel.name = userName;
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) {
-                            return const HomeUserXanhSm();
-                          },
-                        ));
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return const HomeUserXanhSm();
+                            },
+                          ),
+                        );
                         userModel.changeStatusWithMessage("ENDTRIP");
                       } else if (role == "driver") {
                         driverModel.name = userName;
