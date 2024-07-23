@@ -40,9 +40,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       decoration: const BoxDecoration(
                         image: DecorationImage(
                           image: NetworkImage(
-                            'https://www.pyramidions.com/blog/wp-content/uploads/2018/10/Big-Data.jpg',
+                            'https://skysoft.vn/images/banners/sieu-pham-skybox-nd10cam-3.jpg',
                           ),
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                         ),
                       ),
                     ),
@@ -258,30 +258,29 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ],
                         ),
-                        child: Column(
+                        child: Row(
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                MenuWidget(
-                                  iconLeft: Icons.mail,
-                                  text: 'Email CSKH',
-                                  iconRight: Icons.chevron_right,
-                                  onTap: () {
-                                    log('Email CSKH');
-                                  },
-                                  isLast: true,
-                                ),
-                                MenuWidget(
-                                  iconLeft: Icons.support_agent,
-                                  text: '1900 2097',
-                                  iconRight: Icons.chevron_right,
-                                  onTap: () {
-                                    log('1900 2097');
-                                  },
-                                  isLast: true,
-                                ),
-                              ],
+                            Expanded(
+                              child: MenuWidget(
+                                iconLeft: Icons.mail,
+                                text: 'Email CSKH',
+                                iconRight: Icons.chevron_right,
+                                onTap: () {
+                                  log('Email CSKH');
+                                },
+                                isLast: true,
+                              ),
+                            ),
+                            Expanded(
+                              child: MenuWidget(
+                                iconLeft: Icons.support_agent,
+                                text: '1900 0085',
+                                iconRight: Icons.chevron_right,
+                                onTap: () {
+                                  log('1900 0085');
+                                },
+                                isLast: true,
+                              ),
                             ),
                           ],
                         ),

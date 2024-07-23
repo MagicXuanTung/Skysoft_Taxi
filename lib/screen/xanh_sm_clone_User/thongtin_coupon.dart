@@ -48,9 +48,9 @@ class InfoCoupon extends StatelessWidget {
                   decoration: const BoxDecoration(
                     shape: BoxShape.rectangle,
                     image: DecorationImage(
-                      fit: BoxFit.fill,
+                      fit: BoxFit.contain,
                       image: NetworkImage(
-                        'https://adanimate.com/wp-content/uploads/2021/10/TT023.jpg',
+                        'https://skysoft.vn/images/sharing-images/thiet-bi-dinh-vi-gps-skybox-m1-giai-phap-hoan-hao-cho-doanh-nghiep.jpg',
                       ),
                     ),
                   ),

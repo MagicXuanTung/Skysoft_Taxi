@@ -22,12 +22,12 @@ class BookingCar extends StatefulWidget {
 
 class _BookingCarState extends State<BookingCar> {
   List<String> imageSlider = [
-    'https://www.ganeshawebtech.com/wp-content/uploads/2018/06/Get-your-taxi-business-an-edge-by-getting-a-Taxi-booking-apps.jpg',
-    'https://i.ytimg.com/vi/PN3YyMcHuhc/maxresdefault.jpg',
-    'https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/263260978/original/01063a5489f4f3bccd2ae5db726c2f156dfbc6e0/taxi-booking-app-car-booking-app-taxi-app-uber-clone-app-car-rental-app.jpg',
-    'https://cdn.grabon.in/gograbon/images/merchant/1624792553223.jpg',
-    'https://couponswala.com/blog/wp-content/uploads/2021/08/goibibo-cab-coupons.jpg',
-    'https://www.icoderzsolutions.com/blog/wp-content/uploads/2021/03/5-Steps-In-Hiring-The-Best-Taxi-App-Development-Company.png',
+    'https://skysoft.vn/images/banners/sieu-pham-camera-nghi-dinh-10-skybox-mdvr-2c.jpg',
+    'https://skysoft.vn/userfiles/404/giai+phap+quan+ly+gui+xe+thong+minh+skysoft+go.jpg',
+    'https://thietbigiamsathanhtrinh.com/wp-content/uploads/2023/10/banner-skybox-m8.jpg',
+    'https://skysoft.vn/userfiles/341/banner+dadang+may+pos.jpg',
+    'https://skysoft.vn/images/sharing-images/may-pos-phat-hanh-ve-dien-tu.jpg',
+    'https://skysoft.vn/userfiles/91/skysoft-tracking-system-giai-phap-quan-ly-phuong-tien.jpg',
   ];
   // List options type vehicle
   List<BookingTypeModel> listBookingType = [
@@ -70,7 +70,7 @@ class _BookingCarState extends State<BookingCar> {
 // banner behind usernames
   BannerImageModel bannerImageModel = BannerImageModel(
     imageUrl:
-        "https://www.taxionthego.com/wp-content/uploads/2019/12/banner_1-min.jpg",
+        "https://thietbigiamsathanhtrinh.com/wp-content/uploads/2023/10/banner-skybox-m8.jpg",
   );
 
   @override

@@ -37,7 +37,6 @@ dependencies:
   flutter_sliding_up_panel: ^2.1.1
   geolocator: ^9.0.2
   cached_network_image: ^3.2.3
-  avatar_glow: ^2.0.2
   flutter_map_animations: ^0.4.1
   shared_preferences: ^2.2.0
   flutter_map_location_marker: ^7.0.4

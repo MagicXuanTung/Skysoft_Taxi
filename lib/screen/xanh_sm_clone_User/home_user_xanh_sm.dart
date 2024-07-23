@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:async';
 import 'dart:io';
 import 'dart:isolate';
@@ -5,13 +7,12 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:screen_state/screen_state.dart';
-import '../../global/global.dart';
 import '../../util/connectivity_handler.dart';
 import 'goi_xe.dart';
 import 'hoat_dong.dart';
 import 'tai_khoan.dart';
 import 'thong_bao.dart';
-import 'user_chat_all.dart';
+// import 'user_chat_all.dart';
 
 class HomeUserXanhSm extends StatefulWidget {
   const HomeUserXanhSm({Key? key}) : super(key: key);
@@ -30,7 +31,6 @@ class _HomeUserXanhSmState extends State<HomeUserXanhSm> {
   final List<Widget> _pages = [
     const BookingCar(),
     const ActivityDaily(),
-    const UserChatAll(),
     const NotificationPage(),
     const ProfilePage(),
   ];
@@ -39,6 +39,7 @@ class _HomeUserXanhSmState extends State<HomeUserXanhSm> {
   Screen? _screen;
   StreamSubscription<ScreenStateEvent>? screenSubscription;
 
+  // ignore: non_constant_identifier_names
   HomeUserXanhSm() {
     _screen = Screen();
     // Kiểm tra _screen có phải là null hay không
@@ -55,10 +56,10 @@ class _HomeUserXanhSmState extends State<HomeUserXanhSm> {
   @override
   void initState() {
     super.initState();
-    _connectivityHandler = ConnectivityHandler();
-    _connectivityHandler.startListening(context);
+    // _connectivityHandler = ConnectivityHandler();
+    // _connectivityHandler.startListening(context);
 
-    webSocketService.connectToServer();
+    // webSocketService.connectToServer();
 
     //ví dụ send
     // webSocketService.sendMessage(jsonEncode({
@@ -68,25 +69,25 @@ class _HomeUserXanhSmState extends State<HomeUserXanhSm> {
     //   "type": "public",
     //   "received": "received"
     // }));
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) async {
-        await _requestPermissionForAndroid();
-        _initForegroundTask();
-        _startForegroundTask();
+    // WidgetsBinding.instance.addPostFrameCallback(
+    //   (_) async {
+    //     await _requestPermissionForAndroid();
+    //     _initForegroundTask();
+    //     _startForegroundTask();
 
-        // You can get the previous ReceivePort without restarting the service.
-        if (await FlutterForegroundTask.isRunningService) {
-          final newReceivePort = FlutterForegroundTask.receivePort;
-          _registerReceivePort(newReceivePort);
-        }
-      },
-    );
+    //     // You can get the previous ReceivePort without restarting the service.
+    //     if (await FlutterForegroundTask.isRunningService) {
+    //       final newReceivePort = FlutterForegroundTask.receivePort;
+    //       _registerReceivePort(newReceivePort);
+    //     }
+    //   },
+    // );
   }
 
   @override
   void dispose() {
     //channel.sink.close(status.goingAway);
-    _closeReceivePort();
+    // _closeReceivePort();
     super.dispose();
   }
 
@@ -254,42 +255,39 @@ class _HomeUserXanhSmState extends State<HomeUserXanhSm> {
                   iconSize: 25,
                   items: [
                     BottomNavigationBarItem(
+                      backgroundColor: Colors.transparent,
                       icon: Icon(Icons.local_taxi,
                           color: _currentIndex == 0
-                              ? Colors.blue.shade700
+                              ? Colors.deepOrange
                               : Colors.grey),
                       label: 'Gọi xe',
                     ),
                     BottomNavigationBarItem(
+                      backgroundColor: Colors.transparent,
                       icon: Icon(Icons.schedule,
                           color: _currentIndex == 1
-                              ? Colors.blue.shade700
+                              ? Colors.deepOrange
                               : Colors.grey),
                       label: 'Hoạt động',
                     ),
                     BottomNavigationBarItem(
-                      icon: Icon(Icons.group,
-                          color: _currentIndex == 2
-                              ? Colors.blue.shade700
-                              : Colors.grey),
-                      label: 'Trò chuyện',
-                    ),
-                    BottomNavigationBarItem(
+                      backgroundColor: Colors.transparent,
                       icon: Icon(Icons.notifications_active,
-                          color: _currentIndex == 3
-                              ? Colors.blue.shade700
+                          color: _currentIndex == 2
+                              ? Colors.deepOrange
                               : Colors.grey),
                       label: 'Thông báo',
                     ),
                     BottomNavigationBarItem(
+                      backgroundColor: Colors.transparent,
                       icon: Icon(Icons.account_circle,
-                          color: _currentIndex == 4
-                              ? Colors.blue.shade700
+                          color: _currentIndex == 3
+                              ? Colors.deepOrange
                               : Colors.grey),
                       label: 'Tài Khoản',
                     ),
                   ],
-                  selectedItemColor: Colors.blue.shade700,
+                  selectedItemColor: Colors.deepOrange,
                   unselectedItemColor: Colors.grey,
                 ),
               ),

@@ -159,16 +159,20 @@ class _QuickFindPlacesState extends State<QuickFindPlaces>
             top: MediaQuery.of(context).size.height * 0.65,
             left: MediaQuery.of(context).size.width * 0.85,
             right: 0,
-            child: FloatingActionButton(
-              backgroundColor: Colors.white,
-              onPressed: () {
-                handleLocationButtonPress();
-              },
-              mini: true,
-              child: const Icon(
-                color: Colors.black,
-                Icons.my_location,
-                size: 20,
+            child: SizedBox(
+              width: 45,
+              height: 45,
+              child: FloatingActionButton(
+                backgroundColor: Colors.white,
+                onPressed: () {
+                  handleLocationButtonPress();
+                },
+                // mini: true,
+                child: const Icon(
+                  color: Colors.black,
+                  Icons.my_location,
+                  size: 20,
+                ),
               ),
             ),
           ),

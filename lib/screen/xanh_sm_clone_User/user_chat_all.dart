@@ -3,7 +3,7 @@ import 'package:skysoft_taxi/view/message_view.dart';
 
 import '../../audiochat_widget/input_voice.dart';
 import '../../global/global.dart';
-import '../../services/ChatService.dart';
+// import '../../services/ChatService.dart';
 
 class UserChatAll extends StatefulWidget {
   const UserChatAll({Key? key}) : super(key: key);
@@ -23,24 +23,24 @@ class UserChatAllState extends State<UserChatAll>
   void initState() {
     super.initState();
 
-    getAll().then(
-      (List<dynamic>? value) {
-        if (value != null) {
-          for (var element in value) {
-            messages.add(MessageView(
-                content: element["chatId"],
-                rightSide: element["name"] == userModel.name));
-          }
-          setState(() {});
+    // getAll().then(
+    //   (List<dynamic>? value) {
+    //     if (value != null) {
+    //       for (var element in value) {
+    //         messages.add(MessageView(
+    //             content: element["chatId"],
+    //             rightSide: element["name"] == userModel.name));
+    //       }
+    //       setState(() {});
 
-          controller!.animateTo(
-            messages.length * 200,
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.fastOutSlowIn,
-          );
-        }
-      },
-    );
+    //       controller!.animateTo(
+    //         messages.length * 200,
+    //         duration: const Duration(milliseconds: 500),
+    //         curve: Curves.fastOutSlowIn,
+    //       );
+    //     }
+    //   },
+    // );
   }
 
   @override

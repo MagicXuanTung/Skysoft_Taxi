@@ -22,8 +22,8 @@ class _ButtonIconBookingTypeState extends State<ButtonIconBookingType> {
       child: Column(
         children: [
           Container(
-            width: 60,
-            height: 60,
+            width: 55,
+            height: 55,
             margin: const EdgeInsets.fromLTRB(15, 0, 15, 0),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -36,7 +36,7 @@ class _ButtonIconBookingTypeState extends State<ButtonIconBookingType> {
                   widget.imagePath,
                   width: 20,
                   height: 20,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                   color: Colors.blue,
                 ),
               ],

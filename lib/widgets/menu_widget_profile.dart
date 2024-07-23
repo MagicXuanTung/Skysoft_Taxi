@@ -50,7 +50,9 @@ class _MenuWidgetState extends State<MenuWidget> {
                       size: 20,
                       color: Colors.blueGrey,
                     ),
-                    const SizedBox(width: 10),
+                    const SizedBox(
+                      width: 3,
+                    ),
                     Text(
                       widget.text,
                       style: const TextStyle(
