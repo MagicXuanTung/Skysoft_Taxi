@@ -22,11 +22,12 @@ class HomeUserXanhSm extends StatefulWidget {
 }
 
 class _HomeUserXanhSmState extends State<HomeUserXanhSm> {
-  int _currentIndex = 0;
+  int selectedIndex = 0;
   bool isRequested = false;
   bool isDriverInfo = false;
   bool isReviews = false;
   late ConnectivityHandler _connectivityHandler;
+  final _pageController = PageController(initialPage: 0);
 
   final List<Widget> _pages = [
     const BookingCar(),
@@ -88,6 +89,7 @@ class _HomeUserXanhSmState extends State<HomeUserXanhSm> {
   void dispose() {
     //channel.sink.close(status.goingAway);
     // _closeReceivePort();
+    _pageController.dispose();
     super.dispose();
   }
 
@@ -217,83 +219,76 @@ class _HomeUserXanhSmState extends State<HomeUserXanhSm> {
     }
   }
 
+  void getNavigateTab(int index) {
+    if (selectedIndex != index) {
+      selectedIndex = index;
+      setState(() {
+        _pageController.jumpToPage(index);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Positioned.fill(child: _pages[_currentIndex]),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    spreadRadius: 0.1,
-                    blurRadius: 20,
-                    offset: const Offset(0, -10),
-                  ),
-                ],
-              ),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(25),
-                  topRight: Radius.circular(25),
-                ),
-                child: BottomNavigationBar(
-                  type: BottomNavigationBarType.fixed,
-                  currentIndex: _currentIndex,
-                  onTap: (index) {
-                    _currentIndex = index;
-                    setState(() {});
-                  },
-                  showSelectedLabels: true,
-                  showUnselectedLabels: true,
-                  iconSize: 25,
-                  items: [
-                    BottomNavigationBarItem(
-                      backgroundColor: Colors.transparent,
-                      icon: Icon(Icons.local_taxi,
-                          color: _currentIndex == 0
-                              ? Colors.deepOrange
-                              : Colors.grey),
-                      label: 'Gọi xe',
-                    ),
-                    BottomNavigationBarItem(
-                      backgroundColor: Colors.transparent,
-                      icon: Icon(Icons.schedule,
-                          color: _currentIndex == 1
-                              ? Colors.deepOrange
-                              : Colors.grey),
-                      label: 'Hoạt động',
-                    ),
-                    BottomNavigationBarItem(
-                      backgroundColor: Colors.transparent,
-                      icon: Icon(Icons.notifications_active,
-                          color: _currentIndex == 2
-                              ? Colors.deepOrange
-                              : Colors.grey),
-                      label: 'Thông báo',
-                    ),
-                    BottomNavigationBarItem(
-                      backgroundColor: Colors.transparent,
-                      icon: Icon(Icons.account_circle,
-                          color: _currentIndex == 3
-                              ? Colors.deepOrange
-                              : Colors.grey),
-                      label: 'Tài Khoản',
-                    ),
-                  ],
-                  selectedItemColor: Colors.deepOrange,
-                  unselectedItemColor: Colors.grey,
-                ),
-              ),
+      body: PageView(
+        controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: _pages,
+      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 0.1,
+              blurRadius: 20,
+              offset: const Offset(0, -10),
             ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
           ),
-        ],
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: selectedIndex,
+            onTap: getNavigateTab,
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
+            iconSize: 25,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.local_taxi,
+                ),
+                label: 'Gọi xe',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.schedule,
+                ),
+                label: 'Hoạt động',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.notifications_active,
+                ),
+                label: 'Thông báo',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.person,
+                ),
+                label: 'Tài Khoản',
+              ),
+            ],
+            selectedItemColor: Colors.deepOrange,
+            unselectedItemColor: Colors.grey,
+          ),
+        ),
       ),
     );
   }

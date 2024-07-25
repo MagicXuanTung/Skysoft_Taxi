@@ -6,15 +6,16 @@ import 'package:skysoft_taxi/models/booking_type_model.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/chon_diem_den.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/luu_diem_don.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/tim_diem_den%20_nhanh.dart';
-import 'package:skysoft_taxi/widgets/imageWidget/banner_image.dart';
 import 'package:skysoft_taxi/widgets/imageWidget/slide_image_horizontal.dart';
 import 'package:skysoft_taxi/widgets/button/button_icon_booking_type.dart';
 import 'package:skysoft_taxi/widgets/button/button_save_maker.dart';
+import 'package:skysoft_taxi/widgets/tab_widget.dart';
 
 import '../../models/save_marker_model.dart';
 
-class BookingCar extends StatefulWidget {
-  const BookingCar({Key? key}) : super(key: key);
+class BookingCar extends TabWidget {
+  const BookingCar({Key? key})
+      : super(icon: const Icon(Icons.local_taxi), title: "Gọi xe", key: key);
 
   @override
   State<BookingCar> createState() => _BookingCarState();
@@ -264,217 +265,209 @@ class _BookingCarState extends State<BookingCar> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(bottom: 50),
-        child: ListView(
-          shrinkWrap: true,
-          physics: const BouncingScrollPhysics(),
-          children: [
-            Container(
-              color: const Color.fromARGB(242, 244, 243, 255),
-              child: Stack(
+      body: SingleChildScrollView(
+        child: Container(
+          color: const Color.fromARGB(242, 244, 243, 255),
+          child: Stack(
+            children: [
+              Column(
                 children: [
-                  Column(
+                  Stack(
                     children: [
-                      SizedBox(
-                        height: screenHeight / 4,
-                        child: Stack(
+                      Image.network(
+                        bannerImageModel.imageUrl,
+                        fit: BoxFit.fill,
+                      ),
+                      Positioned.fill(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.5),
+                          ),
+                        ),
+                      ),
+                      Positioned(
+                        top: 95,
+                        left: 15,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            BannerImage(imageUrl: bannerImageModel.imageUrl),
-                            Positioned.fill(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.black.withOpacity(0.5),
+                            Row(
+                              children: [
+                                Text(
+                                  'Xin chào ${userModel.name}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 22,
+                                    fontStyle: FontStyle.italic,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
                                 ),
-                              ),
-                            ),
-                            Positioned(
-                              top: 95,
-                              left: 15,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Xin chào ${userModel.name}',
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 22,
-                                          fontStyle: FontStyle.italic,
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                        maxLines: 2,
-                                      ),
-                                      const SizedBox(
-                                        width: 5,
-                                      ),
-                                      const Icon(
-                                        Icons.waving_hand,
-                                        color: Colors.white,
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                const Icon(
+                                  Icons.waving_hand,
+                                  color: Colors.white,
+                                ),
+                              ],
+                            )
                           ],
                         ),
-                      ),
-                      const SizedBox(height: 50),
-                      SizedBox(
-                        width: 0.9 * MediaQuery.of(context).size.width,
-                        height: 50,
-                        child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: listButtonSaveMaker.length,
-                          itemBuilder: (context, index) {
-                            SaveMakerModel item = listButtonSaveMaker[index];
-                            return ButtonSaveMaker(
-                              icon: item.icon,
-                              text: item.text,
-                              onTap: item.onTap,
-                            );
-                          },
-                        ),
-                      ),
-                      const SizedBox(height: 30),
-                      SizedBox(
-                        width: 0.9 * MediaQuery.of(context).size.width,
-                        height: 90,
-                        child: ListView.builder(
-                          physics: const BouncingScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemCount: listBookingType.length,
-                          itemBuilder: (context, index) {
-                            BookingTypeModel item = listBookingType[index];
-                            return ButtonIconBookingType(
-                              imagePath: item.imagePath,
-                              text: item.text,
-                              onTap: () {
-                                log(item.text);
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return const ChooseDestination();
-                                    },
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      HorizontalImageSlider(
-                        imageUrls: imageSlider,
                       ),
                     ],
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 0.05 * MediaQuery.of(context).size.width,
-                      vertical: 0.22 * MediaQuery.of(context).size.height,
-                    ),
-                    child: GestureDetector(
-                      onTap: () {
-                        log("Bạn muốn đi đâu ?");
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const ChooseDestination();
-                            },
-                          ),
+                  const SizedBox(height: 50),
+                  SizedBox(
+                    width: 0.9 * MediaQuery.of(context).size.width,
+                    height: 50,
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: listButtonSaveMaker.length,
+                      itemBuilder: (context, index) {
+                        SaveMakerModel item = listButtonSaveMaker[index];
+                        return ButtonSaveMaker(
+                          icon: item.icon,
+                          text: item.text,
+                          onTap: item.onTap,
                         );
                       },
-                      child: Container(
-                        height: 52,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(15.0),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              spreadRadius: 0.1,
-                              blurRadius: 20,
-                              offset: const Offset(0, 10),
-                            ),
-                          ],
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 10.0,
-                            vertical: 0.2,
-                          ),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.flag,
-                                  color: Color.fromARGB(255, 255, 64, 64)),
-                              const SizedBox(width: 10),
-                              const Text(
-                                'Bạn muốn đi đâu ?',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                  fontStyle: FontStyle.italic,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              const Spacer(),
-                              ElevatedButton(
-                                onPressed: () {
-                                  log("bản đồ");
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return const QuickFindPlaces();
-                                      },
-                                    ),
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.grey.shade200,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30.0),
-                                  ),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 5, vertical: 8),
-                                  elevation: 0,
-                                ),
-                                child: const Row(
-                                  children: [
-                                    Icon(
-                                      Icons.map,
-                                      size: 13,
-                                      color: Colors.black,
-                                    ),
-                                    SizedBox(width: 2),
-                                    Text(
-                                      'Bản Đồ',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                     ),
+                  ),
+                  const SizedBox(height: 30),
+                  SizedBox(
+                    width: 0.9 * MediaQuery.of(context).size.width,
+                    height: 90,
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: listBookingType.length,
+                      itemBuilder: (context, index) {
+                        BookingTypeModel item = listBookingType[index];
+                        return ButtonIconBookingType(
+                          imagePath: item.imagePath,
+                          text: item.text,
+                          onTap: () {
+                            log(item.text);
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return const ChooseDestination();
+                                },
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  HorizontalImageSlider(
+                    imageUrls: imageSlider,
                   ),
                 ],
               ),
-            ),
-          ],
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 0.05 * MediaQuery.of(context).size.width,
+                  vertical: 0.22 * MediaQuery.of(context).size.height,
+                ),
+                child: GestureDetector(
+                  onTap: () {
+                    log("Bạn muốn đi đâu ?");
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const ChooseDestination();
+                        },
+                      ),
+                    );
+                  },
+                  child: Container(
+                    height: 52,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15.0),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.1),
+                          spreadRadius: 0.1,
+                          blurRadius: 20,
+                          offset: const Offset(0, 10),
+                        ),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10.0,
+                        vertical: 0.2,
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.flag,
+                              color: Color.fromARGB(255, 255, 64, 64)),
+                          const SizedBox(width: 10),
+                          const Text(
+                            'Bạn muốn đi đâu ?',
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const Spacer(),
+                          ElevatedButton(
+                            onPressed: () {
+                              log("bản đồ");
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return const QuickFindPlaces();
+                                  },
+                                ),
+                              );
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.grey.shade200,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5, vertical: 8),
+                              elevation: 0,
+                            ),
+                            child: const Row(
+                              children: [
+                                Icon(
+                                  Icons.map,
+                                  size: 13,
+                                  color: Colors.black,
+                                ),
+                                SizedBox(width: 2),
+                                Text(
+                                  'Bản Đồ',
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

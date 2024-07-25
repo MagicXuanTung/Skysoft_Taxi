@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/thongtin_coupon.dart';
+import 'package:skysoft_taxi/widgets/tab_widget.dart';
 
-class NotificationPage extends StatefulWidget {
-  const NotificationPage({Key? key}) : super(key: key);
+class NotificationPage extends TabWidget {
+  const NotificationPage({Key? key})
+      : super(
+            icon: const Icon(Icons.notifications_active),
+            title: "Thông Báo",
+            key: key);
 
   @override
   State<NotificationPage> createState() => _NotificationPageState();
@@ -105,6 +110,7 @@ class _NotificationPageState extends State<NotificationPage> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         centerTitle: true,
         title: const Text(
@@ -130,19 +136,16 @@ class _NotificationPageState extends State<NotificationPage> {
         children: [
           Container(
             color: const Color.fromARGB(242, 244, 243, 255),
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 60),
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: couponList.length,
-                itemBuilder: (context, index) => Coupon(
-                  id: index,
-                  dateTime: couponList[index].dateTime,
-                  showCheckbox: showCheckbox,
-                  onCheckboxChanged: (isChecked) {
-                    handleCheckboxChanged(index, isChecked);
-                  },
-                ),
+            child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
+              itemCount: couponList.length,
+              itemBuilder: (context, index) => Coupon(
+                id: index,
+                dateTime: couponList[index].dateTime,
+                showCheckbox: showCheckbox,
+                onCheckboxChanged: (isChecked) {
+                  handleCheckboxChanged(index, isChecked);
+                },
               ),
             ),
           ),
