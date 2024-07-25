@@ -1,6 +1,4 @@
-import 'dart:async';
-
-import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class HorizontalImageSlider extends StatefulWidget {
@@ -9,76 +7,56 @@ class HorizontalImageSlider extends StatefulWidget {
   const HorizontalImageSlider({super.key, required this.imageUrls});
 
   @override
-  // ignore: library_private_types_in_public_api
   _HorizontalImageSliderState createState() => _HorizontalImageSliderState();
 }
 
 class _HorizontalImageSliderState extends State<HorizontalImageSlider> {
-  late PageController _pageController;
-  int _currentPage = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController();
-    _startAutoSlide();
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
-  void _startAutoSlide() {
-    Timer.periodic(
-      const Duration(seconds: 2),
-      (timer) {
-        if (_currentPage < widget.imageUrls.length - 1) {
-          _currentPage++;
-        } else {
-          _currentPage = 0;
-        }
-
-        if (_pageController.hasClients) {
-          _pageController.animateToPage(
-            _currentPage,
-            duration: const Duration(milliseconds: 500),
-            curve: Curves.easeInOut,
-          );
-        }
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 250.0,
-      child: PageView.builder(
-        physics: const BouncingScrollPhysics(),
-        controller: _pageController,
-        itemCount: widget.imageUrls.length,
-        onPageChanged: (index) {
-          setState(() {
-            _currentPage = index;
-          });
-        },
-        itemBuilder: (context, index) {
+    final height = MediaQuery.of(context).size.height;
+    return CarouselSlider(
+      items: widget.imageUrls.map(
+        (e) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 25),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20.0),
-              child: CachedNetworkImage(
-                imageUrl: widget.imageUrls[index],
-                placeholder: (context, url) =>
-                    const CircularProgressIndicator(),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
-                fit: BoxFit.cover,
+            padding: const EdgeInsets.all(5),
+            child: GestureDetector(
+              onTap: () {},
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(25), // Border radius
+                      border: Border.all(
+                        color: Colors.transparent, // Border color
+                        width: 2, // Border width
+                      ),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(25),
+                      child: Image(
+                        image: NetworkImage(e),
+                        height: height * 0.25, // Adjusted height
+                        width:
+                            double.infinity, // Adjusted width to fill the space
+                        fit: BoxFit.fill, // Ensures full image is shown
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           );
         },
+      ).toList(),
+      options: CarouselOptions(
+        height: height * 0.5, // Adjusted height to make the image rectangular
+        autoPlay: true,
+        autoPlayInterval: const Duration(seconds: 3),
+        enlargeCenterPage: true,
+        viewportFraction:
+            0.9, // Adjusted to show a portion of the next/previous image
       ),
     );
   }

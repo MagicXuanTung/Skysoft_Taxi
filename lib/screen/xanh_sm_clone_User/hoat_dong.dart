@@ -261,7 +261,7 @@ class _ActivityDailyState extends State<ActivityDaily> {
                         onPressed: () => _selectButton(0),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: _selectedButtonIndex == 0
-                              ? Colors.black45
+                              ? Colors.blueAccent
                               : Colors.white70,
                           minimumSize: const Size(50, 15), // Adjusted size
                           padding: const EdgeInsets.symmetric(
@@ -284,7 +284,7 @@ class _ActivityDailyState extends State<ActivityDaily> {
                         onPressed: () => _selectButton(1),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: _selectedButtonIndex == 1
-                              ? Colors.black45
+                              ? Colors.blueAccent
                               : Colors.white70,
                           minimumSize: const Size(50, 15), // Adjusted size
                           padding: const EdgeInsets.symmetric(
@@ -307,7 +307,7 @@ class _ActivityDailyState extends State<ActivityDaily> {
                         onPressed: () => _selectButton(2),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: _selectedButtonIndex == 2
-                              ? Colors.black45
+                              ? Colors.blueAccent
                               : Colors.white70,
                           minimumSize: const Size(50, 10), // Adjusted size
                           padding: const EdgeInsets.symmetric(

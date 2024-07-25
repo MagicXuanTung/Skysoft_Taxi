@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../util/connectivity_handler.dart';
+import '../../widgets/imageWidget/logo_login_page.dart';
 import 'login_screen.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -59,7 +60,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 50),
-                  const LogoImage(imageUrl: '-assets/images/logo.png'),
+                  const LogoImage(imageUrl: 'assets/images/logo.png'),
                   const SizedBox(height: 10),
                   const Text(
                     'Skysoft Taxi',
@@ -69,9 +70,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       color: Colors.black,
                     ),
                   ),
-
                   const SizedBox(height: 25),
-
                   // Email or Username
                   SizedBox(
                     height: 55,

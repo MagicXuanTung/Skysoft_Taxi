@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:just_audio_background/just_audio_background.dart';
+import 'package:skysoft_taxi/screen/xanh_sm_clone_User/home_user_xanh_sm.dart';
+// import 'package:just_audio_background/just_audio_background.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/login_screen.dart';
 import 'package:skysoft_taxi/util/notification_controller.dart';
-
-import 'screen/xanh_sm_clone_User/home_user_xanh_sm.dart';
 
 void main() async {
   await NotificationController.initializeLocalNotifications();

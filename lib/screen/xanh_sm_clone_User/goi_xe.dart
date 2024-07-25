@@ -287,7 +287,7 @@ class _BookingCarState extends State<BookingCar> {
                         ),
                       ),
                       Positioned(
-                        top: 95,
+                        top: 125,
                         left: 15,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -364,7 +364,7 @@ class _BookingCarState extends State<BookingCar> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 40),
                   HorizontalImageSlider(
                     imageUrls: imageSlider,
                   ),

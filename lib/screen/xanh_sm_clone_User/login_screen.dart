@@ -4,6 +4,7 @@ import 'package:skysoft_taxi/models/user.model.dart';
 import 'package:skysoft_taxi/screen/xanh_sm_clone_User/home_user_xanh_sm.dart';
 import 'package:skysoft_taxi/util/connectivity_handler.dart';
 
+import '../../widgets/imageWidget/logo_login_page.dart';
 import 'register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -54,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const SizedBox(height: 50),
-                  const LogoImage(imageUrl: '-assets/images/logo.png'),
+                  const LogoImage(imageUrl: 'assets/images/logo.png'),
                   const SizedBox(height: 10),
                   const Text(
                     'Skysoft Taxi',
@@ -262,22 +263,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class LogoImage extends StatelessWidget {
-  final String imageUrl;
-
-  const LogoImage({Key? key, required this.imageUrl}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Image.asset(
-      'assets/images/logo.png', // Update with the correct path to your image
-      height: 100,
-      width: 100,
-      fit: BoxFit.cover,
     );
   }
 }
