@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class PanelBar extends StatefulWidget {
-  final PanelController panelController;
-  final VoidCallback? onTextFieldPressed;
+  const PanelBar({super.key});
 
-  const PanelBar(
-      {Key? key, required this.panelController, this.onTextFieldPressed})
-      : super(key: key);
   @override
   State<PanelBar> createState() => _PanelBarState();
 }
@@ -57,12 +52,7 @@ class _PanelBarState extends State<PanelBar> with TickerProviderStateMixin {
                       prefixIcon: const Icon(Icons.search, color: Colors.grey),
                       suffixIcon: const Icon(Icons.mic, color: Colors.grey),
                     ),
-                    onTap: () {
-                      widget.panelController.open();
-                      if (widget.onTextFieldPressed != null) {
-                        widget.onTextFieldPressed!();
-                      }
-                    },
+                    onTap: () {},
                   ),
                 ),
               ),

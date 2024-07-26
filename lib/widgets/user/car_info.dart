@@ -1,19 +1,16 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
-
 import 'package:skysoft_taxi/global/global.dart';
-import 'package:skysoft_taxi/screen/xanh_sm_clone_User/user_chat_all.dart';
+import 'package:skysoft_taxi/screen/user_ui/user_chat_all.dart';
 
 class DriverInfo extends StatefulWidget {
-  final VoidCallback cancelTrip;
-  const DriverInfo({Key? key, required this.cancelTrip}) : super(key: key);
+  const DriverInfo({super.key});
 
   @override
   State<DriverInfo> createState() => _DriverInfoState();
 }
 
-class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
+class _DriverInfoState extends State<DriverInfo> {
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -64,7 +61,6 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        // not used anything
                         log("Tapped Toyota Corolla");
                       },
                       child: Container(
@@ -76,7 +72,6 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
                             ),
                           ),
                         ),
-                        // height: 150,
                         child: ListTile(
                           title: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -141,8 +136,7 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
                                 flex: 6,
                                 child: Image.asset(
                                   'assets/images/economy.png',
-                                  fit: BoxFit
-                                      .contain, // Use BoxFit to control the image's fit
+                                  fit: BoxFit.contain,
                                 ),
                               ),
                             ],
@@ -243,7 +237,7 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
                                               builder: (context) =>
                                                   const UserChatAll(),
                                             ),
-                                          ); // Add your mail icon's onTap functionality here
+                                          );
                                         },
                                         child: Align(
                                           alignment: Alignment.center,
@@ -270,7 +264,6 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
                                       GestureDetector(
                                         onTap: () {
                                           log("Tapped Phone Icon");
-                                          // Add your phone icon's onTap functionality here
                                         },
                                         child: Align(
                                           alignment: Alignment.center,
@@ -304,9 +297,7 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
                 ),
               ),
               GestureDetector(
-                onTap: () {
-                  // not used anything
-                },
+                onTap: () {},
                 child: Align(
                   alignment: const AlignmentDirectional(0.00, 0.00),
                   child: Row(
@@ -339,7 +330,6 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
                       GestureDetector(
                         onTap: () {
                           log("Tapped Ride Safety");
-                          // Handle the "Ride Safety" onTap event
                         },
                         child: const Row(
                           children: [
@@ -368,9 +358,7 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
                 ),
               ),
               GestureDetector(
-                onTap: () {
-                  // not used anything
-                },
+                onTap: () {},
                 child: Align(
                   alignment: const AlignmentDirectional(0.00, 0.00),
                   child: Row(
@@ -464,7 +452,6 @@ class _DriverInfoState extends State<DriverInfo> with TickerProviderStateMixin {
                     if (selectedReasonIndex >= 0) {
                       final selectedReason = cancelReasons[selectedReasonIndex];
                       print('Lý do hủy: $selectedReason');
-                      widget.cancelTrip();
                     }
                   },
                   child: const Text('OK'),

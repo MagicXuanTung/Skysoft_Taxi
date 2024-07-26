@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:skysoft_taxi/screen/xanh_sm_clone_User/tim_diem_den%20_nhanh.dart';
+import 'package:skysoft_taxi/screen/user_ui/tim_diem_den_nhanh.dart';
 
 class DestinationHeader extends StatefulWidget {
   final TextEditingController pickupController;

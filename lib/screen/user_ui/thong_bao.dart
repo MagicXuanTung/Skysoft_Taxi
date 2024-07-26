@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:skysoft_taxi/screen/xanh_sm_clone_User/thongtin_coupon.dart';
+import 'package:skysoft_taxi/screen/user_ui/thongtin_coupon.dart';
 import 'package:skysoft_taxi/widgets/tab_widget.dart';
 
 class NotificationPage extends TabWidget {

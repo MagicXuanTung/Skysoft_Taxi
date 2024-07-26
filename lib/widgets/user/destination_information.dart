@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class DestinationInformation extends StatefulWidget {
-  final PanelController panelController;
-  final VoidCallback bookCar;
-  const DestinationInformation(
-      {Key? key, required this.panelController, required this.bookCar})
-      : super(key: key);
+  const DestinationInformation({super.key});
 
   @override
   _DestinationInformationState createState() => _DestinationInformationState();
@@ -18,13 +13,6 @@ class _DestinationInformationState extends State<DestinationInformation> {
   @override
   void initState() {
     super.initState();
-    controller.addListener(() {
-      if (controller.position.pixels > 0) {
-        widget.panelController.open();
-      } else {
-        widget.panelController.close();
-      }
-    });
   }
 
   @override
@@ -113,7 +101,7 @@ class _DestinationInformationState extends State<DestinationInformation> {
                       child: ElevatedButton(
                         onPressed: () {
                           print('start');
-                          widget.bookCar();
+                          // widget.bookCar();
                         },
                         style: ButtonStyle(
                           backgroundColor:

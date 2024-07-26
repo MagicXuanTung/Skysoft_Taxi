@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 import 'package:skysoft_taxi/global/global.dart';
-import 'package:skysoft_taxi/screen/xanh_sm_clone_User/login_screen.dart';
+import 'package:skysoft_taxi/screen/login_register/login_screen.dart';
 import 'package:skysoft_taxi/widgets/menu_widget_profile.dart';
 import 'package:skysoft_taxi/widgets/tab_widget.dart';
 

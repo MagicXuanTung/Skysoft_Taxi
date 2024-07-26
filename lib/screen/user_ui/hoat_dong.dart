@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:skysoft_taxi/models/banner_image_model.dart';
 import 'package:skysoft_taxi/models/circular_image_widget_model.dart';
-import 'package:skysoft_taxi/screen/xanh_sm_clone_User/chon_diem_den.dart';
+import 'package:skysoft_taxi/screen/user_ui/chon_diem_den.dart';
 import 'package:skysoft_taxi/widgets/imageWidget/circular_image_widget.dart';
 import 'package:skysoft_taxi/widgets/tab_widget.dart';
 

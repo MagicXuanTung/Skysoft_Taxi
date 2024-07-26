@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skysoft_taxi/global/global.dart';
 import 'package:skysoft_taxi/models/user.model.dart';
-import 'package:skysoft_taxi/screen/xanh_sm_clone_User/home_user_xanh_sm.dart';
+import 'package:skysoft_taxi/screen/user_ui/home_user_xanh_sm.dart';
 import 'package:skysoft_taxi/util/connectivity_handler.dart';
 
 import '../../widgets/imageWidget/logo_login_page.dart';

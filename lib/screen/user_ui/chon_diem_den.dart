@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:skysoft_taxi/models/save_marker_model.dart';
-import 'package:skysoft_taxi/screen/xanh_sm_clone_User/luu_diem_don.dart';
-import 'package:skysoft_taxi/screen/xanh_sm_clone_User/tim_diem_den%20_nhanh.dart';
+import 'package:skysoft_taxi/screen/user_ui/luu_diem_don.dart';
+import 'package:skysoft_taxi/screen/user_ui/tim_diem_den_nhanh.dart';
 import 'package:skysoft_taxi/widgets/button/button_save_maker.dart';
 import 'package:skysoft_taxi/widgets/destination_header.dart';
 import 'package:skysoft_taxi/widgets/history_widget.dart';

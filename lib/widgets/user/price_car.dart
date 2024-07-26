@@ -1,10 +1,11 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:skysoft_taxi/widgets/user/paymentMethod.dart';
 
 class PriceCar extends StatefulWidget {
-  final VoidCallback onBookNow;
-  const PriceCar({Key? key, required this.onBookNow}) : super(key: key);
+  const PriceCar({super.key});
+
   @override
   State<PriceCar> createState() => _PriceCarState();
 }
@@ -20,7 +21,7 @@ class _PriceCarState extends State<PriceCar> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(milliseconds: 300), () {
+    Future.delayed(const Duration(milliseconds: 300), () {
       opacity = 1.0;
       setState(() {});
     });
@@ -71,7 +72,7 @@ class _PriceCarState extends State<PriceCar> {
   Widget build(BuildContext context) {
     return AnimatedOpacity(
       opacity: opacity,
-      duration: Duration(milliseconds: 500),
+      duration: const Duration(milliseconds: 500),
       child: Column(
         children: [
           const SizedBox(
@@ -279,81 +280,57 @@ class _PriceCarState extends State<PriceCar> {
             ),
             child: SizedBox(
               height: 55.0,
-              child: Center(
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Row(
                   children: [
-                    Padding(
-                      padding: const EdgeInsetsDirectional.only(
-                        start: 20,
-                      ),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          log('Book Now');
-                          if (selectedIdx != -1) {
-                            widget.onBookNow();
-                          } else {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: Text('Thông báo'),
-                                  content: Text('Vui lòng chọn xe'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Text('OK'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFE2E4E9),
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              85, 10, 85, 10),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
+                    Expanded(
+                      child: SizedBox(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            log('Book Now');
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFFE2E4E9),
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                85, 11, 85, 11),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
                           ),
-                        ),
-                        child: const Text(
-                          'Book Now',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 26,
-                            fontWeight: FontWeight.normal,
+                          child: const Text(
+                            textAlign: TextAlign.center,
+                            'Book Now',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 26,
+                              fontWeight: FontWeight.normal,
+                            ),
                           ),
                         ),
                       ),
                     ),
                     const SizedBox(
-                      width: 15,
+                      width: 5,
                     ),
-                    ElevatedButton(
-                      onPressed: () {
-                        log("Calendar");
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xffe2e4e9),
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            20, 11, 20, 11),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                      ),
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.calendar_month,
-                            size: 30,
-                            color: Colors.black,
+                    SizedBox(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          log('Book Now');
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFE2E4E9),
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              20, 11, 20, 11),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
                           ),
-                        ],
+                        ),
+                        child: const Icon(
+                          Icons.calendar_month,
+                          size: 35,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ],
@@ -361,7 +338,6 @@ class _PriceCarState extends State<PriceCar> {
               ),
             ),
           ),
-          SizedBox(height: 16),
         ],
       ),
     );
