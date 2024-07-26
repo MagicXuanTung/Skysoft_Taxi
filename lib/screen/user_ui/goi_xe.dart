@@ -373,7 +373,7 @@ class _BookingCarState extends State<BookingCar> {
               Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: 0.05 * MediaQuery.of(context).size.width,
-                  vertical: 0.22 * MediaQuery.of(context).size.height,
+                  vertical: 0.25 * MediaQuery.of(context).size.height,
                 ),
                 child: GestureDetector(
                   onTap: () {

@@ -36,11 +36,11 @@ class _DestinationHeaderState extends State<DestinationHeader> {
                 onPressed: widget.onBack,
               ),
               const Text(
-                'Chọn điểm đến ',
+                'Chọn điểm đến',
                 style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                   color: Colors.black,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
                 ),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 1,
@@ -65,37 +65,47 @@ class _DestinationHeaderState extends State<DestinationHeader> {
           child: Column(
             children: [
               Container(
+                width: MediaQuery.of(context).size.width * 0.95,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
-                  color: Colors.white,
+                  color: Colors.grey.shade200,
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Column(
-                    children: <Widget>[
-                      buildTextField(
-                        controller: widget.pickupController,
-                        prefixIcon: const Icon(
-                          Icons.boy,
-                          color: Colors.blue,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    color: Colors.white,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        buildTextField(
+                          controller: widget.pickupController,
+                          prefixIcon: const Icon(
+                            Icons.boy,
+                            color: Colors.blue,
+                            size: 25, // Adjust the size to fit well
+                          ),
+                          hintText: 'Nhập điểm đón ...',
                         ),
-                        hintText: 'Nhập điểm đón ...',
-                      ),
-                      const Divider(
-                        thickness: 1,
-                        color: Colors.cyan,
-                        indent: 20,
-                        endIndent: 20,
-                      ),
-                      buildTextField(
-                        controller: widget.destinationController,
-                        prefixIcon: const Icon(
-                          Icons.location_on,
-                          color: Colors.orangeAccent,
+                        const Divider(
+                          thickness: 1,
+                          color: Colors.cyan,
+                          indent: 5,
+                          endIndent: 5,
                         ),
-                        hintText: 'Nhập điểm đến ...',
-                      ),
-                    ],
+                        buildTextField(
+                          controller: widget.destinationController,
+                          prefixIcon: const Icon(
+                            Icons.location_on,
+                            color: Colors.redAccent,
+                            size: 25, // Adjust the size to fit well
+                          ),
+                          hintText: 'Nhập điểm đến ...',
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
