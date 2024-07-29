@@ -239,8 +239,8 @@ class _QuickFindPlacesState extends State<QuickFindPlaces>
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           SizedBox(
-            height: 50,
-            width: 50,
+            height: 45,
+            width: 45,
             child: FloatingActionButton(
               backgroundColor: Colors.white,
               heroTag: UniqueKey(),
@@ -258,8 +258,8 @@ class _QuickFindPlacesState extends State<QuickFindPlaces>
             height: 10,
           ),
           SizedBox(
-            height: 50,
-            width: 50,
+            height: 45,
+            width: 45,
             child: FloatingActionButton(
               backgroundColor: Colors.white,
               heroTag: UniqueKey(),
