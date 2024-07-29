@@ -115,8 +115,8 @@ class _DestinationHeaderState extends State<DestinationHeader> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     buildIconContainer(
-                      icon: const Icon(Icons.map),
-                      text: 'Chọn điểm đến',
+                      icon: const Icon(Icons.add_location),
+                      text: 'Thêm điểm đến',
                     ),
                   ],
                 ),
