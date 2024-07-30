@@ -49,6 +49,25 @@ class _BookingCarState extends State<BookingCar> {
       imagePath: 'https://www.airasia.com/aa/ride/images/icon-car.png',
       text: 'Sân bay',
     ),
+    // BookingTypeModel(
+    //   imagePath: 'https://cdn-icons-png.flaticon.com/512/4234/4234147.png',
+    //   text: 'Đặt xe cho bạn bè',
+    // ),
+    // BookingTypeModel(
+    //   imagePath: 'https://cdn-icons-png.flaticon.com/512/6947/6947616.png',
+    //   text: 'Giao Hàng',
+    // ),
+    // BookingTypeModel(
+    //   imagePath: 'https://cdn-icons-png.flaticon.com/512/776/776443.png',
+    //   text: 'Đồ ăn',
+    // ),
+    // BookingTypeModel(
+    //   imagePath: 'https://cdn-icons-png.flaticon.com/512/5952/5952766.png',
+    //   text: 'Giao Hàng Ô tô',
+    // ),
+  ];
+
+  List<BookingTypeModel> listBookingType_1 = [
     BookingTypeModel(
       imagePath: 'https://cdn-icons-png.flaticon.com/512/4234/4234147.png',
       text: 'Đặt xe cho bạn bè',
@@ -65,6 +84,23 @@ class _BookingCarState extends State<BookingCar> {
       imagePath: 'https://cdn-icons-png.flaticon.com/512/5952/5952766.png',
       text: 'Giao Hàng Ô tô',
     ),
+    // BookingTypeModel(
+    //     imagePath: 'https://cdn-icons-png.flaticon.com/512/1801/1801444.png',
+    //     text: 'Ô tô'),
+    // BookingTypeModel(
+    //   imagePath:
+    //       'https://cdn2.iconfinder.com/data/icons/transportation-colorized/64/transportation-vehicle-11-512.png',
+    //   text: 'Xe máy',
+    // ),
+    // BookingTypeModel(
+    //   imagePath:
+    //       'https://icon-library.com/images/on-time-icon/on-time-icon-13.jpg',
+    //   text: 'Thuê xe theo giờ',
+    // ),
+    // BookingTypeModel(
+    //   imagePath: 'https://www.airasia.com/aa/ride/images/icon-car.png',
+    //   text: 'Sân bay',
+    // ),
   ];
 
   late List<SaveMakerModel> listButtonSaveMaker;
@@ -347,6 +383,33 @@ class _BookingCarState extends State<BookingCar> {
                       itemCount: listBookingType.length,
                       itemBuilder: (context, index) {
                         BookingTypeModel item = listBookingType[index];
+                        return ButtonIconBookingType(
+                          imagePath: item.imagePath,
+                          text: item.text,
+                          onTap: () {
+                            log(item.text);
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return const ChooseDestination();
+                                },
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  SizedBox(
+                    width: 0.9 * MediaQuery.of(context).size.width,
+                    height: 90,
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: listBookingType_1.length,
+                      itemBuilder: (context, index) {
+                        BookingTypeModel item = listBookingType_1[index];
                         return ButtonIconBookingType(
                           imagePath: item.imagePath,
                           text: item.text,

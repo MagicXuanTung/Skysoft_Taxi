@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:skysoft_taxi/screen/login_register/login_screen.dart';
 import 'package:skysoft_taxi/screen/user_ui/home_user_xanh_sm.dart';
 // import 'package:just_audio_background/just_audio_background.dart';
 import 'package:skysoft_taxi/util/notification_controller.dart';
-import 'screen/user_ui/tim_diem_den_nhanh.dart';
-import 'util/api_.dart';
 
 void main() async {
   await NotificationController.initializeLocalNotifications();
@@ -46,7 +43,7 @@ class _MyAppState extends State<MyApp> {
       navigatorKey: MyApp.navigatorKey,
       debugShowCheckedModeBanner: false,
       home: const Scaffold(
-        body: LoginScreen(),
+        body: HomeUserXanhSm(),
       ),
     );
   }

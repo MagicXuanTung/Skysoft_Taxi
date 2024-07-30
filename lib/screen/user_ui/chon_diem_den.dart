@@ -223,20 +223,20 @@ class _ChooseDestinationState extends State<ChooseDestination> {
               onBack: () {
                 Navigator.of(context).pop();
               },
-              navigateToQuickFindPlaces: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const QuickFindPlaces();
-                    },
-                  ),
-                );
-              },
+              // navigateToQuickFindPlaces: () {
+              //   Navigator.of(context).push(
+              //     MaterialPageRoute(
+              //       builder: (context) {
+              //         return const QuickFindPlaces();
+              //       },
+              //     ),
+              //   );
+              // },
             ),
             SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 25),
                   const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:skysoft_taxi/screen/user_ui/tim_diem_den_nhanh.dart';
 
 class DestinationHeader extends StatefulWidget {
   final TextEditingController pickupController;
@@ -11,7 +10,6 @@ class DestinationHeader extends StatefulWidget {
     required this.pickupController,
     required this.destinationController,
     required this.onBack,
-    required Null Function() navigateToQuickFindPlaces,
   }) : super(key: key);
 
   @override
@@ -19,6 +17,52 @@ class DestinationHeader extends StatefulWidget {
 }
 
 class _DestinationHeaderState extends State<DestinationHeader> {
+  final List<TextEditingController> _destinationControllers = [];
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize with the existing destinationController
+    _destinationControllers.add(widget.destinationController);
+  }
+
+  void _addDestinationField() {
+    if (_destinationControllers.length < 3) {
+      setState(() {
+        _destinationControllers.add(TextEditingController());
+      });
+    }
+  }
+
+  void _removeDestinationField(int index) {
+    if (_destinationControllers.length > 1) {
+      setState(() {
+        _destinationControllers[index].dispose();
+        _destinationControllers.removeAt(index);
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    // Dispose all controllers
+    for (var controller in _destinationControllers) {
+      controller.dispose();
+    }
+    super.dispose();
+  }
+
+  void _onReorder(int oldIndex, int newIndex) {
+    setState(() {
+      if (newIndex > oldIndex) {
+        newIndex -= 1;
+      }
+      final TextEditingController item =
+          _destinationControllers.removeAt(oldIndex);
+      _destinationControllers.insert(newIndex, item);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -78,16 +122,17 @@ class _DestinationHeaderState extends State<DestinationHeader> {
                   child: Padding(
                     padding: const EdgeInsets.all(10),
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         buildTextField(
+                          key: ValueKey(widget.pickupController),
                           controller: widget.pickupController,
                           prefixIcon: const Icon(
                             Icons.boy,
                             color: Colors.blue,
-                            size: 25, // Adjust the size to fit well
+                            size: 25,
                           ),
                           hintText: 'Nhập điểm đón ...',
+                          isDestinationField: false,
                         ),
                         const Divider(
                           thickness: 1,
@@ -95,14 +140,32 @@ class _DestinationHeaderState extends State<DestinationHeader> {
                           indent: 5,
                           endIndent: 5,
                         ),
-                        buildTextField(
-                          controller: widget.destinationController,
-                          prefixIcon: const Icon(
-                            Icons.location_on,
-                            color: Colors.redAccent,
-                            size: 25, // Adjust the size to fit well
-                          ),
-                          hintText: 'Nhập điểm đến ...',
+                        ReorderableListView(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          onReorder: _onReorder,
+                          children: _destinationControllers
+                              .asMap()
+                              .entries
+                              .map((entry) {
+                            int index = entry.key;
+                            TextEditingController controller = entry.value;
+                            return buildTextField(
+                              key: ValueKey(controller),
+                              controller: controller,
+                              prefixIcon: const Icon(
+                                Icons.location_on,
+                                color: Colors.redAccent,
+                                size: 25,
+                              ),
+                              hintText: 'Nhập điểm đến ${index + 1} ...',
+                              onRemove: _destinationControllers.length > 1
+                                  ? () => _removeDestinationField(index)
+                                  : null,
+                              isDestinationField:
+                                  _destinationControllers.length > 1,
+                            );
+                          }).toList(),
                         ),
                       ],
                     ),
@@ -115,8 +178,9 @@ class _DestinationHeaderState extends State<DestinationHeader> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     buildIconContainer(
-                      icon: const Icon(Icons.add_location),
+                      icon: const Icon(Icons.add_location_alt),
                       text: 'Thêm điểm đến',
+                      onTap: _addDestinationField,
                     ),
                   ],
                 ),
@@ -132,55 +196,76 @@ class _DestinationHeaderState extends State<DestinationHeader> {
     required TextEditingController controller,
     required Icon prefixIcon,
     required String hintText,
+    required bool isDestinationField,
+    Key? key,
+    VoidCallback? onRemove, // Optional remove icon callback
   }) {
-    return TextField(
-      controller: controller,
-      onChanged: (text) {
-        setState(() {});
-      },
-      decoration: InputDecoration(
-        prefixIcon: prefixIcon,
-        hintText: hintText,
-        border: InputBorder.none,
-        suffixIcon: controller.text.isNotEmpty
-            ? GestureDetector(
-                onTap: () {
-                  controller.clear();
-                  setState(() {});
-                },
-                child: const Icon(Icons.clear),
-              )
-            : null,
+    return Container(
+      key: key,
+      child: Row(
+        children: [
+          Expanded(
+            child: TextField(
+              controller: controller,
+              onChanged: (text) {
+                setState(() {});
+              },
+              decoration: InputDecoration(
+                prefixIcon: prefixIcon,
+                hintText: hintText,
+                border: InputBorder.none,
+                suffixIcon: controller.text.isNotEmpty
+                    ? GestureDetector(
+                        onTap: () {
+                          controller.clear();
+                          setState(() {});
+                        },
+                        child: const Icon(Icons.clear),
+                      )
+                    : null,
+              ),
+            ),
+          ),
+          if (onRemove != null) // Only show remove icon if onRemove is not null
+            IconButton(
+              icon: const Icon(Icons.remove_circle_outline, color: Colors.grey),
+              onPressed: onRemove,
+            ),
+          if (isDestinationField &&
+              _destinationControllers.length >
+                  1) // Only show drag handle for destination fields and if there are more than one
+            const Padding(
+              padding: EdgeInsets.only(right: 8.0),
+              child: Icon(Icons.drag_handle, color: Colors.grey),
+            ),
+        ],
       ),
     );
   }
 
-  Widget buildIconContainer({required Icon icon, required String text}) {
+  Widget buildIconContainer({
+    required Icon icon,
+    required String text,
+    required VoidCallback onTap,
+  }) {
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) {
-              return const QuickFindPlaces();
-            },
-          ),
-        );
-      },
+      onTap: onTap,
       child: Row(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Icon(
               icon.icon,
-              color: Colors.black,
-              size: 20,
+              color: Colors.redAccent,
+              size: 23,
             ),
           ),
           Text(
             text,
             style: const TextStyle(
-              color: Colors.black,
-              fontSize: 14,
+              fontWeight: FontWeight.w600,
+              color: Colors.redAccent,
+              fontSize: 17,
             ),
           ),
         ],
