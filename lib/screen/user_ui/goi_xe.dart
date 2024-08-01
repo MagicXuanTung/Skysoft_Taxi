@@ -373,7 +373,7 @@ class _BookingCarState extends State<BookingCar> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 25),
                   SizedBox(
                     width: 0.9 * MediaQuery.of(context).size.width,
                     height: 90,
@@ -400,7 +400,7 @@ class _BookingCarState extends State<BookingCar> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 15),
+                  const SizedBox(height: 10),
                   SizedBox(
                     width: 0.9 * MediaQuery.of(context).size.width,
                     height: 90,
@@ -427,7 +427,7 @@ class _BookingCarState extends State<BookingCar> {
                       },
                     ),
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 15),
                   HorizontalImageSlider(
                     imageUrls: imageSlider,
                   ),
@@ -436,7 +436,7 @@ class _BookingCarState extends State<BookingCar> {
               Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: 0.05 * MediaQuery.of(context).size.width,
-                  vertical: 0.25 * MediaQuery.of(context).size.height,
+                  vertical: 0.23 * MediaQuery.of(context).size.height,
                 ),
                 child: GestureDetector(
                   onTap: () {
@@ -465,7 +465,7 @@ class _BookingCarState extends State<BookingCar> {
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0,
+                        horizontal: 11.0,
                         vertical: 0.2,
                       ),
                       child: Row(
