@@ -58,10 +58,6 @@ class _DestinationHeaderState extends State<DestinationHeader> {
     return true;
   }
 
-  void _reorderDone(Key item) {
-    final draggedItem = widget.destinationControllers[_indexOfKey(item)];
-  }
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -118,7 +114,6 @@ class _DestinationHeaderState extends State<DestinationHeader> {
                           height: widget.destinationControllers.length * 45,
                           child: ReorderableList(
                             onReorder: _reorderCallback,
-                            onReorderDone: _reorderDone,
                             child: CustomScrollView(
                               slivers: [
                                 SliverList(
