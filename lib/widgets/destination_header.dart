@@ -6,6 +6,8 @@ class DestinationHeader extends StatefulWidget {
   final List<TextEditingController> destinationControllers;
   final bool showDragHandle;
   final VoidCallback addDestinationField;
+  final List<String> pickupSearchResults;
+  final Map<TextEditingController, List<String>> destinationSearchResultsMap;
 
   const DestinationHeader({
     Key? key,
@@ -13,6 +15,8 @@ class DestinationHeader extends StatefulWidget {
     required this.destinationControllers,
     required this.showDragHandle,
     required this.addDestinationField,
+    required this.pickupSearchResults,
+    required this.destinationSearchResultsMap,
     required bool isAddDestinationVisible,
   }) : super(key: key);
 
@@ -161,17 +165,21 @@ class _DestinationHeaderState extends State<DestinationHeader> {
                 ),
               ),
               if (widget.destinationControllers.length < 3)
-                SizedBox(
-                  height: 50,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      buildIconContainer(
-                        icon: const Icon(Icons.add_location_alt),
-                        text: 'Thêm điểm đến',
-                        onTap: widget.addDestinationField,
-                      ),
-                    ],
+                GestureDetector(
+                  onTap: widget.addDestinationField,
+                  child: Container(
+                    height: 50,
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        buildIconContainer(
+                          icon: const Icon(Icons.add_location_alt),
+                          text: 'Thêm điểm đến',
+                          onTap: widget.addDestinationField,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
             ],
@@ -244,6 +252,7 @@ class _DestinationHeaderState extends State<DestinationHeader> {
   }) {
     return GestureDetector(
       onTap: onTap,
+      behavior: HitTestBehavior.translucent,
       child: Row(
         children: [
           Padding(

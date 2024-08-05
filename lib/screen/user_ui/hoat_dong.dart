@@ -217,7 +217,7 @@ class _ActivityDailyState extends State<ActivityDaily> {
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) {
-                                return const ChooseDestination();
+                                return ChooseDestination();
                               },
                             ),
                           );
@@ -360,7 +360,7 @@ class _ActivityDailyState extends State<ActivityDaily> {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) {
-                              return const ChooseDestination();
+                              return ChooseDestination();
                             },
                           ),
                         );
