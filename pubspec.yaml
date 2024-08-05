@@ -97,6 +97,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    # audio_ direction
     - assets/chuan_bi_bat_dau_lo_trinh.mp3
     - assets/chuan_bi_ket_thuc_lo_trinh.mp3
     - assets/di_chuyen_sai_lo_trinh.mp3
@@ -116,6 +117,7 @@ flutter:
     - assets/tiep_tuc_re_phai.mp3
     - assets/tiep_tuc_re_trai.mp3
     - assets/vao_vong_xuyen.mp3
+    # icons_ car
     - assets/images/economy.png
     - assets/images/electric.png
     - assets/images/plus.png
@@ -123,3 +125,9 @@ flutter:
     - assets/images/luxury.png
     - assets/images/sport.png
     - assets/images/logo.png
+    # icons_point
+    - assets/icons/point_1.png
+    - assets/icons/point_2.png
+    - assets/icons/point_3.png
+    - assets/icons/human_icon.png
+    - assets/icons/location_on.png

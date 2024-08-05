@@ -100,13 +100,9 @@ class _DestinationHeaderState extends State<DestinationHeader> {
                         buildTextField(
                           key: ValueKey(widget.pickupController),
                           controller: widget.pickupController,
-                          prefixIcon: const Icon(
-                            Icons.boy,
-                            color: Colors.blue,
-                            size: 25,
-                          ),
                           hintText: 'Nhập điểm đón ...',
                           isDestinationField: false,
+                          imagePath: 'assets/icons/human_icon.png',
                         ),
                         const Divider(
                           thickness: 1,
@@ -132,13 +128,12 @@ class _DestinationHeaderState extends State<DestinationHeader> {
                                               .destinationControllers[index]),
                                           controller: widget
                                               .destinationControllers[index],
-                                          prefixIcon: const Icon(
-                                            Icons.location_on,
-                                            color: Colors.redAccent,
-                                            size: 25,
-                                          ),
-                                          hintText:
-                                              'Nhập điểm đến ${index + 1} ...',
+                                          hintText: widget
+                                                      .destinationControllers
+                                                      .length ==
+                                                  1
+                                              ? 'Nhập điểm đến'
+                                              : 'Nhập điểm đến ${index + 1} ...',
                                           onRemove: widget
                                                       .destinationControllers
                                                       .length >
@@ -148,6 +143,12 @@ class _DestinationHeaderState extends State<DestinationHeader> {
                                               : null,
                                           isDestinationField: true,
                                           state: state,
+                                          imagePath: widget
+                                                      .destinationControllers
+                                                      .length ==
+                                                  1
+                                              ? 'assets/icons/location_on.png'
+                                              : 'assets/icons/point_${index + 1}.png',
                                         ),
                                       );
                                     },
@@ -191,12 +192,12 @@ class _DestinationHeaderState extends State<DestinationHeader> {
 
   Widget buildTextField({
     required TextEditingController controller,
-    required Icon prefixIcon,
     required String hintText,
     required bool isDestinationField,
     ReorderableItemState? state,
     Key? key,
     VoidCallback? onRemove,
+    required String imagePath,
   }) {
     final bool shouldShowDragHandle = widget.showDragHandle &&
         isDestinationField &&
@@ -206,6 +207,16 @@ class _DestinationHeaderState extends State<DestinationHeader> {
       key: key,
       child: Row(
         children: [
+          Container(
+            margin: const EdgeInsets.symmetric(
+                horizontal: 8.0), // Space between TextField and image
+            child: Image.asset(
+              imagePath,
+              width: 22, // Image size
+              height: 22,
+              fit: BoxFit.contain,
+            ),
+          ),
           Expanded(
             child: TextField(
               controller: controller,
@@ -213,9 +224,8 @@ class _DestinationHeaderState extends State<DestinationHeader> {
                 setState(() {});
               },
               decoration: InputDecoration(
-                prefixIcon: prefixIcon,
                 hintText: hintText,
-                border: InputBorder.none, // Remove the border
+                border: InputBorder.none, // Remove border if not needed
                 suffixIcon: controller.text.isNotEmpty
                     ? GestureDetector(
                         onTap: () {
