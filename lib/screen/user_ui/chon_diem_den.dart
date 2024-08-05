@@ -26,6 +26,7 @@ class _ChooseDestinationState extends State<ChooseDestination> {
   final Map<TextEditingController, List<String>> _destinationSearchResultsMap =
       {};
   final Map<TextEditingController, bool> _isFirstQueryMap = {};
+  bool _isFirstPickupQuery = true;
 
   @override
   void initState() {
@@ -268,7 +269,12 @@ class _ChooseDestinationState extends State<ChooseDestination> {
         var suggestions = await apiService.getSuggestions(query);
         setState(() {
           if (isPickup) {
-            _pickupSearchResults = suggestions;
+            if (_isFirstPickupQuery) {
+              // Skip showing results on the first query for pickup
+              _isFirstPickupQuery = false;
+            } else {
+              _pickupSearchResults = suggestions;
+            }
           } else if (controller != null) {
             if (_isFirstQueryMap[controller] == true) {
               // On the first query, do not show results
@@ -286,6 +292,7 @@ class _ChooseDestinationState extends State<ChooseDestination> {
       setState(() {
         if (isPickup) {
           _pickupSearchResults = [];
+          _isFirstPickupQuery = true; // Reset flag when query is empty
         } else if (controller != null) {
           _destinationSearchResultsMap[controller] = [];
         }
@@ -339,12 +346,14 @@ class _ChooseDestinationState extends State<ChooseDestination> {
 
   @override
   Widget build(BuildContext context) {
-    final hasPickupSearchResults = _pickupSearchResults.isNotEmpty;
+    final hasPickupSearchResults =
+        _pickupSearchResults.isNotEmpty && !_isFirstPickupQuery;
     final hasDestinationSearchResults = _destinationControllers.any(
         (controller) =>
             _destinationSearchResultsMap[controller]?.isNotEmpty ?? false);
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: const Text(
