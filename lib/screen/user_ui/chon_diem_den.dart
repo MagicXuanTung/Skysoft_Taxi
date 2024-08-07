@@ -24,6 +24,7 @@ class _ChooseDestinationState extends State<ChooseDestination> {
   List<String> destinationString = [];
   bool isPickupSearch = false;
   bool isSearching = false;
+  int currentDestinationIndex = 0;
 
   @override
   void initState() {
@@ -233,9 +234,12 @@ class _ChooseDestinationState extends State<ChooseDestination> {
     }
   }
 
-  void _handleSearch(String query) async {
+  void _handleSearch(String query,
+      {bool isPickup = false, int destinationIndex = 0}) async {
     setState(() {
       isSearching = query.isNotEmpty;
+      isPickupSearch = isPickup;
+      currentDestinationIndex = destinationIndex;
     });
 
     if (isSearching) {
@@ -284,12 +288,11 @@ class _ChooseDestinationState extends State<ChooseDestination> {
               showDragHandle: _destinationControllers.length > 1,
               addDestinationField: _addDestinationField,
               pickUpSearch: (nameLoc) {
-                isPickupSearch = true;
-                _handleSearch(nameLoc);
+                _handleSearch(nameLoc, isPickup: true);
               },
-              destinationSearch: (nameLoc) {
-                isPickupSearch = false;
-                _handleSearch(nameLoc);
+              destinationSearch: (nameLoc, int index) {
+                _handleSearch(nameLoc,
+                    isPickup: false, destinationIndex: index);
               },
             ),
             if (isSearching && hasSearchResults) ...[
@@ -319,7 +322,8 @@ class _ChooseDestinationState extends State<ChooseDestination> {
                             pickupString.clear(); // Clear search results
                           } else {
                             if (_destinationControllers.isNotEmpty) {
-                              _destinationControllers.last.text = result;
+                              _destinationControllers[currentDestinationIndex]
+                                  .text = result;
                               destinationString.clear(); // Clear search results
                             }
                           }

@@ -10,7 +10,7 @@ class DestinationHeader extends StatefulWidget {
   final bool showDragHandle;
   final VoidCallback addDestinationField;
   final Function(String) pickUpSearch;
-  final Function(String) destinationSearch;
+  final Function(String, int) destinationSearch;
 
   const DestinationHeader({
     Key? key,
@@ -164,8 +164,10 @@ class _DestinationHeaderState extends State<DestinationHeader> {
                                                   1
                                               ? 'assets/icons/location_on.png'
                                               : 'assets/icons/point_${index + 1}.png',
-                                          searchFunction:
-                                              widget.destinationSearch,
+                                          searchFunction: (String nameLoc) {
+                                            widget.destinationSearch(
+                                                nameLoc, index);
+                                          },
                                         ),
                                       );
                                     },
