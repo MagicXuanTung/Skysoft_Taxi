@@ -1,13 +1,11 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:skysoft_taxi/models/save_marker_model.dart';
+import 'package:skysoft_taxi/screen/user_ui/luu_diem_don.dart';
 import 'package:skysoft_taxi/widgets/destination_header.dart';
-import '../../util/api_.dart';
 import '../../util/location_service.dart';
 import '../../widgets/button/button_save_maker.dart';
 import '../../widgets/history_widget.dart';
-import 'luu_diem_don.dart';
 
 class ChooseDestination extends StatefulWidget {
   const ChooseDestination({Key? key}) : super(key: key);
@@ -21,28 +19,15 @@ class _ChooseDestinationState extends State<ChooseDestination> {
   final List<TextEditingController> _destinationControllers = [
     TextEditingController()
   ];
-  late List<SaveMakerModel> listButtonSaveMaker;
-  List<String> _pickupSearchResults = [];
-  final Map<TextEditingController, List<String>> _destinationSearchResultsMap =
-      {};
-  final Map<TextEditingController, bool> _isFirstQueryMap = {};
-  bool _isFirstPickupQuery = true;
+  List<SaveMakerModel> listButtonSaveMaker = [];
+  List<String> pickupString = [];
+  List<String> destinationString = [];
+  bool isPickupSearch = false;
+  bool isSearching = false;
 
   @override
   void initState() {
     super.initState();
-    _updatePickupLocation();
-    _pickupController.addListener(() {
-      _searchLocation(_pickupController.text, isPickup: true);
-    });
-    for (var controller in _destinationControllers) {
-      _destinationSearchResultsMap[controller] = [];
-      _isFirstQueryMap[controller] = true;
-      controller.addListener(() {
-        _searchLocation(controller.text,
-            isPickup: false, controller: controller);
-      });
-    }
     listButtonSaveMaker = [
       SaveMakerModel(
         icon: Icons.home,
@@ -238,119 +223,42 @@ class _ChooseDestinationState extends State<ChooseDestination> {
     super.dispose();
   }
 
-  Future<void> _updatePickupLocation() async {
-    bool hasPermission = await requestLocationPermission();
-    if (hasPermission) {
-      try {
-        LatLng currentLocation = await getCurrentLocation();
-        String locationDetails = await _fetchLocationDetails(
-            currentLocation.latitude, currentLocation.longitude);
-        _pickupController.text = locationDetails;
-
-        // Fetch and display search results based on the current location
-        List<String> suggestions = await _fetchLocationSuggestions(
-            currentLocation.latitude, currentLocation.longitude);
-        setState(() {
-          _pickupSearchResults = suggestions;
-        });
-      } catch (e) {
-        log('Failed to update pickup location: $e');
-      }
-    } else {
-      log('Location permission not granted');
-    }
-  }
-
-  Future<void> _searchLocation(String query,
-      {required bool isPickup, TextEditingController? controller}) async {
-    if (query.isNotEmpty) {
-      try {
-        AutocompleteService apiService = AutocompleteService();
-        var suggestions = await apiService.getSuggestions(query);
-        setState(() {
-          if (isPickup) {
-            if (_isFirstPickupQuery) {
-              // Skip showing results on the first query for pickup
-              _isFirstPickupQuery = false;
-            } else {
-              _pickupSearchResults = suggestions;
-            }
-          } else if (controller != null) {
-            if (_isFirstQueryMap[controller] == true) {
-              // On the first query, do not show results
-              _isFirstQueryMap[controller] = false;
-              _destinationSearchResultsMap[controller] = [];
-            } else {
-              _destinationSearchResultsMap[controller] = suggestions;
-            }
-          }
-        });
-      } catch (e) {
-        log('Error fetching location suggestions: $e');
-      }
-    } else {
-      setState(() {
-        if (isPickup) {
-          _pickupSearchResults = [];
-          _isFirstPickupQuery = true; // Reset flag when query is empty
-        } else if (controller != null) {
-          _destinationSearchResultsMap[controller] = [];
-        }
-      });
-    }
-  }
-
-  Future<List<String>> _fetchLocationSuggestions(
-      double latitude, double longitude) async {
-    try {
-      AutocompleteService apiService = AutocompleteService();
-      var suggestions = await apiService.getSuggestions('$latitude,$longitude');
-      return suggestions;
-    } catch (e) {
-      log('Error fetching location suggestions: $e');
-      return [];
-    }
-  }
-
-  Future<String> _fetchLocationDetails(
-      double latitude, double longitude) async {
-    try {
-      AutocompleteService apiService = AutocompleteService();
-      var suggestions = await apiService.getSuggestions('$latitude,$longitude');
-      return suggestions.isNotEmpty ? suggestions.first : 'No details found';
-    } catch (e) {
-      log('Error fetching location details: $e');
-      return 'Error fetching location details';
-    }
-  }
-
   void _addDestinationField() {
     if (_destinationControllers.length < 3) {
       setState(() {
-        var controller = TextEditingController();
-        _destinationControllers.add(controller);
-        _destinationSearchResultsMap[controller] = [];
-        _isFirstQueryMap[controller] =
-            true; // Initialize as true for first query
-        controller.addListener(() {
-          _searchLocation(controller.text,
-              isPickup: false, controller: controller);
-        });
+        _destinationControllers.add(TextEditingController());
       });
     } else {
       log('Maximum of 3 destination fields reached');
     }
   }
 
-  bool get _isAddDestinationVisible => _destinationControllers.length < 3;
+  void _handleSearch(String query) async {
+    setState(() {
+      isSearching = query.isNotEmpty;
+    });
+
+    if (isSearching) {
+      List<String> list = await searchLocation(query);
+      setState(() {
+        if (isPickupSearch) {
+          pickupString = list;
+        } else {
+          destinationString = list;
+        }
+      });
+    } else {
+      setState(() {
+        pickupString.clear();
+        destinationString.clear();
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final hasPickupSearchResults =
-        _pickupSearchResults.isNotEmpty && !_isFirstPickupQuery;
-    final hasDestinationSearchResults = _destinationControllers.any(
-        (controller) =>
-            _destinationSearchResultsMap[controller]?.isNotEmpty ?? false);
+    final hasSearchResults =
+        pickupString.isNotEmpty || destinationString.isNotEmpty;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -375,83 +283,54 @@ class _ChooseDestinationState extends State<ChooseDestination> {
               destinationControllers: _destinationControllers,
               showDragHandle: _destinationControllers.length > 1,
               addDestinationField: _addDestinationField,
-              isAddDestinationVisible: _isAddDestinationVisible,
-              pickupSearchResults: _pickupSearchResults,
-              destinationSearchResultsMap: _destinationSearchResultsMap,
+              pickUpSearch: (nameLoc) {
+                isPickupSearch = true;
+                _handleSearch(nameLoc);
+              },
+              destinationSearch: (nameLoc) {
+                isPickupSearch = false;
+                _handleSearch(nameLoc);
+              },
             ),
-            if (hasPickupSearchResults) ...[
+            if (isSearching && hasSearchResults) ...[
               const SizedBox(height: 15),
               Expanded(
                 child: ListView.builder(
-                  itemCount: _pickupSearchResults.length,
+                  itemCount: isPickupSearch
+                      ? pickupString.length
+                      : destinationString.length,
                   itemBuilder: (context, index) {
-                    String result = _pickupSearchResults[index];
+                    String result = isPickupSearch
+                        ? pickupString[index]
+                        : destinationString[index];
                     return ListTile(
-                      leading: const Icon(Icons.boy, color: Colors.blue),
+                      leading: Icon(
+                        isPickupSearch ? Icons.boy : Icons.location_on,
+                        color: isPickupSearch ? Colors.blue : Colors.redAccent,
+                      ),
                       title: Text(result),
                       trailing:
                           const Icon(Icons.directions, color: Colors.grey),
                       onTap: () {
-                        _pickupController.text = result;
+                        log('Selected: $result'); // Debugging log
                         setState(() {
-                          _pickupSearchResults.clear();
+                          if (isPickupSearch) {
+                            _pickupController.text = result;
+                            pickupString.clear(); // Clear search results
+                          } else {
+                            if (_destinationControllers.isNotEmpty) {
+                              _destinationControllers.last.text = result;
+                              destinationString.clear(); // Clear search results
+                            }
+                          }
+                          isSearching = false; // Hide the list after selection
                         });
                       },
                     );
                   },
                 ),
               ),
-            ] else if (hasDestinationSearchResults) ...[
-              const SizedBox(height: 15),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: _destinationControllers.length,
-                  itemBuilder: (context, index) {
-                    if (index >= _destinationControllers.length) {
-                      return const SizedBox.shrink();
-                    }
-                    TextEditingController controller =
-                        _destinationControllers[index];
-                    List<String>? results =
-                        _destinationSearchResultsMap[controller];
-                    if (results == null || results.isEmpty) {
-                      return const SizedBox.shrink();
-                    }
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: results.length,
-                          itemBuilder: (context, idx) {
-                            if (idx >= results.length) {
-                              return const SizedBox.shrink();
-                            }
-                            String result = results[idx];
-                            return ListTile(
-                              leading: const Icon(Icons.location_on,
-                                  color: Colors.redAccent),
-                              title: Text(result),
-                              trailing: const Icon(Icons.directions,
-                                  color: Colors.grey),
-                              onTap: () {
-                                controller.text = result;
-                                setState(() {
-                                  _destinationSearchResultsMap[controller]
-                                      ?.clear();
-                                });
-                              },
-                            );
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              ),
             ] else ...[
-              // Show default content when no search results are present
               Column(
                 children: [
                   const SizedBox(height: 15),
@@ -525,7 +404,6 @@ class _ChooseDestinationState extends State<ChooseDestination> {
                       text:
                           'Công ty giám sát hành trình Skysoft, Tầng 2, nhà 21B5 Green Star, Đô Thị Tp. Giao Lưu, P, Q. BắcTừ Liêm, 100000, Việt Nam',
                       onTap: () {
-                        // Handle tap on search result
                         log('Selected location: $index+1');
                       },
                     );

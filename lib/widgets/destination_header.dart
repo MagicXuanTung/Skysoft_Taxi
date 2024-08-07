@@ -1,13 +1,16 @@
+import 'dart:async';
 import 'package:flutter/material.dart' hide ReorderableList;
 import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:skysoft_taxi/util/location_service.dart';
 
 class DestinationHeader extends StatefulWidget {
   final TextEditingController pickupController;
   final List<TextEditingController> destinationControllers;
   final bool showDragHandle;
   final VoidCallback addDestinationField;
-  final List<String> pickupSearchResults;
-  final Map<TextEditingController, List<String>> destinationSearchResultsMap;
+  final Function(String) pickUpSearch;
+  final Function(String) destinationSearch;
 
   const DestinationHeader({
     Key? key,
@@ -15,9 +18,8 @@ class DestinationHeader extends StatefulWidget {
     required this.destinationControllers,
     required this.showDragHandle,
     required this.addDestinationField,
-    required this.pickupSearchResults,
-    required this.destinationSearchResultsMap,
-    required bool isAddDestinationVisible,
+    required this.pickUpSearch,
+    required this.destinationSearch,
   }) : super(key: key);
 
   @override
@@ -25,12 +27,24 @@ class DestinationHeader extends StatefulWidget {
 }
 
 class _DestinationHeaderState extends State<DestinationHeader> {
+  Timer? _debounce;
+
   @override
   void initState() {
     super.initState();
-    if (widget.destinationControllers.isEmpty) {
-      widget.destinationControllers.add(TextEditingController());
-    }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      LatLng currentLocation = await getCurrentLocation();
+      String locationDetails = await fetchLocationDetails(
+          currentLocation.latitude, currentLocation.longitude);
+      widget.pickupController.text = locationDetails;
+    });
+  }
+
+  @override
+  void dispose() {
+    _debounce?.cancel();
+    super.dispose();
   }
 
   void _removeDestinationField(int index) {
@@ -103,6 +117,7 @@ class _DestinationHeaderState extends State<DestinationHeader> {
                           hintText: 'Nhập điểm đón ...',
                           isDestinationField: false,
                           imagePath: 'assets/icons/human_icon.png',
+                          searchFunction: widget.pickUpSearch,
                         ),
                         const Divider(
                           thickness: 1,
@@ -149,6 +164,8 @@ class _DestinationHeaderState extends State<DestinationHeader> {
                                                   1
                                               ? 'assets/icons/location_on.png'
                                               : 'assets/icons/point_${index + 1}.png',
+                                          searchFunction:
+                                              widget.destinationSearch,
                                         ),
                                       );
                                     },
@@ -198,6 +215,7 @@ class _DestinationHeaderState extends State<DestinationHeader> {
     Key? key,
     VoidCallback? onRemove,
     required String imagePath,
+    required Function(String) searchFunction,
   }) {
     final bool shouldShowDragHandle = widget.showDragHandle &&
         isDestinationField &&
@@ -221,15 +239,21 @@ class _DestinationHeaderState extends State<DestinationHeader> {
             child: TextField(
               controller: controller,
               onChanged: (text) {
-                setState(() {});
+                if (_debounce?.isActive ?? false) _debounce?.cancel();
+                _debounce = Timer(const Duration(milliseconds: 300), () {
+                  searchFunction(
+                      controller.text); // Use search function passed in
+                });
               },
               decoration: InputDecoration(
                 hintText: hintText,
-                border: InputBorder.none, // Remove border if not needed
+                border: InputBorder.none,
                 suffixIcon: controller.text.isNotEmpty
                     ? GestureDetector(
                         onTap: () {
                           controller.clear();
+                          searchFunction(
+                              ''); // Clear search results when clearing the text
                           setState(() {});
                         },
                         child: const Icon(Icons.clear),
