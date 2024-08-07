@@ -265,7 +265,10 @@ class _DestinationHeaderState extends State<DestinationHeader> {
           if (onRemove != null)
             IconButton(
               icon: const Icon(Icons.remove_circle_outline, color: Colors.grey),
-              onPressed: onRemove,
+              onPressed: () {
+                onRemove();
+                searchFunction(''); // Clear search results when removing field
+              },
             ),
           if (shouldShowDragHandle)
             ReorderableListener(
