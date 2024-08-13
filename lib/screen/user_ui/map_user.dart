@@ -12,6 +12,7 @@ import '../../util/location_service.dart';
 import '../../widgets/user/paymentMethod.dart';
 import '../../widgets/user/price_car.dart';
 import '../../widgets/user/ride_requested.dart';
+import 'thongtin_coupon.dart';
 
 class MapUser extends StatefulWidget {
   const MapUser({Key? key}) : super(key: key);
@@ -34,8 +35,6 @@ class _MapUserState extends State<MapUser> with TickerProviderStateMixin {
   String paymentName = "Phương thức thanh toán";
   bool rideRequested = false;
   final PanelController _panelController = PanelController();
-  final ValueNotifier<double> _floatingButtonYOffset =
-      ValueNotifier(0.0); // Notifier for floating button offset
 
   @override
   void initState() {
@@ -44,6 +43,9 @@ class _MapUserState extends State<MapUser> with TickerProviderStateMixin {
         AnimatedMapController(vsync: this, mapController: _mapController);
 
     handleLocationButtonPress();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _panelController.open();
+    });
   }
 
   Future<void> handleLocationButtonPress() async {
@@ -325,9 +327,11 @@ class _MapUserState extends State<MapUser> with TickerProviderStateMixin {
                             ),
                             GestureDetector(
                               onTap: () {
-                                log("Ưu đãi");
-                                selectedText = "Ưu đãi";
-                                setState(() {});
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => const InfoCoupon(),
+                                  ),
+                                );
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
@@ -386,7 +390,7 @@ class _MapUserState extends State<MapUser> with TickerProviderStateMixin {
                                     });
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.amberAccent,
+                                    backgroundColor: Colors.green,
                                     padding:
                                         const EdgeInsetsDirectional.fromSTEB(
                                             20, 11, 20, 11),

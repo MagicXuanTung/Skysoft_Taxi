@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class PriceCar extends StatefulWidget {
@@ -122,6 +123,7 @@ class _PriceCarState extends State<PriceCar> {
           ),
           Expanded(
             child: ListView.builder(
+              physics: const BouncingScrollPhysics(),
               itemCount: assetNames.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
@@ -165,7 +167,7 @@ class _PriceCarState extends State<PriceCar> {
                         prices[index],
                         textAlign: TextAlign.end,
                         style: const TextStyle(
-                          color: Colors.amber,
+                          color: Colors.green,
                           fontFamily: 'Readex Pro',
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
