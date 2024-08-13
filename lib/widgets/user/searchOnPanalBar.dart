@@ -15,14 +15,14 @@ class SearchOnPanalBar extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: 16.0),
+              padding: const EdgeInsets.only(top: 16.0),
               child: Material(
                 color: Colors.transparent, // Đặt màu nền là trong suốt
                 child: InkWell(
                   onTap: () {
                     Navigator.of(context).pop();
                   },
-                  child: IconButton(
+                  child: const IconButton(
                     icon: Icon(Icons.close),
                     onPressed: null,
                   ),

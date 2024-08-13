@@ -1,10 +1,11 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:skysoft_taxi/widgets/user/paymentMethod.dart';
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class PriceCar extends StatefulWidget {
-  const PriceCar({super.key});
+  final PanelController panelController;
+
+  const PriceCar({super.key, required this.panelController});
 
   @override
   State<PriceCar> createState() => _PriceCarState();
@@ -37,28 +38,28 @@ class _PriceCarState extends State<PriceCar> {
     'sport',
   ];
   final List<String> itemNames = [
-    'Economy',
-    'Electric',
-    'Plus',
-    'Premium',
-    'Luxury',
-    'Sport',
+    'Tiết Kiệm',
+    'Xe Điện',
+    'Bình Thường',
+    'Cao Cấp',
+    'Thương Gia',
+    'Đặc biệt',
   ];
   final List<String> subtitles = [
-    '3 seats',
-    '3 seats',
-    '3 seats + luggage',
-    '5 seats + luggage',
-    '4 seats + small luggage',
-    '1 seat',
+    '3 chỗ',
+    '3 chỗ',
+    '3 chỗ + hành lý',
+    '5 chỗ + hành lý',
+    '4 chỗ + hành lý nhỏ gọn',
+    '1 chỗ',
   ];
   final List<String> prices = [
-    '\$25.12',
-    '\$26.10',
-    '\$30.50',
-    '\$40.00',
-    '\$55.00',
-    '\$60.00',
+    '25.000đ',
+    '26.000đ',
+    '30.500đ',
+    '40.000đ',
+    '55.000đ',
+    '60.000đ',
   ];
 
   // 1: cash, 2: NH
@@ -68,6 +69,14 @@ class _PriceCarState extends State<PriceCar> {
     setState(() {});
   }
 
+  void _togglePanel() {
+    if (widget.panelController.isPanelOpen) {
+      widget.panelController.close();
+    } else {
+      widget.panelController.open();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedOpacity(
@@ -75,11 +84,14 @@ class _PriceCarState extends State<PriceCar> {
       duration: const Duration(milliseconds: 500),
       child: Column(
         children: [
-          const SizedBox(
-            height: 30,
-            child: Icon(
-              Icons.horizontal_rule,
-              color: Colors.grey,
+          GestureDetector(
+            onTap: _togglePanel,
+            child: const SizedBox(
+              height: 30,
+              child: Icon(
+                Icons.horizontal_rule,
+                color: Colors.grey,
+              ),
             ),
           ),
           Container(
@@ -92,20 +104,19 @@ class _PriceCarState extends State<PriceCar> {
               ),
             ),
             child: SizedBox(
-              height: 70,
-              child: Center(
-                child: IntrinsicWidth(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      buildTextItem("Regular"),
-                      buildTextItem("Delivery"),
-                      buildTextItem("Trucks"),
-                      buildTextItem("Taxi"),
-                      buildTextItem("Bikes"),
-                    ],
-                  ),
-                ),
+              height: 40,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  buildTextItem("Ôtô"),
+                  buildTextItem("Xe máy"),
+                  buildTextItem("Thuê xe theo giờ"),
+                  buildTextItem("Sân bay"),
+                  buildTextItem("Đặt xe cho bạn bè"),
+                  buildTextItem("Giao hàng"),
+                  buildTextItem("Đồ ăn"),
+                  buildTextItem("Giao hàng oto"),
+                ],
               ),
             ),
           ),
@@ -126,8 +137,8 @@ class _PriceCarState extends State<PriceCar> {
                     child: ListTile(
                       leading: Image.asset(
                         'assets/images/${assetNames[index]}.png',
-                        width: 90,
-                        height: 90,
+                        width: 65,
+                        height: 56,
                       ),
                       title: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,8 +147,8 @@ class _PriceCarState extends State<PriceCar> {
                             itemNames[index],
                             style: const TextStyle(
                               fontFamily: 'Outfit',
-                              fontSize: 22,
-                              fontWeight: FontWeight.w600,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                           Text(
@@ -145,7 +156,7 @@ class _PriceCarState extends State<PriceCar> {
                             style: const TextStyle(
                               fontFamily: 'Outfit',
                               fontSize: 16,
-                              color: Colors.grey,
+                              color: Colors.blueGrey,
                             ),
                           ),
                         ],
@@ -154,8 +165,9 @@ class _PriceCarState extends State<PriceCar> {
                         prices[index],
                         textAlign: TextAlign.end,
                         style: const TextStyle(
+                          color: Colors.amber,
                           fontFamily: 'Readex Pro',
-                          fontSize: 22,
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
@@ -163,179 +175,6 @@ class _PriceCarState extends State<PriceCar> {
                   ),
                 );
               },
-            ),
-          ),
-          SizedBox(
-            height: 40,
-            child: GestureDetector(
-              onTap: () {
-                log("Payment");
-                selectedText = "Payment";
-                setState(() {});
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                      color: Colors.grey[300]!,
-                      width: 1.0,
-                    ),
-                  ),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        log("Payment");
-                        // setState(() {
-                        //   selectedText = "Payment";
-                        // });
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => PaymentScreen(
-                                onDone: (method, name) =>
-                                    choosePayment(method, name)),
-                          ),
-                        );
-                      },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const SizedBox(width: 20),
-                          Icon(
-                            paymentMethod,
-                            color: selectedText == "Payment"
-                                ? Colors.blue
-                                : Colors.blueGrey,
-                            size: 16,
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                              5,
-                              5,
-                              10,
-                              1,
-                            ),
-                            child: Text(
-                              paymentName,
-                              style: TextStyle(
-                                color: selectedText == "Payment"
-                                    ? Colors.blue
-                                    : Colors.grey,
-                                fontSize: 15,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        log("Coupon Code");
-                        selectedText = "Coupon Code";
-                        setState(() {});
-                      },
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.local_offer,
-                            color: selectedText == "Coupon Code"
-                                ? Colors.blue
-                                : Colors.blueGrey,
-                            size: 16,
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                              5,
-                              5,
-                              30,
-                              1,
-                            ),
-                            child: Text(
-                              'Coupon Code',
-                              style: TextStyle(
-                                color: selectedText == "Coupon Code"
-                                    ? Colors.blue
-                                    : Colors.grey,
-                                fontSize: 15,
-                                fontWeight: FontWeight.normal,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: 10.0,
-            ),
-            child: SizedBox(
-              height: 55.0,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: SizedBox(
-                        child: ElevatedButton(
-                          onPressed: () {
-                            log('Book Now');
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFE2E4E9),
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                85, 11, 85, 11),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                          ),
-                          child: const Text(
-                            textAlign: TextAlign.center,
-                            'Book Now',
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 26,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    SizedBox(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          log('Book Now');
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFFE2E4E9),
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              20, 11, 20, 11),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                        ),
-                        child: const Icon(
-                          Icons.calendar_month,
-                          size: 35,
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
             ),
           ),
         ],
@@ -353,7 +192,7 @@ class _PriceCarState extends State<PriceCar> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: selectedText == text ? Colors.grey : Colors.transparent,
+          color: selectedText == text ? Colors.blueAccent : Colors.transparent,
         ),
         padding: const EdgeInsets.all(10),
         child: Text(

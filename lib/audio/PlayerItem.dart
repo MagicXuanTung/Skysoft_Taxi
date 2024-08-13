@@ -71,7 +71,7 @@ class _PlayerItemState extends State<PlayerItem> {
     return Stack(
       children: [
         Padding(
-          padding: EdgeInsets.all(30.0),
+          padding: const EdgeInsets.all(30.0),
           child: Align(
             alignment:
                 widget.isRight ? Alignment.centerRight : Alignment.centerLeft,
@@ -141,7 +141,7 @@ class _PlayerItemState extends State<PlayerItem> {
                       ),
                       Text(
                         '${widget.time.hour}:${widget.time.minute}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 12.0,
                           color: Colors.black,
                         ),

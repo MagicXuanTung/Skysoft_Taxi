@@ -5,6 +5,7 @@ import 'package:skysoft_taxi/models/banner_image_model.dart';
 import 'package:skysoft_taxi/models/booking_type_model.dart';
 import 'package:skysoft_taxi/screen/user_ui/chon_diem_den.dart';
 import 'package:skysoft_taxi/screen/user_ui/luu_diem_don.dart';
+import 'package:skysoft_taxi/screen/user_ui/map_user.dart';
 import 'package:skysoft_taxi/screen/user_ui/tim_diem_den_nhanh.dart';
 import 'package:skysoft_taxi/widgets/imageWidget/slide_image_horizontal.dart';
 import 'package:skysoft_taxi/widgets/button/button_icon_booking_type.dart';
@@ -490,7 +491,7 @@ class _BookingCarState extends State<BookingCar> {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return const QuickFindPlaces();
+                                    return const MapUser();
                                   },
                                 ),
                               );

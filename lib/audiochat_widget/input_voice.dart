@@ -149,13 +149,13 @@ class _InputVoiceState extends State<InputVoice> {
                 name: device.name, address: device.address.toString()));
       },
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 12.0),
-        decoration: BoxDecoration(
+        padding: const EdgeInsets.symmetric(vertical: 12.0),
+        decoration: const BoxDecoration(
           border: Border(bottom: BorderSide(color: Colors.grey)),
         ),
         child: Text(
           device.name.toString(),
-          style: TextStyle(fontSize: 16.0),
+          style: const TextStyle(fontSize: 16.0),
         ),
       ),
     );

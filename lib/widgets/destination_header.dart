@@ -4,6 +4,8 @@ import 'package:flutter_reorderable_list/flutter_reorderable_list.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:skysoft_taxi/util/location_service.dart';
 
+import '../screen/user_ui/map_user.dart';
+
 class DestinationHeader extends StatefulWidget {
   final TextEditingController pickupController;
   final List<TextEditingController> destinationControllers;
@@ -186,7 +188,16 @@ class _DestinationHeaderState extends State<DestinationHeader> {
               ),
               if (widget.destinationControllers.length < 3)
                 GestureDetector(
-                  onTap: widget.addDestinationField,
+                  behavior: HitTestBehavior.translucent,
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const MapUser();
+                        },
+                      ),
+                    );
+                  },
                   child: Container(
                     height: 50,
                     alignment: Alignment.center,
@@ -196,7 +207,16 @@ class _DestinationHeaderState extends State<DestinationHeader> {
                         buildIconContainer(
                           icon: const Icon(Icons.add_location_alt),
                           text: 'Thêm điểm đến',
-                          onTap: widget.addDestinationField,
+                          onTap: () {
+                            // Navigator.of(context).push(
+                            //   MaterialPageRoute(
+                            //     builder: (context) {
+                            //       return const MapUser();
+                            //     },
+                            //   ),
+                            // );
+                            widget.addDestinationField();
+                          },
                         ),
                       ],
                     ),
